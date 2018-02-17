@@ -101,6 +101,9 @@ class BLLManagerConfig{
                 'mobilSettingsBLL' => 'BLL\BLL\MobilSettings',
                 'mobilSetDbConfigxBLL' => 'BLL\BLL\MobilSetDbConfigx',
                 'mobileUserMessagesBLL' => 'BLL\BLL\MobileUserMessages',
+                'mblSinavlarBLL' => 'BLL\BLL\MblSinavlar',
+                 
+                 
                  
                  
                  

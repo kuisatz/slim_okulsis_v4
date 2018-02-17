@@ -1903,20 +1903,54 @@ and open the template in the editor. Ğİ
                         console.warn('error text status-->' + textStatus);
                     }
                 }); 
-                ////////////////////////
-                
+                 $.ajax({ 
+                    url :'../Slim_Proxy_okulsis_v4/SlimProxyBoot.php', 
+                     data : {
+                            url : 'GetSinavTurleri_mblsinavlar',
+                            languageID : 647  , 
+                            sinavTuruId  : 1
+                     },
+                     method : 'GET', 
+                     success: function(data, textStatus, jqXHR) { 
+                     },
+                     error: function(jqXHR , textStatus, errorThrown) {
+                       console.warn('error text status-->'+textStatus);
+                     }
+                 });  
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        ////////////////////////      
                    
               
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
                 
                 
                 

@@ -99,7 +99,7 @@ class DalManagerConfig {
                 'mobilSettingsPDO' => 'DAL\Factory\PDO\MobilSettingsFactory',
                 'mobilSetDbConfigxPDO' => 'DAL\Factory\PDO\MobilSetDbConfigxFactory',
                 'mobileUserMessagesPDO' => 'DAL\Factory\PDO\MobileUserMessagesFactory',
-                
+                'mblSinavlarPDO' => 'DAL\Factory\PDO\MblSinavlarFactory',
                 
                 
             ],
