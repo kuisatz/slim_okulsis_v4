@@ -156,15 +156,29 @@ $app->get("/pkFillLanguageDdList_syslanguage/", function () use ($app ) {
  * @since 11-09-2014
  */
 $app->get("/fillComboBoxTsql_syslanguage/", function () use ($app ) {
-    
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('sysLanguageBLL'); 
     
     $componentType = 'bootstrap'; 
     if (isset($_GET['component_type'])) {
         $componentType = strtolower(trim($_GET['component_type'] ));
     }
+    $vLanguageID = NULL;
+    if (isset($_GET['lid'])) {
+        $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['lid']));
+    } 
+    $stripper->strip();
+    if ($stripper->offsetExists('lid')) {
+        $vLanguageID = $stripper->offsetGet('lid')->getFilterValue();
+    }
    
-    $resCombobox = $BLL->fillComboBoxTsql ();  
+    $resCombobox = $BLL->fillComboBoxTsql (array( 
+        'url' => $_GET['url'], 
+        'LanguageID' => $vLanguageID, 
+        )); 
  
    
     if ($componentType == 'bootstrap') {
