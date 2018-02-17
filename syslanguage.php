@@ -176,6 +176,17 @@ $app->get("/fillComboBoxTsql_syslanguage/", function () use ($app ) {
                 "language_eng" => html_entity_decode($menu["language_eng"]),
                 "language_main_code" => $menu["language_main_code"],
                 "url" => $menu["url"],
+                "alan1" => html_entity_decode($menu["alan1"]),
+                "alan2" => html_entity_decode($menu["alan2"]),
+                "alan3" => html_entity_decode($menu["alan3"]),
+                "alan4" => html_entity_decode($menu["alan4"]),
+                 //    "alan5" => html_entity_decode($menu["alan5"]),
+                 //    "alan6" => html_entity_decode($menu["alan6"]),
+                 //    "alan7" => html_entity_decode($menu["alan7"]),
+                 //    "alan8" => html_entity_decode($menu["alan8"]),
+                 //    "alan9" => html_entity_decode($menu["alan9"]),
+                //     "alan10" => html_entity_decode($menu["alan10"]),
+                
                 
             );
         }
