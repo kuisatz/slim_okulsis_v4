@@ -1026,7 +1026,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                  if (file_exists($filename)) { $dosyasize=   filesize($filename) ;  }
                  else { $dosyasize= 1;}
              //   $dosyasize=   filesize($filename) ; 
-                if ($dosyasize >0 )  { $dosya = "okulsis/image/okullogo/okul.png";}   // okii 2048    
+                if ($dosyasize >-1 )  { $dosya = "okulsis/image/okullogo/okul.png";}   // okii 2048    
                     
                 if (file_exists($dosya)) { 
                     $okullogoURL =$dosya ; 
