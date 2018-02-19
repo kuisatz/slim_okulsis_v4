@@ -535,25 +535,24 @@ class SysLanguage extends \DAL\DalSlim {
                 $languageIdValue = $params['LanguageID'];
             } 
               
-            $statement = $pdo->prepare("
-                
+            $statement = $pdo->prepare(" 
                 SELECT                    
                     a.id, 
                     a.language, 
                     a.language_eng, 
                     a.language_main_code,
                     a.url, 
-                    COALESCE(NULLIF(six.a1  collate SQL_Latin1_General_CP1254_CI_AS,''),si.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
-                    COALESCE(NULLIF(six.a2  collate SQL_Latin1_General_CP1254_CI_AS,''),si.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
-                    COALESCE(NULLIF(six.a3  collate SQL_Latin1_General_CP1254_CI_AS,''),si.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
-                    COALESCE(NULLIF(six.a4  collate SQL_Latin1_General_CP1254_CI_AS,''),si.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
+                    COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
+                    COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
+                    COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
+                    COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
                     '' AS alan5,
                     '' AS alan6,
                     '' AS alan7,
                     '' AS alan8,
                     '' AS alan9,
                     '' AS alan10  
-                FROM BILSANET_MOBILE.dbo.sys_language  a  
+                FROM BILSANET_MOBILE.dbo.sys_language a  
                 INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = 1 
                 LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on (six.language_parent_id =si.id OR six.id =si.id) and six.language_id=".$languageIdValue." and six.screen_id = 1 	 
                 WHERE  
