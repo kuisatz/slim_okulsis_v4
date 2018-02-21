@@ -325,7 +325,17 @@ $app->get("/mobilMenu_mbllogin/", function () use ($app ) {
             "iconclass" => $menu["iconclass"], 
             "collapse" => $menu["collapse"],  
             "header" => html_entity_decode($menu["header"]),
-             "description" => html_entity_decode($menu["description"]),
+            "description" => html_entity_decode($menu["description"]),
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
             
             
         );
@@ -663,12 +673,20 @@ $app->get("/OgretmenProgramindakiDerslerv2_mbllogin/", function () use ($app ) {
     $menus = array();
     foreach ($resDataInsert as $menu){
         $menus[]  = array(  
-           
             "SinifDersID" => $menu["SinifDersID"], 
             "SinifID" =>  ($menu["SinifID"]),
             "DersAdi" => html_entity_decode($menu["DersAdi"]),  
             "Aciklama" => html_entity_decode($menu["Aciklama"]), 
-          
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
         );
     }
     
@@ -1181,6 +1199,16 @@ $app->get("/VeliOgrencileri_mbllogin/", function () use ($app ) {
             "OkulID" =>   ($menu["OkulID"]), 
             "OgrenciSeviyeID" =>   ($menu["OgrenciSeviyeID"]), 
             "Fotograf" =>   ($menu["Fotograf"]), 
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
         );
     } 
     $app->response()->header("Content-Type", "application/json"); 
@@ -1263,13 +1291,22 @@ $app->get("/OgrenciDevamsizlikListesi_mbllogin/", function () use ($app ) {
             "DevamsizlikAdi" => html_entity_decode($menu["DevamsizlikAdi"]), 
             "GunKarsiligi" => html_entity_decode($menu["GunKarsiligi"]), 
             "Aciklama" => html_entity_decode($menu["Aciklama"]),  
-             "OgrenciseviyeID" => $menu["OgrenciseviyeID"],
-             "OzurluDevamsiz1" => $menu["OzurluDevamsiz1"],
-             "OzursuzDevamsiz1" => $menu["OzursuzDevamsiz1"],
-             "OzurluDevamsiz2" => $menu["OzurluDevamsiz2"],
-             "OzursuzDevamsiz2" => $menu["OzursuzDevamsiz2"],
+            "OgrenciseviyeID" => $menu["OgrenciseviyeID"],
+            "OzurluDevamsiz1" => $menu["OzurluDevamsiz1"],
+            "OzursuzDevamsiz1" => $menu["OzursuzDevamsiz1"],
+            "OzurluDevamsiz2" => $menu["OzurluDevamsiz2"],
+            "OzursuzDevamsiz2" => $menu["OzursuzDevamsiz2"],
             "alertmessage" => html_entity_decode($menu["alertmessage"]),  
-            
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
         );
     }
     
@@ -1665,7 +1702,16 @@ $app->get("/Ogretmensinavlistesi_mbllogin/", function () use ($app ) {
             "SinavID" =>   ($menu["SinavID"]), 
             "SinavDersID" =>   ($menu["SinavDersID"]), 
             "isDegerlendirildi" =>   ($menu["isDegerlendirildi"]), 
-            
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
              
         );
     }
@@ -1939,6 +1985,16 @@ $app->get("/GelenMesajListesi_mbllogin/", function () use ($app ) {
             "SenderAdi" =>   html_entity_decode($menu["SenderAdi"]), 
             "SenderSoyadi" =>   html_entity_decode($menu["SenderSoyadi"]), 
             "SenderAdiSoyadi" =>   html_entity_decode($menu["SenderAdiSoyadi"]),  
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
         );
     }
     
@@ -2008,7 +2064,16 @@ $app->get("/GidenMesajListesi_mbllogin/", function () use ($app ) {
             "Tarih" =>   ($menu["Tarih"]), 
             "ReceiverNames" =>   html_entity_decode($menu["ReceiverNames"]), 
             "RowNum" =>   ($menu["RowNum"]),             
-          
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
            
         );
     }
@@ -2311,6 +2376,17 @@ $app->get("/OdevListesiOgrenciveYakin_mbllogin/", function () use ($app ) {
             "l1" =>   html_entity_decode($menu["l1"]), 
             "l2" =>   html_entity_decode($menu["l2"]),  
             "l3" =>   html_entity_decode($menu["l3"]), 
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
+            
         );
     } 
     $app->response()->header("Content-Type", "application/json"); 
@@ -2478,7 +2554,16 @@ $app->get("/OgretmenDersProgramiListesi_mbllogin/", function () use ($app ) {
             "SinifID" =>    ($menu["SinifID"]), 
             "DersID" =>    ($menu["DersID"]),  
             "aciklama" =>   html_entity_decode($menu["Aciklama"]), 
-            
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
             
         );
     }
@@ -2581,6 +2666,16 @@ $app->get("/OgrenciVeYakiniDersProgramiListesi_mbllogin/", function () use ($app
             "Gun5_ders" =>   html_entity_decode($menu["Gun5_ders"]), 
             "Gun6_ders" =>   html_entity_decode($menu["Gun6_ders"]), 
             "Gun7_ders" =>   html_entity_decode($menu["Gun7_ders"]),  
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
         );
     }
     
@@ -3029,7 +3124,17 @@ $app->get("/KurumVePersonelDevamsizlik_mbllogin/", function () use ($app ) {
             "DevamsizlikKodu" => html_entity_decode($menu["DevamsizlikKodu"]),  
             "DevamsizlikAdi" => html_entity_decode($menu["DevamsizlikAdi"]),  
             "DevamsizlikPeriyodu" => html_entity_decode($menu["DevamsizlikPeriyodu"]),  
-            "rownum" => $menu["rownum"],   
+            "rownum" => $menu["rownum"],
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
         );
     }
     
@@ -4050,6 +4155,17 @@ $app->get("/OgrenciKarnesi_mbllogin/", function () use ($app ) {
             "puandegerlendirme" =>  html_entity_decode($menu["puandegerlendirme"]), 
             "basaribelgesi" =>  html_entity_decode($menu["basaribelgesi"]),  
             
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
+            
            
         );
     }
@@ -4210,6 +4326,16 @@ $app->get("/MsjIcinOkulListesi_mbllogin/", function () use ($app ) {
             "ID" => $menu["ID"],  
             "aciklama" => html_entity_decode($menu["aciklama"]),  
             "kontrol" => $menu["kontrol"], 
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
         );
     }
     
@@ -4465,9 +4591,19 @@ $app->get("/MsjIcinPersonelListesi_mbllogin/", function () use ($app ) {
     $menus = array();
     foreach ($resDataMenu as $menu){
         $menus[]  = array(
-             "ID" => $menu["ID"],  
-             "aciklama" => html_entity_decode($menu["aciklama"]),  
-             "kontrol" => $menu["kontrol"], 
+            "ID" => $menu["ID"],  
+            "aciklama" => html_entity_decode($menu["aciklama"]),  
+            "kontrol" => $menu["kontrol"], 
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
         );
     }
     
@@ -4634,9 +4770,19 @@ $app->get("/Msjcombo1_mbllogin/", function () use ($app ) {
     $menus = array();
     foreach ($resDataMenu as $menu){
         $menus[]  = array(
-             "sendRolID" => $menu["sendRolID"],  
-             "RolAdi" => html_entity_decode($menu["RolAdi"]),  
-             "kontrol" => $menu["kontrol"], 
+            "sendRolID" => $menu["sendRolID"],  
+            "RolAdi" => html_entity_decode($menu["RolAdi"]),  
+            "kontrol" => $menu["kontrol"], 
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
         );
     }
     
@@ -4981,8 +5127,18 @@ $app->get("/Ogretmensubelistesi_mbllogin/", function () use ($app ) {
     $menus = array();
     foreach ($resDataMenu as $menu){
         $menus[]  = array(
-             "SinifID" => $menu["SinifID"],  
-             "Aciklama" => html_entity_decode($menu["Aciklama"]), 
+            "SinifID" => $menu["SinifID"],  
+            "Aciklama" => html_entity_decode($menu["Aciklama"]), 
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
         );
     }
     
@@ -5290,6 +5446,16 @@ $app->get("/OgrenciVeliIcinOgretmenListesi_mbllogin/", function () use ($app ) {
             "OgretmenID" => $menu["OgretmenID"],  
             "aciklama" => html_entity_decode($menu["aciklama"]),  
             "DersAdi" => html_entity_decode($menu["DersAdi"]),  
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
         );
     }
     
@@ -5359,11 +5525,20 @@ $app->get("/OgrencininAldigiNotlar_mbllogin/", function () use ($app ) {
                                            ) ); 
     $menus = array();
     foreach ($resDataMenu as $menu){
-        $menus[]  = array(
-           
+        $menus[]  = array( 
             "SinavID" =>  ($menu["SinavID"]),  
             "Aciklamasi" => html_entity_decode($menu["SinavAciklamasi"]),  
-            "Puan" => html_entity_decode($menu["Puan"]),  
+            "Puan" => html_entity_decode($menu["Puan"]), 
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
         );
     }
     
@@ -6069,6 +6244,16 @@ $app->get("/OgrencininSinavlistesi_mbllogin/", function () use ($app ) {
             "SinavSuresi" =>  ($menu["SinavSuresi"]),  
             "SinavOgrenciID" => html_entity_decode($menu["SinavOgrenciID"]),  
             "ogretmen" => html_entity_decode($menu["ogretmen"]), 
+            "alan1" => html_entity_decode($menu["alan1"]),
+            "alan2" => html_entity_decode($menu["alan2"]),
+            "alan3" => html_entity_decode($menu["alan3"]),
+            "alan4" => html_entity_decode($menu["alan4"]),
+             //    "alan5" => html_entity_decode($menu["alan5"]),
+             //    "alan6" => html_entity_decode($menu["alan6"]),
+             //    "alan7" => html_entity_decode($menu["alan7"]),
+             //    "alan8" => html_entity_decode($menu["alan8"]),
+             //    "alan9" => html_entity_decode($menu["alan9"]),
+            //     "alan10" => html_entity_decode($menu["alan10"]),
         );
     }
     

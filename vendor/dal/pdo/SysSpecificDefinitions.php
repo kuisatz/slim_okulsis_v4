@@ -843,11 +843,23 @@ class SysSpecificDefinitions extends \DAL\DalSlim {
                     a.description_eng AS name_eng,
                     a.parent_id,
                     a.active,
-                    0 AS state_type  
+                    0 AS state_type  ,
+                    COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
+                    COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
+                    COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
+                    COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
+                    '' AS alan5,
+                    '' AS alan6,
+                    '' AS alan7,
+                    '' AS alan8,
+                    '' AS alan9,
+                    '' AS alan10
                 FROM sys_specific_definitions a    
                 INNER JOIN sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0  
 		LEFT JOIN sys_language lx ON lx.id = " . intval($languageIdValue). " AND lx.deleted =0 AND lx.active =0                      		
                 LEFT JOIN sys_specific_definitions sd ON (sd.id =a.id OR sd.language_parent_id = a.id) AND sd.deleted =0 AND sd.active =0 AND lx.id = sd.language_id   
+                INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = 2 
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on (six.language_parent_id =si.id OR six.id =si.id) and six.language_id=".intval($languageIdValue)."  and six.screen_id = 2                 
                 WHERE                     
                     a.main_group = 5 AND                    
                     a.deleted = 0 AND
