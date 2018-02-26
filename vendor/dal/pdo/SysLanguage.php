@@ -554,7 +554,7 @@ class SysLanguage extends \DAL\DalSlim {
                     '' AS alan10  
                 FROM BILSANET_MOBILE.dbo.sys_language a  
                 INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = 1 
-                LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on (six.language_parent_id =si.id OR six.id =si.id) and six.language_id=".$languageIdValue." and six.screen_id = 1 	 
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on (six.language_parent_id =si.id OR six.id =si.id) and six.language_id=a.id and six.screen_id = 1 	 
                 WHERE  
                     a.deleted = 0 and a.active =0   
                 ORDER BY a.priority  

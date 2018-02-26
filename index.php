@@ -89,7 +89,7 @@ $app->get("/getDynamicForm_test/", function () use ($app) {
  * Okan CIRAN
  * @since 11-09-2014
  */
-$app->get("/getReports_test/", function () use ($app, $pdo) {
+$app->get("/getReports_test/", function () use ($app) {
 
     //zend filter base service test ediliyor
     //$filterChainBaseText = $app->getServiceManager()->get(\Services\Filter\FilterServiceNames::TEXT_BASE_FILTER_NOT_TOLOWER_CASE);

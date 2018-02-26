@@ -11366,7 +11366,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             DECLARE @SinavID UNIQUEIDENTIFIER;
             DECLARE @OkulID UNIQUEIDENTIFIER; 
             SET @SinavID='".$SinavID."';
-            SET @OkulID='316E8400-E6A9-41BF-A428-46948B7877F7'; 
+            SET @OkulID='".$OkulID."'; 
 			 
             IF OBJECT_ID('tempdb..#tempogrencibilgileri') IS NOT NULL DROP TABLE #tempogrencibilgileri;
             IF OBJECT_ID('tempdb..#tmpSinif') IS NOT NULL DROP TABLE #tmpSinif; 

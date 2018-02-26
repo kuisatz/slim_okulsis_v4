@@ -6355,6 +6355,11 @@ $app->get("/OgrenciSinavSonucListesiRpt_mbllogin/", function () use ($app ) {
         $stripper->offsetSet('sinavID', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
                 $app, $_GET['sinavID']));
     }  
+    $vOkulID = NULL;     
+    if (isset($_GET['okulID'])) {
+        $stripper->offsetSet('okulID', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['okulID']));
+    }
     $vDid = NULL;   
     if (isset($_GET['did'])) {
         $stripper->offsetSet('did', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
@@ -6376,13 +6381,17 @@ $app->get("/OgrenciSinavSonucListesiRpt_mbllogin/", function () use ($app ) {
     if ($stripper->offsetExists('sinavID')) {
         $vSinavID= $stripper->offsetGet('sinavID')->getFilterValue();
     } 
+    if ($stripper->offsetExists('okulID')) {
+        $vOkulID= $stripper->offsetGet('okulID')->getFilterValue();
+    }
     if ($stripper->offsetExists('lid')) 
         {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
       
     $resDataMenu = $BLL->ogrenciSinavSonucListesiRpt(array(  
                                             'Cid' => $vCid,   
                                             'Did' => $vDid, 
-                                            'SinavID' => $vSinavID,   
+                                            'SinavID' => $vSinavID,  
+                                            'OkulID' => $vOkulID,
                                             'LanguageID' => $vLanguageID, 
                                            ) ); 
     $menus = array();
