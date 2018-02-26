@@ -536,6 +536,13 @@ class SysLanguage extends \DAL\DalSlim {
             } 
               
             $statement = $pdo->prepare(" 
+                SET NOCOUNT ON; 
+                IF OBJECT_ID('tempdb..#alert') IS NOT NULL DROP TABLE #alert; 
+                SELECT * 
+                into #alert
+                FROM BILSANET_MOBILE.dbo.Mobile_User_Messages alrt
+                WHERE alrt.main_group= 9 and alrt.deleted = 0 and alrt.active =0 ;
+ 
                 SELECT                    
                     a.id, 
                     a.language, 
@@ -551,13 +558,21 @@ class SysLanguage extends \DAL\DalSlim {
                     '' AS alan7,
                     '' AS alan8,
                     '' AS alan9,
-                    '' AS alan10  
+                    '' AS alan10,
+                    COALESCE(NULLIF(a1x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a1x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert1,
+                    COALESCE(NULLIF(a2x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a2x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert2,
+                    COALESCE(NULLIF(a3x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a3x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert3                    
                 FROM BILSANET_MOBILE.dbo.sys_language a  
                 INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = 1 
                 LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on (six.language_parent_id =si.id OR six.id =si.id) and six.language_id=a.id and six.screen_id = 1 	 
+                LEFT JOIN #alert a1x on a1x.language_id= a.id  and a1x.[main_group] = 9 and a1x.[first_group] = 1  
+                LEFT JOIN #alert a2x on a2x.language_id= a.id  and a2x.[main_group] = 9 and a2x.[first_group] = 2  
+                LEFT JOIN #alert a3x on a3x.language_id= a.id  and a3x.[main_group] = 9 and a3x.[first_group] = 3  
                 WHERE  
                     a.deleted = 0 and a.active =0   
-                ORDER BY a.priority  
+                ORDER BY a.priority ;
+                IF OBJECT_ID('tempdb..#alert') IS NOT NULL DROP TABLE #alert; 
+                SET NOCOUNT OFF;
                                  ");
               $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);                        
