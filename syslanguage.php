@@ -203,8 +203,12 @@ $app->get("/fillComboBoxTsql_syslanguage/", function () use ($app ) {
                 "alert1" => html_entity_decode($menu["alert1"]),
                 "alert2" => html_entity_decode($menu["alert2"]),
                 "alert3" => html_entity_decode($menu["alert3"]),
-                
-                
+                "alert4" => html_entity_decode($menu["alert4"]),
+                "alert5" => html_entity_decode($menu["alert5"]),
+                "iletisim1" => html_entity_decode($menu["iletisim1"]),
+                "iletisim2" => html_entity_decode($menu["iletisim2"]),
+                "iletisim3" => html_entity_decode($menu["iletisim3"]),
+                "iletisim4" => html_entity_decode($menu["iletisim4"]), 
                 
             );
         }

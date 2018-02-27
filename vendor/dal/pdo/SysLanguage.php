@@ -561,13 +561,26 @@ class SysLanguage extends \DAL\DalSlim {
                     '' AS alan10,
                     COALESCE(NULLIF(a1x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a1x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert1,
                     COALESCE(NULLIF(a2x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a2x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert2,
-                    COALESCE(NULLIF(a3x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a3x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert3                    
+                    COALESCE(NULLIF(a3x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a3x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert3,
+                    COALESCE(NULLIF(a4x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a4x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert4,
+                    COALESCE(NULLIF(a5x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a5x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert5,
+                    COALESCE(NULLIF(i1x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),i1x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS iletisim1,
+                    COALESCE(NULLIF(i2x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),i2x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS iletisim2,
+                    COALESCE(NULLIF(i3x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),i3x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS iletisim3,
+                    COALESCE(NULLIF(i4x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),i4x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS iletisim4 
+ 
                 FROM BILSANET_MOBILE.dbo.sys_language a  
                 INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = 1 
                 LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on (six.language_parent_id =si.id OR six.id =si.id) and six.language_id=a.id and six.screen_id = 1 	 
                 LEFT JOIN #alert a1x on a1x.language_id= a.id  and a1x.[main_group] = 9 and a1x.[first_group] = 1  
                 LEFT JOIN #alert a2x on a2x.language_id= a.id  and a2x.[main_group] = 9 and a2x.[first_group] = 2  
-                LEFT JOIN #alert a3x on a3x.language_id= a.id  and a3x.[main_group] = 9 and a3x.[first_group] = 3  
+                LEFT JOIN #alert a3x on a3x.language_id= a.id  and a3x.[main_group] = 9 and a3x.[first_group] = 3 
+                LEFT JOIN #alert a4x on a4x.language_id= a.id  and a4x.[main_group] = 9 and a4x.[first_group] = 4  
+                LEFT JOIN #alert a5x on a5x.language_id= a.id  and a5x.[main_group] = 9 and a5x.[first_group] = 5  
+                LEFT JOIN #alert i1x on i1x.language_id= 647  and i1x.[main_group] = 10 and i1x.[first_group] = 1  
+                LEFT JOIN #alert i2x on i2x.language_id= 647  and i2x.[main_group] = 10 and i2x.[first_group] = 2  
+                LEFT JOIN #alert i3x on i3x.language_id= 647  and i3x.[main_group] = 10 and i3x.[first_group] = 3  
+                LEFT JOIN #alert i4x on i4x.language_id= 647  and i4x.[main_group] = 10 and i4x.[first_group] = 4  
                 WHERE  
                     a.deleted = 0 and a.active =0   
                 ORDER BY a.priority ;
