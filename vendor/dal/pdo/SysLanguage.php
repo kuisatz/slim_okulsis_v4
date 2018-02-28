@@ -556,9 +556,9 @@ class SysLanguage extends \DAL\DalSlim {
                     '' AS alan5,
                     '' AS alan6,
                     '' AS alan7,
-                    '' AS alan8,
-                    '' AS alan9,
-                    '' AS alan10,
+                    COALESCE(NULLIF(spx.description,''),spx.description_eng) AS alan8 , 
+                    COALESCE(NULLIF(a8x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a8x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alan9,
+                    COALESCE(NULLIF(a9x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a9x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alan10,
                     COALESCE(NULLIF(a1x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a1x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert1,
                     COALESCE(NULLIF(a2x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a2x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert2,
                     COALESCE(NULLIF(a3x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a3x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert3,
@@ -584,7 +584,10 @@ class SysLanguage extends \DAL\DalSlim {
                 LEFT JOIN #alert i1x on i1x.language_id= 647  and i1x.[main_group] = 10 and i1x.[first_group] = 1  
                 LEFT JOIN #alert i2x on i2x.language_id= 647  and i2x.[main_group] = 10 and i2x.[first_group] = 2  
                 LEFT JOIN #alert i3x on i3x.language_id= 647  and i3x.[main_group] = 10 and i3x.[first_group] = 3  
-                LEFT JOIN #alert i4x on i4x.language_id= 647  and i4x.[main_group] = 10 and i4x.[first_group] = 4  
+                LEFT JOIN #alert i4x on i4x.language_id= 647  and i4x.[main_group] = 10 and i4x.[first_group] = 4 
+                LEFT JOIN #alert a8x on a8x.language_id= a.id  and a8x.[main_group] = 7 and a8x.[first_group] = 1  
+                LEFT JOIN #alert a9x on a9x.language_id= a.id  and a9x.[main_group] = 7 and a9x.[first_group] = 2 
+                LEFT JOIN BILSANET_MOBILE.dbo.sys_specific_definitions  spx on spx.language_id= a.id and spx.main_group = 1 and spx.first_group =13  and spx.deleted = 0 and spx.active =0 
                 WHERE  
                     a.deleted = 0 and a.active =0   
                 ORDER BY a.priority ;
