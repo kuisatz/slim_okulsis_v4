@@ -541,7 +541,7 @@ class SysLanguage extends \DAL\DalSlim {
                 SELECT * 
                 into #alert
                 FROM BILSANET_MOBILE.dbo.Mobile_User_Messages alrt
-                WHERE alrt.main_group in (9,10) and alrt.deleted = 0 and alrt.active =0 ;
+                WHERE alrt.main_group in (7,9,10) and alrt.deleted = 0 and alrt.active =0 ;
  
                 SELECT                    
                     a.id, 
