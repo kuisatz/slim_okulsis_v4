@@ -5372,6 +5372,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $languageIdValue = 647;
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
+            }  
+            $SID = 0;
+            if (isset($params['SID']) && $params['SID'] != "") {
+                $SID = $params['SID'];
             } 
               
             
@@ -5434,8 +5438,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 and ax.[main_group] = 3 and ax.[first_group] = a.HaftaGunu and  ax.[first_group]>0 
             LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dxx on (dxx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS= a.DersAdi collate SQL_Latin1_General_CP1254_CI_AS) and dxx.language_id= 647
             LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dx on (dx.DersAdiEng  collate SQL_Latin1_General_CP1254_CI_AS= dxx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS) and ax.language_id= lx.id  and dx.language_parent_id = dxx.id1
-            INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = 2 
-            LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on (six.language_parent_id =si.id OR six.id =si.id) and six.language_id=".intval($languageIdValue)."  and six.screen_id = 2                
+           /* INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = ".intval($SID)." */
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."                 
             ORDER BY HaftaGunu ,DersSirasi           
                    
             IF OBJECT_ID('tempdb..#okiogretmendersprogramilistesi') IS NOT NULL DROP TABLE #okiogretmendersprogramilistesi; 

@@ -2502,11 +2502,17 @@ $app->get("/OgretmenDersProgramiListesi_mbllogin/", function () use ($app ) {
         $stripper->offsetSet('did', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
                 $app, $_GET['did']));
     }
-     $vLanguageID = NULL;
+    $vLanguageID = NULL;
     if (isset($_GET['lid'])) {
         $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
                                                                 $app, 
                                                                 $_GET['lid']));
+    } 
+    $vSID = NULL;
+    if (isset($_GET['sid'])) {
+        $stripper->offsetSet('sid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['sid']));
     } 
     $stripper->strip();
     if ($stripper->offsetExists('did')) {
@@ -2525,7 +2531,9 @@ $app->get("/OgretmenDersProgramiListesi_mbllogin/", function () use ($app ) {
         $vDonemID = $stripper->offsetGet('donemID')->getFilterValue();
     }
     if ($stripper->offsetExists('lid')) 
-        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
+        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }  
+    if ($stripper->offsetExists('sid')) 
+        {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }  
     
     $resDataInsert = $BLL->ogretmenDersProgramiListesi(array( 
         'url' => $_GET['url'],   
@@ -2534,6 +2542,7 @@ $app->get("/OgretmenDersProgramiListesi_mbllogin/", function () use ($app ) {
         'DonemID' => $vDonemID,   
         'Cid' => $vCid, 
         'Did' => $vDid,
+        'SID' => $vSID,
         'LanguageID' => $vLanguageID, 
         )); 
   
