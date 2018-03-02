@@ -613,7 +613,7 @@ class SysLanguage extends \DAL\DalSlim {
                 LEFT JOIN #definitions ah5x on ah5x.language_id= a.id  and ah5x.[main_group] = 3 and ah5x.[first_group] = 5  
                 LEFT JOIN #definitions ah6x on ah6x.language_id= a.id  and ah6x.[main_group] = 3 and ah6x.[first_group] = 6  
                 LEFT JOIN #definitions ah7x on ah7x.language_id= a.id  and ah7x.[main_group] = 3 and ah7x.[first_group] = 7  
-                LEFT JOIN #definitions ah8x on ah8x.language_id= a.id  and ah8x.[main_group] = 3 and ah8x.[first_group] = 8  
+                LEFT JOIN #definitions ah8x on ah8x.language_id= a.id  and ah8x.[main_group] = 3 and ah8x.[first_group] = -2  
                 WHERE  
                     a.deleted = 0 and a.active =0   
                 ORDER BY a.priority ;
