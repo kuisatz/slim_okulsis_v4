@@ -212,6 +212,16 @@ $app->get("/fillComboBoxTsql_syslanguage/", function () use ($app ) {
                 "iletisim3" => html_entity_decode($menu["iletisim3"]),
                 "iletisim4" => html_entity_decode($menu["iletisim4"]), 
                 
+                "gun1x" => html_entity_decode($menu["gun1x"]),
+                "gun2x" => html_entity_decode($menu["gun2x"]),
+                "gun3x" => html_entity_decode($menu["gun3x"]),
+                "gun4x" => html_entity_decode($menu["gun4x"]), 
+                "gun5x" => html_entity_decode($menu["gun5x"]),
+                "gun6x" => html_entity_decode($menu["gun6x"]),
+                "gun7x" => html_entity_decode($menu["gun7x"]),
+                "gun8x" => html_entity_decode($menu["gun8x"]),  
+                
+                
             );
         }
     } else if ($componentType == 'ddslick') {

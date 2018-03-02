@@ -538,11 +538,17 @@ class SysLanguage extends \DAL\DalSlim {
             $statement = $pdo->prepare(" 
                 SET NOCOUNT ON; 
                 IF OBJECT_ID('tempdb..#alert') IS NOT NULL DROP TABLE #alert; 
+                IF OBJECT_ID('tempdb..#definitions') IS NOT NULL DROP TABLE #definitions; 
                 SELECT * 
                 into #alert
                 FROM BILSANET_MOBILE.dbo.Mobile_User_Messages alrt
                 WHERE alrt.main_group in (7,9,10) and alrt.deleted = 0 and alrt.active =0 ;
- 
+                
+                SELECT *   
+                into #definitions
+                from BILSANET_MOBILE.dbo.sys_specific_definitions ddd 
+                where [main_group] in(1,3) and ddd.deleted = 0 and ddd.active =0 
+
                 SELECT                    
                     a.id, 
                     a.language, 
@@ -569,7 +575,17 @@ class SysLanguage extends \DAL\DalSlim {
                     COALESCE(NULLIF(i1x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),i1x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS iletisim1,
                     COALESCE(NULLIF(i2x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),i2x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS iletisim2,
                     COALESCE(NULLIF(i3x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),i3x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS iletisim3,
-                    COALESCE(NULLIF(i4x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),i4x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS iletisim4 
+                    COALESCE(NULLIF(i4x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),i4x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS iletisim4,
+                    
+                    COALESCE(NULLIF(ah8x.description collate SQL_Latin1_General_CP1254_CI_AS,''),ah8x.description_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS gun8x,                    
+                    COALESCE(NULLIF(ah1x.description collate SQL_Latin1_General_CP1254_CI_AS,''),ah1x.description_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS gun1x,
+                    COALESCE(NULLIF(ah2x.description collate SQL_Latin1_General_CP1254_CI_AS,''),ah2x.description_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS gun2x,
+                    COALESCE(NULLIF(ah3x.description collate SQL_Latin1_General_CP1254_CI_AS,''),ah3x.description_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS gun3x,
+                    COALESCE(NULLIF(ah4x.description collate SQL_Latin1_General_CP1254_CI_AS,''),ah4x.description_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS gun4x,
+                    COALESCE(NULLIF(ah5x.description collate SQL_Latin1_General_CP1254_CI_AS,''),ah5x.description_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS gun5x,
+                    COALESCE(NULLIF(ah6x.description collate SQL_Latin1_General_CP1254_CI_AS,''),ah6x.description_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS gun6x,
+                    COALESCE(NULLIF(ah7x.description collate SQL_Latin1_General_CP1254_CI_AS,''),ah7x.description_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS gun7x
+                    
  
                 FROM BILSANET_MOBILE.dbo.sys_language a  
                 INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = 1 
@@ -587,11 +603,22 @@ class SysLanguage extends \DAL\DalSlim {
                 LEFT JOIN #alert i4x on i4x.language_id= 647  and i4x.[main_group] = 10 and i4x.[first_group] = 4 
                 LEFT JOIN #alert a8x on a8x.language_id= a.id  and a8x.[main_group] = 7 and a8x.[first_group] = 1  
                 LEFT JOIN #alert a9x on a9x.language_id= a.id  and a9x.[main_group] = 7 and a9x.[first_group] = 2 
-                LEFT JOIN BILSANET_MOBILE.dbo.sys_specific_definitions  spx on spx.language_id= a.id and spx.main_group = 1 and spx.first_group =13  and spx.deleted = 0 and spx.active =0 
+                
+                LEFT JOIN #definitions spx on spx.language_id= a.id and spx.main_group =1 and spx.first_group =13 
+                
+                LEFT JOIN #definitions ah1x on ah1x.language_id= a.id  and ah1x.[main_group] = 3 and ah1x.[first_group] = 1  
+                LEFT JOIN #definitions ah2x on ah2x.language_id= a.id  and ah2x.[main_group] = 3 and ah2x.[first_group] = 2  
+                LEFT JOIN #definitions ah3x on ah3x.language_id= a.id  and ah3x.[main_group] = 3 and ah3x.[first_group] = 3  
+                LEFT JOIN #definitions ah4x on ah4x.language_id= a.id  and ah4x.[main_group] = 3 and ah4x.[first_group] = 4  
+                LEFT JOIN #definitions ah5x on ah5x.language_id= a.id  and ah5x.[main_group] = 3 and ah5x.[first_group] = 5  
+                LEFT JOIN #definitions ah6x on ah6x.language_id= a.id  and ah6x.[main_group] = 3 and ah6x.[first_group] = 6  
+                LEFT JOIN #definitions ah7x on ah7x.language_id= a.id  and ah7x.[main_group] = 3 and ah7x.[first_group] = 7  
+                LEFT JOIN #definitions ah8x on ah8x.language_id= a.id  and ah8x.[main_group] = 3 and ah8x.[first_group] = 8  
                 WHERE  
                     a.deleted = 0 and a.active =0   
                 ORDER BY a.priority ;
                 IF OBJECT_ID('tempdb..#alert') IS NOT NULL DROP TABLE #alert; 
+                IF OBJECT_ID('tempdb..#definitions') IS NOT NULL DROP TABLE #definitions; 
                 SET NOCOUNT OFF;
                                  ");
               $statement->execute();
