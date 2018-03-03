@@ -1252,6 +1252,12 @@ $app->get("/OgrenciDevamsizlikListesi_mbllogin/", function () use ($app ) {
                                                                 $app, 
                                                                 $_GET['lid']));
     } 
+    $vSID = NULL;
+    if (isset($_GET['sid'])) {
+        $stripper->offsetSet('sid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['sid']));
+    } 
     $stripper->strip();
     if ($stripper->offsetExists('did')) {
         $vDid = $stripper->offsetGet('did')->getFilterValue();
@@ -1267,6 +1273,8 @@ $app->get("/OgrenciDevamsizlikListesi_mbllogin/", function () use ($app ) {
     } 
     if ($stripper->offsetExists('lid')) 
         {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
+    if ($stripper->offsetExists('sid')) 
+        {$vLanguageID = $stripper->offsetGet('sid')->getFilterValue(); }
    
     $resDataInsert = $BLL->ogrenciDevamsizlikListesi(array( 
         'url' => $_GET['url'], 
@@ -1274,6 +1282,7 @@ $app->get("/OgrenciDevamsizlikListesi_mbllogin/", function () use ($app ) {
         'dersYiliID' => $vdersYiliID,  
         'Cid' => $vCid, 
         'Did' => $vDid,
+        'SID' => $vSID,
         'LanguageID' => $vLanguageID, 
         )); 
   
@@ -1301,9 +1310,9 @@ $app->get("/OgrenciDevamsizlikListesi_mbllogin/", function () use ($app ) {
             "alan2" => html_entity_decode($menu["alan2"]),
             "alan3" => html_entity_decode($menu["alan3"]),
             "alan4" => html_entity_decode($menu["alan4"]),
-             //    "alan5" => html_entity_decode($menu["alan5"]),
-             //    "alan6" => html_entity_decode($menu["alan6"]),
-             //    "alan7" => html_entity_decode($menu["alan7"]),
+            "alan5" => html_entity_decode($menu["alan5"]),
+            "alan6" => html_entity_decode($menu["alan6"]),
+            "alan7" => html_entity_decode($menu["alan7"]),
              //    "alan8" => html_entity_decode($menu["alan8"]),
              //    "alan9" => html_entity_decode($menu["alan9"]),
             //     "alan10" => html_entity_decode($menu["alan10"]),
