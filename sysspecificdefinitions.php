@@ -4,7 +4,7 @@
 require 'vendor/autoload.php';
 
 
-
+use \Services\Filter\Helper\FilterFactoryNames as stripChainers;
 
 /* $app = new \Slim\Slim(array(
   'mode' => 'development',
@@ -443,18 +443,38 @@ $app->get("/fillSexTypes_sysSpecificDefinitions/", function () use ($app ) {
  * @since 15-07-2016
  */
 $app->get("/fillVarYokGecTypes_sysSpecificDefinitions/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
     $BLL = $app->getBLLManager()->get('sysSpecificDefinitionsBLL');
-    $languageCode = 'tr';
-    if (isset($_GET['language_code'])) {
-        $languageCode = strtolower(trim($_GET['language_code']));
-    }
+   
     $componentType = 'ddslick';
     if (isset($_GET['component_type'])) {
         $componentType = strtolower(trim($_GET['component_type']));
     }
+    $vLanguageID = NULL;
+    if (isset($_GET['lid'])) {
+        $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['lid']));
+    }
+    $vSID = NULL;
+    if (isset($_GET['sid'])) {
+        $stripper->offsetSet('sid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['sid']));
+    } 
+    $stripper->strip();
+    
+    if ($stripper->offsetExists('sid')) 
+        {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }
+    if ($stripper->offsetExists('lid')) 
+        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
 
-    $resCombobox = $BLL->fillVarYokGecTypes(array('language_code' => $languageCode
-    ));
+    $resCombobox = $BLL->fillVarYokGecTypes(array( 
+                    'url' => $_GET['url'],  
+                    'SID' => $vSID,
+                    'LanguageID' => $vLanguageID, 
+        )); 
 
         $menus = array();
   //      $menus[] = array("text" => "Lütfen Seçiniz", "value" => 0, "selected" => true, "imageSrc" => "", "description" => "Lütfen Seçiniz",); //

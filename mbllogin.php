@@ -1274,7 +1274,7 @@ $app->get("/OgrenciDevamsizlikListesi_mbllogin/", function () use ($app ) {
     if ($stripper->offsetExists('lid')) 
         {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
     if ($stripper->offsetExists('sid')) 
-        {$vLanguageID = $stripper->offsetGet('sid')->getFilterValue(); }
+        {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }
    
     $resDataInsert = $BLL->ogrenciDevamsizlikListesi(array( 
         'url' => $_GET['url'], 
