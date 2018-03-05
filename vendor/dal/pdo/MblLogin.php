@@ -4325,7 +4325,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 MesajID, 
                 MesajOncelikID, 
                 Konu collate SQL_Latin1_General_CP1254_CI_AS as Konu,  
-                FORMAT(Tarih, 'dd-MM-yyyy hh:mm') as Tarih,
+                COALESCE(NULLIF(FORMAT(Tarih, 'dd-MM-yyyy hh:mm'),NULL),'') as Tarih,
                 SenderID, 
                 ReceiverIDs, 
                 ReceiverNames collate SQL_Latin1_General_CP1254_CI_AS as ReceiverNames,
