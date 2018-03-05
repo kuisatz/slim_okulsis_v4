@@ -7266,7 +7266,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 		Adi, 
 		Soyadi, 
                 CONCAT(adi collate SQL_Latin1_General_CP1254_CI_AS,' ',soyadi collate SQL_Latin1_General_CP1254_CI_AS) AS adsoyad,	
-		COALESCE(NULLIF(OOB.Numarasi,NULL),'') as Numarasi, 
+		COALESCE(NULLIF(cast(OOB.Numarasi as nvarchar(10)),NULL),'') as Numarasi, 
 		SinifKodu, 
 		OgrenciDevamsizlikID,  
 		OD.DersYiliID,  
