@@ -7266,7 +7266,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 		Adi, 
 		Soyadi, 
                 CONCAT(adi collate SQL_Latin1_General_CP1254_CI_AS,' ',soyadi collate SQL_Latin1_General_CP1254_CI_AS) AS adsoyad,	
-		OOB.Numarasi, 
+		COALESCE(NULLIF(OOB.Numarasi,NULL),'') as Numarasi, 
 		SinifKodu, 
 		OgrenciDevamsizlikID,  
 		OD.DersYiliID,  
@@ -7276,7 +7276,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 		concat(DevamsizlikAdi  collate SQL_Latin1_General_CP1254_CI_AS, ' / ',Aciklama  collate SQL_Latin1_General_CP1254_CI_AS ) as Aciklama , 
 		DevamsizlikKodu,  
 		/*DevamsizlikAdi, */
-                concat(DevamsizlikAdi  collate SQL_Latin1_General_CP1254_CI_AS, ' / ',Aciklama  collate SQL_Latin1_General_CP1254_CI_AS ) as DevamsizlikAdi ,
+                COALESCE(NULLIF(concat(DevamsizlikAdi  collate SQL_Latin1_General_CP1254_CI_AS, ' / ',Aciklama  collate SQL_Latin1_General_CP1254_CI_AS ),' / '),'') as DevamsizlikAdi ,
 		DevamsizlikPeriyodu,  
 		ROW_NUMBER() OVER(ORDER BY Tarih, Adi, Soyadi) AS rownum,
                 COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
