@@ -4341,9 +4341,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 '' AS alan8,
                 '' AS alan9,
                 '' AS alan10 
-            FROM #okigidenmesajlar a 
+            FROM BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six
+            LEFT JOIN #okigidenmesajlar a on 1=1 
             /* INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = ".intval($SID)." */
-            LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."                 
+            WHERE six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."                 
             
             ORDER BY RowNum;
 
