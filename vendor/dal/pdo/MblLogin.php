@@ -11465,7 +11465,6 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 SKIT.KitapcikAdi,
                 SOK.OkulID,
                 Snf.SeviyeID,
-                SNF.SinifKodu,
                 OS.SinifID
             into #tempogrencibilgileri
             FROM ".$dbnamex."SNV_Sinavlar SNV
@@ -11557,7 +11556,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SELECT @raporkey, ROW_NUMBER() OVER (PARTITION BY SinavID ORDER BY  okulSira ,sinifSira , adsoyad ) AS rowid,* 
             FROM (
                 SELECT distinct   
-                    tooo.SinavID ,   
+                    ooo.SinavID ,   
                     ooo.SinavOgrenciID,
                     ooo.SeviyeID,
                     ooo.SinifID,
@@ -11584,7 +11583,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     (SELECT Sira FROM #puanlar px5 where PuanSiralamaTipID=4 and px5.SinavOgrenciID=tttt.SinavOgrenciID) as okulSira,
                     (SELECT OkulOrtalamasi FROM #puanlar px6 where PuanSiralamaTipID=4 and px6.SinavOgrenciID=tttt.SinavOgrenciID) as OkulOrtalamasi 
                 FROM  #tempogrencibilgileri ooo
-                LEFT JOIN ##tmpSinif tttt  on ooo.SinavOgrenciID = tttt.SinavOgrenciID
+                LEFT JOIN #tmpSinif tttt on ooo.SinavOgrenciID = tttt.SinavOgrenciID
             ) as asdasdasd
             ORDER BY okulSira,sinifSira,adsoyad;
 
