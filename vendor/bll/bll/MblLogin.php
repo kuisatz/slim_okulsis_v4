@@ -759,7 +759,7 @@ class MblLogin extends \BLL\BLLSlim{
         $resultSet = $DAL->msjGonderilecekRoller($params);   
         break;
     case 9:
-         $resultSet = $DAL->msjGonderilecekRoller($params);    
+        $resultSet = $DAL->msjGonderilecekRoller($params);    
         break;
     case 10:
         $resultSet = $DAL->msjGonderilecekRoller($params);  

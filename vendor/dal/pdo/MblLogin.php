@@ -4187,6 +4187,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             } 
+            $SID = 0;
+            if (isset($params['SID']) && $params['SID'] != "") {
+                $SID = $params['SID'];
+            }
             
             $sql = "  
             SET NOCOUNT ON;  
@@ -4205,15 +4209,15 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     M.Mesaj collate SQL_Latin1_General_CP1254_CI_AS as Mesaj, 
                     FORMAT(M.Tarih, 'dd-MM-yyyy hh:mm') as Tarih,
                     M.KisiID AS SenderID,
-                    K.Adi  collate SQL_Latin1_General_CP1254_CI_AS AS SenderAdi,
-                    K.Soyadi  collate SQL_Latin1_General_CP1254_CI_AS AS SenderSoyadi,
-                    (K.Adi  collate SQL_Latin1_General_CP1254_CI_AS  + ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS ) AS SenderAdiSoyadi,
+                    K.Adi collate SQL_Latin1_General_CP1254_CI_AS AS SenderAdi,
+                    K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS AS SenderSoyadi,
+                    (K.Adi collate SQL_Latin1_General_CP1254_CI_AS  + ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS ) AS SenderAdiSoyadi,
                     (CASE WHEN (SELECT COUNT(1) FROM ".$dbnamex."MSJ_MesajEklentileri WHERE MesajID = M.MesajID)>0 THEN 1 ELSE 0 END) AS AttachmentFile,
                     ROW_NUMBER() OVER(ORDER BY Tarih DESC) as RowNum,
-                    COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
-                    COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
-                    COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
-                    COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
+                    COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
+                    COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
+                    COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
+                    COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
                     '' AS alan5,
                     '' AS alan6,
                     '' AS alan7,
@@ -4223,9 +4227,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 		FROM ".$dbnamex."MSJ_Mesajlar M 
 		INNER JOIN ".$dbnamex."MSJ_MesajKutulari MK ON M.MesajID = MK.MesajID  
 		INNER JOIN ".$dbnamex."GNL_Kisiler K ON M.KisiID = K.KisiID 
-                INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = 2
-                LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on (six.language_parent_id =si.id OR six.id =si.id) and six.language_id=".intval($languageIdValue)."  and six.screen_id = 2
-		WHERE MK.KisiID = '".$KisiID."' 
+                /* INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = ".intval($SID)." */
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."                 
+                WHERE MK.KisiID = '".$KisiID."' 
                 ".$addsql."   
                 AND M.Silindi=0 
                 ORDER BY Tarih DESC; 
@@ -4290,6 +4294,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             } 
+            $SID = 0;
+            if (isset($params['SID']) && $params['SID'] != "") {
+                $SID = $params['SID'];
+            }
             $sql = "   
             SET NOCOUNT ON;  
             IF OBJECT_ID('tempdb..#okigidenmesajlar') IS NOT NULL DROP TABLE #okigidenmesajlar; 
@@ -4323,10 +4331,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 ReceiverNames collate SQL_Latin1_General_CP1254_CI_AS as ReceiverNames,
                 AttachmentFile,
                 RowNum,
-                COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
-                COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
-                COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
-                COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
+                COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
+                COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
+                COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
+                COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
                 '' AS alan5,
                 '' AS alan6,
                 '' AS alan7,
@@ -4334,8 +4342,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 '' AS alan9,
                 '' AS alan10 
             FROM #okigidenmesajlar a 
-            INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = 2
-            LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on (six.language_parent_id =si.id OR six.id =si.id) and six.language_id=".intval($languageIdValue)."  and six.screen_id = 2
+            /* INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = ".intval($SID)." */
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."                 
+            
             ORDER BY RowNum;
 
             IF OBJECT_ID('tempdb..#okigidenmesajlar') IS NOT NULL DROP TABLE #okigidenmesajlar; 
@@ -5648,26 +5657,65 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             } 
+            $SID = 0;
+            if (isset($params['SID']) && $params['SID'] != "") {
+                $SID = $params['SID'];
+            }
              
             $sql = "  
             SET NOCOUNT ON;  
-            SELECT * FROM ( 
             SELECT 
-                NULL AS SinifID,
+                dd.ss, 
+                dd.SinifID,
+                dd.SinifKodu,
+                dd.SinifAdi,
+                dd.SeviyeID,
+                COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
+                COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
+                COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
+                COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
+                '' AS alan5,
+                '' AS alan6,
+                '' AS alan7,
+                '' AS alan8,
+                '' AS alan9,
+                '' AS alan10,
+                '' AS alan11,
+                '' AS alan12,
+                '' AS alan13,
+                '' AS alan14,
+                '' AS alan15,
+                '' AS alan16,
+                '' AS alan17,
+                '' AS alan18,
+                '' AS alan19,
+                '' AS alan20
+            FROM (  
+            SELECT -1 AS ss, 
+                NULL as SinifID,
                 NULL AS SinifKodu,
-                'LUTFEN SINIF SEÇİNİZ...!' AS SinifAdi ,
-                NULL AS SeviyeID 
+                COALESCE(NULLIF(ax.description collate SQL_Latin1_General_CP1254_CI_AS,''),a.description_eng collate SQL_Latin1_General_CP1254_CI_AS) AS SinifAdi,
+                NULL AS SeviyeID
+            FROM BILSANET_MOBILE.dbo.sys_specific_definitions a
+            INNER JOIN BILSANET_MOBILE.dbo.sys_language l ON l.id = 647 AND l.deleted =0 AND l.active =0
+            LEFT JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0
+            LEFT JOIN BILSANET_MOBILE.dbo.sys_specific_definitions ax on (ax.language_parent_id = a.id or ax.id = a.id) and  ax.language_id= lx.id
+            WHERE a.main_group = 1 and a.first_group = 2 AND
+                a.language_parent_id =0  
             union 
-            SELECT 
+            SELECT 0 AS ss, 
                 SN.SinifID,
                 SN.SinifKodu,
                 SN.SinifAdi collate SQL_Latin1_General_CP1254_CI_AS,
                 SeviyeID 
             FROM ".$dbnamex."GNL_Siniflar SN 
-            WHERE SN.DersYiliID =  '".$DersYiliID."' AND 
+            WHERE SN.DersYiliID = '".$DersYiliID."' AND 
                     Sanal = 0 
                     ) AS DDDD
-            ORDER BY SeviyeID ,SinifKodu,SinifAdi;
+            /* INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = ".intval($SID)." */
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."
+            
+            ORDER BY ss,SeviyeID,SinifKodu,SinifAdi;
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
@@ -8561,6 +8609,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             } 
+            $SID = 0;
+            if (isset($params['SID']) && $params['SID'] != "") {
+                $SID = $params['SID'];
+            }
               
             $sql = "  
             SET NOCOUNT ON;  
@@ -8680,10 +8732,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     K39,K41,
                     K42,K43,
                     K44,K45,
-                    COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
-                    COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
-                    COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
-                    COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
+                    COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
+                    COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
+                    COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
+                    COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
                     '' AS alan5,
                     '' AS alan6,
                     '' AS alan7,
@@ -8809,10 +8861,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                                                     [39], [41], [42], [43], [44], [45] )) 
                 AS pvt
                 
-                INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = 2 
-                LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on (six.language_parent_id =si.id OR six.id =si.id) and six.language_id=".intval($languageIdValue)."  and six.screen_id = 2                
-                
-
+                /* INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = ".intval($SID)." */
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."                 
+            
                 WHERE OgrenciSeviyeID = '".$findOgrenciseviyeIDValue."' AND
                     AltDers=0
                 ORDER BY DersSirasi,DersAdi; 
@@ -8871,6 +8922,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             } 
+            $SID = 0;
+            if (isset($params['SID']) && $params['SID'] != "") {
+                $SID = $params['SID'];
+            }
             
             $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue); 
              
@@ -8893,10 +8948,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 RolAdi,
                 kontrol,
                 priority,
-                COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
-                COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
-                COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
-                COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
+                COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
+                COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
+                COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
+                COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
                 '' AS alan5,
                 '' AS alan6,
                 '' AS alan7,
@@ -8935,8 +8990,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                        nn.active =0 AND 
                        nn.deleted =0
                    ) as dddd
-            INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = 2
-            LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on (six.language_parent_id =si.id OR six.id =si.id) and six.language_id=".intval($languageIdValue)."  and six.screen_id = 2
+            /* INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = ".intval($SID)." */
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."                 
             ORDER BY priority, sendRolID;
  
             SET NOCOUNT OFF;   
