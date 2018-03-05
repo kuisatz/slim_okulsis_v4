@@ -3106,6 +3106,12 @@ $app->get("/KurumVePersonelDevamsizlik_mbllogin/", function () use ($app ) {
                                                                 $app, 
                                                                 $_GET['lid']));
     } 
+    $vSID = NULL;
+    if (isset($_GET['sid'])) {
+        $stripper->offsetSet('sid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['sid']));
+    }
     $stripper->strip();
     if ($stripper->offsetExists('did')) {
         $vDid = $stripper->offsetGet('did')->getFilterValue();
@@ -3120,13 +3126,16 @@ $app->get("/KurumVePersonelDevamsizlik_mbllogin/", function () use ($app ) {
         $vdersYiliID = $stripper->offsetGet('dersYiliID')->getFilterValue();
     } 
     if ($stripper->offsetExists('lid')) 
-        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
+        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }  
+    if ($stripper->offsetExists('lid')) 
+        {$vSID = $stripper->offsetGet('lid')->getFilterValue(); }   
     
     $resDataMenu = $BLL->kurumVePersonelDevamsizlik(array(      
                                             'Tarih' => $vtarih,  
                                             'DersYiliID' => $vdersYiliID, 
                                             'Cid' => $vCid, 
                                             'Did' => $vDid,
+                                            'SID' => $vSID,
                                             'LanguageID' => $vLanguageID, 
                                            ) ); 
     $menus = array();
