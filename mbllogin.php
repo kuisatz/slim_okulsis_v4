@@ -3127,8 +3127,8 @@ $app->get("/KurumVePersonelDevamsizlik_mbllogin/", function () use ($app ) {
     } 
     if ($stripper->offsetExists('lid')) 
         {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }  
-    if ($stripper->offsetExists('lid')) 
-        {$vSID = $stripper->offsetGet('lid')->getFilterValue(); }   
+    if ($stripper->offsetExists('sid')) 
+        {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }   
     
     $resDataMenu = $BLL->kurumVePersonelDevamsizlik(array(      
                                             'Tarih' => $vtarih,  
