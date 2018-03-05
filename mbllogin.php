@@ -1258,6 +1258,7 @@ $app->get("/OgrenciDevamsizlikListesi_mbllogin/", function () use ($app ) {
                                                                 $app, 
                                                                 $_GET['sid']));
     } 
+   
     $stripper->strip();
     if ($stripper->offsetExists('did')) {
         $vDid = $stripper->offsetGet('did')->getFilterValue();
@@ -1276,10 +1277,12 @@ $app->get("/OgrenciDevamsizlikListesi_mbllogin/", function () use ($app ) {
     if ($stripper->offsetExists('sid')) 
         {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }
    
+   
     $resDataInsert = $BLL->ogrenciDevamsizlikListesi(array( 
         'url' => $_GET['url'], 
         'kisiId' => $vkisiId,  
         'dersYiliID' => $vdersYiliID,  
+        'SID' => $vOkulID,
         'Cid' => $vCid, 
         'Did' => $vDid,
         'SID' => $vSID,
