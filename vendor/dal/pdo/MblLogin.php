@@ -7289,21 +7289,21 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 '' AS alan8,
                 '' AS alan9,
                 '' AS alan10  
-            FROM  ".$dbnamex."GNL_OgrenciDevamsizliklari OD  
+            FROM BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six 
+            LEFT JOIN  ".$dbnamex."GNL_OgrenciDevamsizliklari OD ON OD.DersYiliID= @DersYiliID AND CONVERT (NVARCHAR(10),(CONVERT(DATETIME,OD.Tarih,103)),120) =  CONVERT (NVARCHAR(10),(CONVERT(DATETIME,@Tarih,103)),120) 
             LEFT JOIN ".$dbnamex."GNL_Kisiler K ON OD.OgrenciID=K.KisiID 
             LEFT JOIN ".$dbnamex."GNL_Ogrenciler O ON OD.OgrenciID=O.OgrenciID 
             LEFT JOIN ".$dbnamex."GNL_OgrenciSeviyeleri OS ON O.OgrenciID = OS.OgrenciID 
-            LEFT JOIN ".$dbnamex."GNL_Siniflar S ON OS.SinifID = S.SinifID 
+            LEFT JOIN ".$dbnamex."GNL_Siniflar S ON OS.SinifID = S.SinifID AND S.DersYiliID= @DersYiliID
             LEFT JOIN ".$dbnamex."GNL_DersYillari DY ON DY.DersYiliID = S.DersYiliID 
             LEFT JOIN ".$dbnamex."GNL_OgrenciOkulBilgileri OOB ON OOB.OgrenciID = O.OgrenciID AND OOB.OkulID= DY.OkulID 
             LEFT JOIN ".$dbnamex."GNL_DevamsizlikKodlari DK ON OD.DevamsizlikKodID=DK.DevamsizlikKodID 
             LEFT JOIN ".$dbnamex."GNL_DevamsizlikPeriyodlari DP ON OD.DevamsizlikPeriyodID=DP.DevamsizlikPeriyodID  
             /* INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = ".intval($SID)." */
-            LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."                 
+                         
             WHERE 
-                    CONVERT (NVARCHAR(10),(CONVERT(DATETIME,Tarih,103)),120) =  CONVERT (NVARCHAR(10),(CONVERT(DATETIME,@Tarih,103)),120)    AND  
-                    OD.DersYiliID= @DersYiliID  AND 
-                    S.DersYiliID= @DersYiliID   
+                six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."  
+                       
             ORDER BY OOB.Numarasi,DevamsizlikPeriyodu DESC; 
             SET NOCOUNT OFF;  
                  "; 
