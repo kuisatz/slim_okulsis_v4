@@ -1158,12 +1158,22 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
                 COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
                 COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
-                '' AS alan5,
-                '' AS alan6,
-                '' AS alan7,
-                '' AS alan8,
-                '' AS alan9,
-                '' AS alan10    
+                COALESCE(NULLIF(six.a5 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a5_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan5,
+                COALESCE(NULLIF(six.a6 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a6_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan6,
+                COALESCE(NULLIF(six.a7 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a7_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan7,
+                COALESCE(NULLIF(six.a8 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a8_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan8,
+                COALESCE(NULLIF(six.a9 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a9_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan9,
+                COALESCE(NULLIF(six.a10 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a10_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan10,
+                COALESCE(NULLIF(six.a11 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a11_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan11,
+                COALESCE(NULLIF(six.a12 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a12_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan12,
+                COALESCE(NULLIF(six.a13 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a13_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan13,
+                COALESCE(NULLIF(six.a14 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a14_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan14,
+                COALESCE(NULLIF(six.a15 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a15_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan15,
+                COALESCE(NULLIF(six.a16 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a16_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan16  
+                COALESCE(NULLIF(six.a17 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a17_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan17,
+                COALESCE(NULLIF(six.a18 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a18_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan18,
+                COALESCE(NULLIF(six.a19 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a19_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan19, 
+                COALESCE(NULLIF(six.a20 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a20_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan20  
                FROM  (  
                     SELECT 
                         a.ID
