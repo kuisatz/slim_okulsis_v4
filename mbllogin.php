@@ -295,6 +295,12 @@ $app->get("/mobilMenu_mbllogin/", function () use ($app ) {
                                                                 $app, 
                                                                 $_GET['parentID']));
     }
+    $vSID = NULL;
+    if (isset($_GET['sid'])) {
+        $stripper->offsetSet('sid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['sid']));
+    } 
     $stripper->strip(); 
     if ($stripper->offsetExists('lid')) 
         {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
@@ -302,9 +308,12 @@ $app->get("/mobilMenu_mbllogin/", function () use ($app ) {
         {$vRolID = $stripper->offsetGet('RolID')->getFilterValue(); }  
     if ($stripper->offsetExists('parentID')) 
         {$vParentID = $stripper->offsetGet('parentID')->getFilterValue(); }  
+    if ($stripper->offsetExists('sid')) 
+        {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }  
     
     $resDataMenu = $BLL->mobilMenu(array(      
                                             'RolID' => $vRolID,  
+                                            'SID' => $vSID,  
                                             'ParentID' => $vParentID,  
                                             'LanguageID' => $vLanguageID, 
                                            ) ); 

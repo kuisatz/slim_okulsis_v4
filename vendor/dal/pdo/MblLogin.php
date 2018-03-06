@@ -1130,6 +1130,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }   
+            $SID = 0;
+            if (isset($params['SID']) && $params['SID'] != "") {
+                $SID = $params['SID'];
+            }
             
             $sql = "  
             SELECT 
@@ -1215,8 +1219,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         a.language_parent_id =0 AND 
                         a.ParentID >0 
                 ) AS asasdasd
-                INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = 2
-                LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on (six.language_parent_id =si.id OR six.id =si.id) and six.language_id=".intval($languageIdValue)."  and six.screen_id = 2
+                /* INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = ".intval($SID)." */
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."                 
                 ORDER BY MenuID, ParentID, sira 
                      
                  ";  
@@ -11480,7 +11484,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             LEFT JOIN ".$dbnamex."GNL_Adresler ADR ON ADR.AdresID=OKUL.AdresID
             LEFT JOIN ".$dbnamex."GNL_Ilceler ILCE ON ILCE.IlceID=ADR.IlceID
             LEFT JOIN ".$dbnamex."GNL_Iller IL ON IL.IlID=ILCE.IlID
-             WHERE SOK.OkulID = @OkulID;
+            WHERE SOK.OkulID = @OkulID;
 
             SELECT op.SinavOgrenciID,
                 Snf.SeviyeID,
