@@ -1169,7 +1169,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 COALESCE(NULLIF(six.a13 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a13_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan13,
                 COALESCE(NULLIF(six.a14 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a14_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan14,
                 COALESCE(NULLIF(six.a15 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a15_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan15,
-                COALESCE(NULLIF(six.a16 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a16_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan16  
+                COALESCE(NULLIF(six.a16 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a16_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan16,  
                 COALESCE(NULLIF(six.a17 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a17_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan17,
                 COALESCE(NULLIF(six.a18 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a18_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan18,
                 COALESCE(NULLIF(six.a19 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a19_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan19, 
