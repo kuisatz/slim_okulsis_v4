@@ -11091,6 +11091,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 INNER JOIN ".$dbnamex."GNL_DersYillari DY ON SNF.DersYiliID = DY.DersYiliID 
                 INNER JOIN ".$dbnamex."SNV_SinavKitapciklari SK ON SOGR.SinavKitapcikID = SK.SinavKitapcikID 
                 INNER JOIN ".$dbnamex."SNV_Sinavlar SNV ON SNV.SinavID=SK.SinavID
+                INNER JOIN #kitapciklar kit on kit.first_group = SK.KitapcikTurID
                 WHERE SOGR.SinavOkulID= @sinavOkulID  
                 AND SOGR.SinifKodu= @SinifKodu 
                 ) as asdasd
