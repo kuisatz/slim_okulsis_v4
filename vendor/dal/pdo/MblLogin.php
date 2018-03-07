@@ -2916,7 +2916,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     FROM BILSANET_MOBILE.dbo.sys_specific_definitions a 
                     LEFT JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0 
                     LEFT JOIN BILSANET_MOBILE.dbo.sys_specific_definitions ax on (ax.language_parent_id = a.[id]  or  ax.[id] = a.[id] ) and  ax.language_id= lx.id  
-                    WHERE a.[main_group] = 1 and a.[first_group] = 5 AND
+                    WHERE a.[main_group] = 1 and a.[first_group] = 7 AND
                         a.language_parent_id =0 
 
             UNION  
@@ -10227,7 +10227,11 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $languageIdValue = 647;
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
-            }  
+            } 
+            $isOgrenciVeliSinavVisible = 1;
+            if (isset($params['OgrenciVeliSinavVisible']) && $params['OgrenciVeliSinavVisible'] != "") {
+                $isOgrenciVeliSinavVisible = $params['OgrenciVeliSinavVisible'];
+            } 
          
             $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue); 
              
@@ -10236,10 +10240,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT ON;   
 	 
             DECLARE  
-                @SinavID UNIQUEIDENTIFIER;  
-            
-            set @SinavID='".$SinavID."';
-           
+                @SinavID UNIQUEIDENTIFIER;   
+            set @SinavID='".$SinavID."'; 
            
             SELECT Os.OgrenciID,SS.SinavID , 
                 oob.Numarasi ,
@@ -10257,7 +10259,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             INNER JOIN ".$dbnamex."SNV_SinavSiniflari SS ON SS.SinavSinifID = SO.SinavSinifID
             INNER JOIN ".$dbnamex."SNV_Sinavlar SINAV ON SINAV.SinavID = SS.SinavID
                                                      AND SinavTurID IN ( 300, 301 )
-            WHERE SINAV.isOgrenciVeliSinavVisible = 1 AND  
+            WHERE SINAV.isOgrenciVeliSinavVisible = ".intval($isOgrenciVeliSinavVisible)." AND  
                     SS.SinavID =@SinavID
             ORDER BY adsoyad,SinavAciklamasi;
             

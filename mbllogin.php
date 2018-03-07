@@ -5656,13 +5656,22 @@ $app->get("/OgrencilerinAldigiNotlarSinavBazli_mbllogin/", function () use ($app
         $stripper->offsetSet('did', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
                 $app, $_GET['did']));
     }
-     $vLanguageID = NULL;
+    $vLanguageID = NULL;
     if (isset($_GET['lid'])) {
         $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
                                                                 $app, 
                                                                 $_GET['lid']));
     } 
+    $vOgrenciVeliSinavVisible = 1;
+    if (isset($_GET['ovv'])) {
+        $stripper->offsetSet('ovv', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['ovv']));
+    }  
     $stripper->strip();
+     if ($stripper->offsetExists('ovv')) {
+        $vOgrenciVeliSinavVisible = $stripper->offsetGet('ovv')->getFilterValue();
+    } 
     if ($stripper->offsetExists('did')) {
         $vDid = $stripper->offsetGet('did')->getFilterValue();
     } 
@@ -5680,6 +5689,7 @@ $app->get("/OgrencilerinAldigiNotlarSinavBazli_mbllogin/", function () use ($app
                                             'SinavID' => $vSinavID, 
                                             'Did' => $vDid,
                                             'LanguageID' => $vLanguageID, 
+                                            'OgrenciVeliSinavVisible' => $vOgrenciVeliSinavVisible,  
                                            ) ); 
     $menus = array();
     foreach ($resDataMenu as $menu){
