@@ -10231,10 +10231,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             } 
+            $addSQL =NULL;
             $isOgrenciVeliSinavVisible = 1;
-            if (isset($params['OgrenciVeliSinavVisible']) && $params['OgrenciVeliSinavVisible'] != "") {
-                $isOgrenciVeliSinavVisible = $params['OgrenciVeliSinavVisible'];
+            if (isset($params['OgrenciVeliSinavVisible']) && $params['OgrenciVeliSinavVisible'] != "") { 
             } 
+            else { 
+                $addSQL = "SINAV.isOgrenciVeliSinavVisible = ".intval($isOgrenciVeliSinavVisible)." AND  ";                
+            }
          
             $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue); 
              
@@ -10262,8 +10265,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             INNER JOIN ".$dbnamex."SNV_SinavSiniflari SS ON SS.SinavSinifID = SO.SinavSinifID
             INNER JOIN ".$dbnamex."SNV_Sinavlar SINAV ON SINAV.SinavID = SS.SinavID
                                                      AND SinavTurID IN ( 300, 301 )
-            WHERE SINAV.isOgrenciVeliSinavVisible = ".intval($isOgrenciVeliSinavVisible)." AND  
-                    SS.SinavID =@SinavID
+            WHERE 
+                ".$addSQL."
+                SS.SinavID =@SinavID
             ORDER BY adsoyad,SinavAciklamasi;
             
             SET NOCOUNT OFF;     
