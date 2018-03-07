@@ -10253,7 +10253,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 oob.Numarasi ,
                 concat(k.Adi collate SQL_Latin1_General_CP1254_CI_AS ,' ',k.Soyadi collate SQL_Latin1_General_CP1254_CI_AS) as adsoyad,
                 SINAV.SinavAciklamasi  collate SQL_Latin1_General_CP1254_CI_AS as SinavAciklamasi,
-                cast(OP.Puan as numeric(10,2)) as Puan
+                COALESCE(NULLIF(cast(cast(OP.Puan as numeric(10,2)) as nvarchar(10)),NULL),'') as Puan
             FROM ".$dbnamex."GNL_OgrenciSeviyeleri OS
             INNER JOIN ".$dbnamex."GNL_Siniflar S ON S.SinifID = OS.SinifID
             INNER JOIN ".$dbnamex."GNL_DersYillari DY ON DY.DersYiliID = S.DersYiliID
@@ -10261,7 +10261,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             INNER JOIN ".$dbnamex."GNL_OgrenciOkulBilgileri OOB ON OOB.OkulID = OK.OkulID  AND OOB.OgrenciID = OS.OgrenciID
             INNER JOIN ".$dbnamex."GNL_Kisiler K ON K.KisiID = Os.OgrenciID
             INNER JOIN ".$dbnamex."SNV_SinavOgrencileri SO ON SO.OgrenciSeviyeID = OS.OgrenciSeviyeID
-            INNER JOIN ".$dbnamex."OD_OgrenciPuanlari OP ON OP.SinavOgrenciID = SO.SinavOgrenciID
+            LEFT JOIN ".$dbnamex."OD_OgrenciPuanlari OP ON OP.SinavOgrenciID = SO.SinavOgrenciID
             INNER JOIN ".$dbnamex."SNV_SinavSiniflari SS ON SS.SinavSinifID = SO.SinavSinifID
             INNER JOIN ".$dbnamex."SNV_Sinavlar SINAV ON SINAV.SinavID = SS.SinavID
                                                      AND SinavTurID IN ( 300, 301 )
