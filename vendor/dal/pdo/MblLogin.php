@@ -3497,19 +3497,20 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                                                     @OkulID = '".$OkulID."',
                                                     @KisiID =  '".$KisiID."' ; 
                     DECLARE @DonemBaslangicTarihi date;
-                    DECLARE @DonemBitisTarihi date;
+                    DECLARE @DonemBitisTarihi date; 
                     SELECT   
                         @DonemBaslangicTarihi = CASE MAX(dy.DonemID) WHEN 1 THEN dy.Donem1BaslangicTarihi
                         ELSE dy.Donem2BaslangicTarihi END,
                         @DonemBitisTarihi = CASE MAX(dy.DonemID) WHEN 1 THEN dy.Donem1BitisTarihi
-                        ELSE dy.Donem2BitisTarihi END
+                        ELSE dy.Donem2BitisTarihi END 
                     FROM ".$dbnamex."GNL_DersYillari dy
                     WHERE dy.EgitimYilID = ".$EgitimYilID."  
                         ".$addSQL."  
                     GROUP BY dy.Donem1BaslangicTarihi,dy.Donem2BaslangicTarihi,dy.Donem1BitisTarihi,dy.Donem2BitisTarihi
   
                     
-                    SELECT  
+                    SELECT 
+                        DonemID, 
                         Donem  , 
                         SinavTarihi ,
                         SinavBitisTarihi , 
@@ -3531,24 +3532,26 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         '' AS alan10
                     FROM (
                         SELECT  
-                            null AS Donem  , 
-                            null AS SinavTarihi ,
-                            null AS SinavBitisTarihi , 
-                            null AS SinavTurAdi  ,
-                            null AS SinavKodu ,
-                            null AS SinavID ,  
-                            COALESCE(NULLIF(ax.[description]  collate SQL_Latin1_General_CP1254_CI_AS,''),a.[description_eng]  collate SQL_Latin1_General_CP1254_CI_AS) AS SinavAciklamasi,
+                            null AS DonemID, 
+                            null AS Donem, 
+                            null AS SinavTarihi,
+                            null AS SinavBitisTarihi, 
+                            null AS SinavTurAdi,
+                            null AS SinavKodu,
+                            null AS SinavID,  
+                            COALESCE(NULLIF(ax.description collate SQL_Latin1_General_CP1254_CI_AS,''),a.[description_eng]  collate SQL_Latin1_General_CP1254_CI_AS) AS SinavAciklamasi,
                             NULL as SinavDersID,
                             NULL as isDegerlendirildi
                         FROM BILSANET_MOBILE.dbo.sys_specific_definitions a 
                         LEFT JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0 
-                        LEFT JOIN BILSANET_MOBILE.dbo.sys_specific_definitions ax on (ax.language_parent_id = a.[id] or  ax.[id] = a.[id] ) and  ax.language_id= lx.id  
-                        WHERE a.[main_group] = 1 and a.[first_group] = 4 AND
+                        LEFT JOIN BILSANET_MOBILE.dbo.sys_specific_definitions ax on (ax.language_parent_id = a.id or  ax.[id] = a.[id] ) and  ax.language_id= lx.id  
+                        WHERE a.main_group = 1 and a.first_group = 4 AND
                                 a.language_parent_id =0 AND 
                                 0= ".$grid." 
                     UNION 
                         SELECT  
-                            gd.[Donem] , 
+                            gd.DonemID,
+                            gd.Donem, 
                             FORMAT( SinavTarihi, 'dd-MM-yyyy hh:mm') as SinavTarihi, 
                             FORMAT( SinavBitisTarihi, 'dd-MM-yyyy hh:mm') as SinavBitisTarihi,
                             /* a.SinavTurAdi  collate SQL_Latin1_General_CP1254_CI_AS  , */ 
@@ -3560,7 +3563,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                             SD.SinavDersID,
                             a.isDegerlendirildi
                         FROM #okiogrsinavlari a 
-                        INNER JOIN ".$dbnamex."[GNL_Donemler] gd on gd.DonemID = a.NotDonemID 
+                        INNER JOIN ".$dbnamex."GNL_Donemler gd on gd.DonemID = a.NotDonemID 
                         INNER JOIN ".$dbnamex."SNV_SinavKategorileri SK ON SK.SinavID = a.SinavID   
                         INNER JOIN ".$dbnamex."SNV_SinavDersleri SD ON SD.SinavKategoriID = SK.SinavKategoriID  /* AND SD.SinavDersSabitID = SDS.SinavDersSabitID */ 
                         LEFT JOIN BILSANET_MOBILE.dbo.Mobil_SNVSinavlar_lng sit on  sit.SinavID  = a.SinavID and sit.language_id = 647 

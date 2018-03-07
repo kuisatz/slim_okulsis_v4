@@ -1723,6 +1723,7 @@ $app->get("/Ogretmensinavlistesi_mbllogin/", function () use ($app ) {
     $menus = array();
     foreach ($resDataInsert as $menu){
         $menus[]  = array(   
+            "DonemID" => ($menu["DonemID"]), 
             "Donem" =>  html_entity_decode($menu["Donem"]), 
             "SinavTarihi" =>   ($menu["SinavTarihi"]), 
             "SinavBitisTarihi" =>   ($menu["SinavBitisTarihi"]),             
