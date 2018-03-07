@@ -11064,8 +11064,6 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
               /*  set @sinavOkulID = 'F700A96B-4628-41E5-A261-D7834983CF4D' ; 
                  set @SinifKodu ='5KAR1'; */ 
 
-
-
                 SELECT * FROM ( 
                     SELECT  
                         '00000000-0000-0000-0000-000000000000' as SinavKitapcikID,
@@ -11073,7 +11071,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         COALESCE(NULLIF(ax.[description],''),a.[description_eng]) AS KitapcikAciklamasi 
                     FROM [BILSANET_MOBILE].[dbo].[sys_specific_definitions] a
                     INNER JOIN BILSANET_MOBILE.dbo.sys_language l ON l.id = 647 AND l.deleted =0 AND l.active =0 
-                    LEFT JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =647 AND lx.deleted =0 AND lx.active =0
+                    LEFT JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0
                     LEFT JOIN [BILSANET_MOBILE].[dbo].[sys_specific_definitions]  ax on (ax.language_parent_id = a.[id] or ax.[id] = a.[id] ) and  ax.language_id= lx.id  
                     WHERE a.[main_group] = 1 and a.[first_group]  = 9 and
                         a.language_parent_id =0 
