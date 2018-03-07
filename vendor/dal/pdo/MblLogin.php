@@ -11063,7 +11063,12 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 
               /*  set @sinavOkulID = 'F700A96B-4628-41E5-A261-D7834983CF4D' ; 
                  set @SinifKodu ='5KAR1'; */ 
-
+                IF OBJECT_ID('tempdb..#kitapciklar') IS NOT NULL DROP TABLE #kitapciklar; 
+                SELECT * 
+                into #kitapciklar
+                FROM BILSANET_MOBILE.dbo.Mobile_User_Messages mum 
+                WHERE mum.main_group=8 and mum.active =0 and mum.deleted =0 and mum.language_id = ".$languageIdValue." ;
+                    
                 SELECT * FROM ( 
                     SELECT  
                         '00000000-0000-0000-0000-000000000000' as SinavKitapcikID,
@@ -11079,18 +11084,18 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 SELECT  distinct
                     SOGR.SinavKitapcikID,
                     SK.KitapcikTurID,
-                    SK.KitapcikAciklamasi 
-               FROM ".$dbnamex."SNV_SinavOgrencileri SOGR
-               INNER JOIN ".$dbnamex."GNL_OgrenciSeviyeleri OS ON SOGR.OgrenciSeviyeID = OS.OgrenciSeviyeID
-               INNER JOIN ".$dbnamex."GNL_Siniflar SNF ON OS.SinifID = SNF.SinifID
-               INNER JOIN ".$dbnamex."GNL_DersYillari DY ON SNF.DersYiliID = DY.DersYiliID 
-               INNER JOIN ".$dbnamex."SNV_SinavKitapciklari SK ON SOGR.SinavKitapcikID = SK.SinavKitapcikID 
-               INNER JOIN ".$dbnamex."SNV_Sinavlar SNV ON SNV.SinavID=SK.SinavID
-               WHERE SOGR.SinavOkulID= @sinavOkulID  
-               AND SOGR.SinifKodu= @SinifKodu 
-               ) as asdasd
-               ORDER BY  KitapcikTurID; 
-
+                    kit.[description] AS KitapcikAciklamasi  
+                FROM ".$dbnamex."SNV_SinavOgrencileri SOGR
+                INNER JOIN ".$dbnamex."GNL_OgrenciSeviyeleri OS ON SOGR.OgrenciSeviyeID = OS.OgrenciSeviyeID
+                INNER JOIN ".$dbnamex."GNL_Siniflar SNF ON OS.SinifID = SNF.SinifID
+                INNER JOIN ".$dbnamex."GNL_DersYillari DY ON SNF.DersYiliID = DY.DersYiliID 
+                INNER JOIN ".$dbnamex."SNV_SinavKitapciklari SK ON SOGR.SinavKitapcikID = SK.SinavKitapcikID 
+                INNER JOIN ".$dbnamex."SNV_Sinavlar SNV ON SNV.SinavID=SK.SinavID
+                WHERE SOGR.SinavOkulID= @sinavOkulID  
+                AND SOGR.SinifKodu= @SinifKodu 
+                ) as asdasd
+                ORDER BY  KitapcikTurID; 
+                IF OBJECT_ID('tempdb..#kitapciklar') IS NOT NULL DROP TABLE #kitapciklar; 
                 SET NOCOUNT OFF;  
                  
                  "; 

@@ -6033,7 +6033,7 @@ $app->get("/SinavdaKullanilanKitaplar_mbllogin/", function () use ($app ) {
         $stripper->offsetSet('did', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
                 $app, $_GET['did']));
     }
-     $vLanguageID = NULL;
+    $vLanguageID = NULL;
     if (isset($_GET['lid'])) {
         $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
                                                                 $app, 
@@ -6065,8 +6065,7 @@ $app->get("/SinavdaKullanilanKitaplar_mbllogin/", function () use ($app ) {
                                            ) ); 
     $menus = array();
     foreach ($resDataMenu as $menu){
-        $menus[]  = array( 
-            
+        $menus[]  = array(  
             "SinavKitapcikID" =>  ($menu["SinavKitapcikID"]),  
             "KitapcikTurID" => ($menu["KitapcikTurID"]),  
             "KitapcikAciklamasi" => html_entity_decode($menu["KitapcikAciklamasi"]),  
