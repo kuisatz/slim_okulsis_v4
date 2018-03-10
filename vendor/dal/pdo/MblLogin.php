@@ -521,7 +521,7 @@ class MblLogin extends \DAL\DalSlim {
    
              SELECT top 1 * from ( 
                 SELECT top 1
-                    null as KisiID, '' as adsoyad,  null as TCKimlikNo, null as Fotograf, null as CinsiyetID, -99 as tcID, @KullaniciKontrol as KullaniciKontrol,
+                    null as KisiID, '' as adsoyad,  null as TCKimlikNo, null as Fotograf, null as CinsiyetID, -99 as tcID, -1 /* @KullaniciKontrol */ as KullaniciKontrol,
                      COALESCE(NULLIF(spdx.description,''),spd.description_eng) as description  
                 FROM [BILSANET_MOBILE].[dbo].sys_specific_definitions spd 
                 left JOIN [BILSANET_MOBILE].[dbo].sys_specific_definitions spdx on (spdx.id = spd.id OR spdx.language_parent_id = spd.id) and spdx.language_id = 647 
