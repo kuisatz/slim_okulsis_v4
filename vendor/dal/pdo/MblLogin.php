@@ -5452,7 +5452,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 HaftaGunu ,
                 DersSirasi ,
                 SinifDersID ,
-                COALESCE(NULLIF(COALESCE(NULLIF(dxx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS,''),dx.DersAdiEng  collate SQL_Latin1_General_CP1254_CI_AS),''),a.DersAdi)  AS DersAdi,
+                COALESCE(NULLIF(COALESCE(NULLIF(dx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS,''),dxx.DersAdiEng  collate SQL_Latin1_General_CP1254_CI_AS),''),a.DersAdi)  AS DersAdi,
                 DersKodu, 
                 SinifKodu ,
                 SubeGrupID ,
