@@ -534,7 +534,7 @@ class SysLanguage extends \DAL\DalSlim {
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
-            $sql = "  
+            $statement = $pdo->prepare(" 
                 SET NOCOUNT ON; 
                 IF OBJECT_ID('tempdb..#alert') IS NOT NULL DROP TABLE #alert; 
                 IF OBJECT_ID('tempdb..#definitions') IS NOT NULL DROP TABLE #definitions; 
@@ -621,8 +621,9 @@ class SysLanguage extends \DAL\DalSlim {
                 IF OBJECT_ID('tempdb..#alert') IS NOT NULL DROP TABLE #alert; 
                 IF OBJECT_ID('tempdb..#definitions') IS NOT NULL DROP TABLE #definitions; 
                 SET NOCOUNT OFF;
-                                 ";
-            $statement = $pdo->prepare($sql);   
+                                 ");
+             
+                $statement->execute();
              // echo debugPDO($sql, $params);
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);                        
             $errorInfo = $statement->errorInfo();
