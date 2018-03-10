@@ -1461,7 +1461,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             
             INNER JOIN BILSANET_MOBILE.dbo.sys_language l ON l.id = 647 AND l.deleted =0 AND l.active =0 
             LEFT JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0
-            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng axx on (axx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS= DRS.DersAdi collate SQL_Latin1_General_CP1254_CI_AS) and axx.language_id= l.id  
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng axx on (axx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS= upper(DRS.DersAdi) collate SQL_Latin1_General_CP1254_CI_AS) and axx.language_id= l.id  
             LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng ax on (ax.DersAdiEng  collate SQL_Latin1_General_CP1254_CI_AS= axx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS) and ax.language_id= lx.id   
             
             LEFT JOIN ".$dbnamex."GNL_DersSaatleri DS ON DS.DersYiliID = SNF.DersYiliID AND DS.SubeGrupID = SNF.SubeGrupID AND DS.DersSirasi = DP.DersSirasi
@@ -8654,7 +8654,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     TCKimlikNo, 
                     SinifKodu,
                     DersKodu,
-                    DersAdi,
+                    COALESCE(NULLIF(COALESCE(NULLIF(ax.DersAdi collate SQL_Latin1_General_CP1254_CI_AS,''),axx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),pvt.DersAdi)  as DersAdi, 
                     DonemID,
                     isnull(cast(cast(Donem1_DonemNotu as numeric(8,2)) as varchar(10)),'') AS Donem1_DonemNotu, 
                     isnull(cast(cast(Donem2_DonemNotu as numeric(8,2)) as varchar(10)),'') AS Donem2_DonemNotu, 
@@ -8891,6 +8891,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 
                 /* INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = ".intval($SID)." */
                 LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."                 
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng axx on (axx.DersAdi collate SQL_Latin1_General_CP1254_CI_AS= upper(pvt.DersAdi) collate SQL_Latin1_General_CP1254_CI_AS) and axx.language_id= 647 
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng ax on (ax.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS= axx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS) and ax.language_id= ".intval($languageIdValue)."   
             
                 WHERE OgrenciSeviyeID = '".$findOgrenciseviyeIDValue."' AND
                     AltDers=0
