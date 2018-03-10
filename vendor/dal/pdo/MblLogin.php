@@ -1173,8 +1173,18 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 COALESCE(NULLIF(six.a17 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a17_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan17,
                 COALESCE(NULLIF(six.a18 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a18_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan18,
                 COALESCE(NULLIF(six.a19 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a19_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan19, 
-                COALESCE(NULLIF(six.a20 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a20_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan20  
-               FROM  (  
+                COALESCE(NULLIF(six.a20 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a20_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan20,
+                COALESCE(NULLIF(six.a21 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a21_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan21,
+                COALESCE(NULLIF(six.a22 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a22_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan22,
+                COALESCE(NULLIF(six.a23 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a23_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan23,
+                COALESCE(NULLIF(six.a24 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a24_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan24,
+                COALESCE(NULLIF(six.a25 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a25_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan25,
+                COALESCE(NULLIF(six.a26 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a26_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan26,
+                COALESCE(NULLIF(six.a27 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a27_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan27,
+                COALESCE(NULLIF(six.a28 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a28_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan28,
+                COALESCE(NULLIF(six.a29 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a29_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan29,
+                COALESCE(NULLIF(six.a30 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a30_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan30         
+                FROM  (  
                     SELECT 
                         a.ID
                         ,a.MenuID

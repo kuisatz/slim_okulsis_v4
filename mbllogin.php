@@ -355,6 +355,16 @@ $app->get("/mobilMenu_mbllogin/", function () use ($app ) {
             "alan18" => html_entity_decode($menu["alan18"]),
             "alan19" => html_entity_decode($menu["alan19"]),
             "alan20" => html_entity_decode($menu["alan20"]), 
+            "alan21" => html_entity_decode($menu["alan21"]),
+            "alan22" => html_entity_decode($menu["alan22"]),
+            "alan23" => html_entity_decode($menu["alan23"]),
+            "alan24" => html_entity_decode($menu["alan24"]),
+            "alan25" => html_entity_decode($menu["alan25"]),
+            "alan26" => html_entity_decode($menu["alan26"]),
+            "alan27" => html_entity_decode($menu["alan27"]),
+            "alan28" => html_entity_decode($menu["alan28"]),
+            "alan29" => html_entity_decode($menu["alan29"]),
+            "alan30" => html_entity_decode($menu["alan30"]),
             
         );
     }
