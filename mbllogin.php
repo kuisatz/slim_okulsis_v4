@@ -614,8 +614,7 @@ $app->get("/OgretmenProgramindakiDersler_mbllogin/", function () use ($app ) {
             "SinifDersID" => $menu["SinifDersID"], 
             "SinifID" =>  ($menu["SinifID"]),
             "DersAdi" => html_entity_decode($menu["DersAdi"]),  
-            "Aciklama" => html_entity_decode($menu["Aciklama"]), 
-             "OkulOgretmenID" =>  ($menu["OkulOgretmenID"]), 
+            "Aciklama" => html_entity_decode($menu["Aciklama"]),  
         );
     }
     
@@ -704,6 +703,7 @@ $app->get("/OgretmenProgramindakiDerslerv2_mbllogin/", function () use ($app ) {
             "SinifID" =>  ($menu["SinifID"]),
             "DersAdi" => html_entity_decode($menu["DersAdi"]),  
             "Aciklama" => html_entity_decode($menu["Aciklama"]), 
+            "OkulOgretmenID" =>  ($menu["OkulOgretmenID"]), 
             "alan1" => html_entity_decode($menu["alan1"]),
             "alan2" => html_entity_decode($menu["alan2"]),
             "alan3" => html_entity_decode($menu["alan3"]),
