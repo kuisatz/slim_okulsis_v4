@@ -1617,7 +1617,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 select @count = count(1)  from #ogretmenDersSaatleri ;
 			  
             SELECT  DISTINCT 
-                '"+$OkulOgretmenID+"',
+                '"+$OkulOgretmenID+"' as OkulOgretmenID,
                 SinifDersID ,
                 DersAdi,  
                 SinifID, 
