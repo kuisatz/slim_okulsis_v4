@@ -210,6 +210,7 @@ $app->get("/fillComboBoxTsql_syslanguage/", function () use ($app ) {
                 "alert8" => html_entity_decode($menu["alert8"]), 
                 "alert9" => html_entity_decode($menu["alert9"]), 
                 "alert10" => html_entity_decode($menu["alert10"]), 
+                "alert11" => html_entity_decode($menu["alert11"]), 
                 
                 "iletisim1" => html_entity_decode($menu["iletisim1"]),
                 "iletisim2" => html_entity_decode($menu["iletisim2"]),
