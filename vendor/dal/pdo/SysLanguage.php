@@ -603,8 +603,8 @@ class SysLanguage extends \DAL\DalSlim {
                 LEFT JOIN #alert a7x on a7x.language_id= a.id  and a7x.[main_group] = 9 and a7x.[first_group] = 7  
                 LEFT JOIN #alert a10x on a10x.language_id= a.id  and a10x.[main_group] = 9 and a10x.[first_group] = 8 
                 LEFT JOIN #alert a11x on a11x.language_id= a.id  and a11x.[main_group] = 9 and a11x.[first_group] = 9 
-                LEFT JOIN #alert a12x on a11x.language_id= a.id  and a12x.[main_group] = 9 and a12x.[first_group] = 10 
-                LEFT JOIN #alert a13x on a11x.language_id= a.id  and a13x.[main_group] = 9 and a13x.[first_group] = 11 
+                LEFT JOIN #alert a12x on a12x.language_id= a.id  and a12x.[main_group] = 9 and a12x.[first_group] = 10 
+                LEFT JOIN #alert a13x on a13x.language_id= a.id  and a13x.[main_group] = 9 and a13x.[first_group] = 11 
                 
                 LEFT JOIN #alert i1x on i1x.language_id= 647  and i1x.[main_group] = 10 and i1x.[first_group] = 1  
                 LEFT JOIN #alert i2x on i2x.language_id= 647  and i2x.[main_group] = 10 and i2x.[first_group] = 2  
