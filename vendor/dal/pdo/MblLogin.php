@@ -1532,6 +1532,12 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
+            $OkulOgretmenID = 'CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC';
+            $operationId = $this->findByOkulOgretmenID(
+                            array( 'OgretmenID' =>$kisiId, 'OkulID' => $OkulID,'Cid' =>$cid,'Did' =>$did,));
+            if (\Utill\Dal\Helper::haveRecord($operationId)) {
+                $OkulOgretmenID = $operationId ['resultSet'][0]['OkulOgretmenID'];
+            } 
             
             $sql = "   
             set nocount on;  
@@ -1614,7 +1620,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 SinifDersID ,
                 DersAdi,  
                 SinifID, 
-                Aciklama 
+                Aciklama ,
+                '".$OkulOgretmenID."' as OkulOgretmenID
             FROM ( 
             (	SELECT    
                 null as DersSirasi , 
@@ -1776,7 +1783,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 
 
             SELECT  DISTINCT
-                '"+$OkulOgretmenID+"' as OkulOgretmenID,
+                '".$OkulOgretmenID."' as OkulOgretmenID,              
                 SinifDersID ,
                 DersAdi,  
                 SinifID, 

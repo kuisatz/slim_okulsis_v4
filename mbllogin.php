@@ -615,6 +615,7 @@ $app->get("/OgretmenProgramindakiDersler_mbllogin/", function () use ($app ) {
             "SinifID" =>  ($menu["SinifID"]),
             "DersAdi" => html_entity_decode($menu["DersAdi"]),  
             "Aciklama" => html_entity_decode($menu["Aciklama"]),  
+            "OkulOgretmenID" =>  ($menu["OkulOgretmenID"]), 
         );
     }
     
