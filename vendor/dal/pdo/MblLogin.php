@@ -1532,6 +1532,12 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
+            $OkulOgretmenID = 'CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC';
+            $operationId = $this->findByOkulOgretmenID(
+                            array( 'OgretmenID' =>$kisiId, 'OkulID' => $OkulID,'Cid' =>$cid,'Did' =>$did,));
+            if (\Utill\Dal\Helper::haveRecord($operationId)) {
+                $OkulOgretmenID = $operationId ['resultSet'][0]['OkulOgretmenID'];
+            } 
             
             $sql = "   
             set nocount on;  
@@ -1610,8 +1616,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 DECLARE @count int ; 
                 select @count = count(1)  from #ogretmenDersSaatleri ;
 			  
-            SELECT  DISTINCT
-                DersSirasi
+            SELECT  DISTINCT 
+                '"+$OkulOgretmenID+"',
                 SinifDersID ,
                 DersAdi,  
                 SinifID, 
@@ -2076,13 +2082,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (isset($params['cmb']) && $params['cmb'] != "") {
                 $cmb = $params['cmb'];
                 $addOrderSql = ' ORDER BY Numarasi '; 
-            } 
-            $OkulOgretmenID = 'CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC';
-            $operationId = $this->findByOkulOgretmenID(
-                            array( 'OgretmenID' =>$kisiId, 'OkulID' => $OkulID,'Cid' =>$cid,'Did' =>$did,));
-            if (\Utill\Dal\Helper::haveRecord($operationId)) {
-                $OkulOgretmenID = $operationId ['resultSet'][0]['OkulOgretmenID'];
-            } 
+            }  
              
             $sql = "  
             SET NOCOUNT ON;   
@@ -2110,7 +2110,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @DersYiliID='".$dersYiliID."', 
                     @OgretmenID='".$kisiId."'  ;  
                         
-                    SELECT * , '".$OkulOgretmenID."' as OkulOgretmenID FROM ( 
+                    SELECT *  FROM ( 
                    /* SELECT     
                         '00000000-0000-0000-0000-000000000000' AS OgrenciID, 
                         NULL AS Tarih, 
