@@ -573,6 +573,8 @@ class SysLanguage extends \DAL\DalSlim {
                     COALESCE(NULLIF(a7x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a7x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert7,
                     COALESCE(NULLIF(a10x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a10x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert8,
                     COALESCE(NULLIF(a11x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a11x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert9,
+                    COALESCE(NULLIF(a12x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a12x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alert10,
+
                     COALESCE(NULLIF(i1x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),i1x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS iletisim1,
                     COALESCE(NULLIF(i2x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),i2x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS iletisim2,
                     COALESCE(NULLIF(i3x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),i3x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS iletisim3,
@@ -600,6 +602,8 @@ class SysLanguage extends \DAL\DalSlim {
                 LEFT JOIN #alert a7x on a7x.language_id= a.id  and a7x.[main_group] = 9 and a7x.[first_group] = 7  
                 LEFT JOIN #alert a10x on a10x.language_id= a.id  and a10x.[main_group] = 9 and a10x.[first_group] = 8 
                 LEFT JOIN #alert a11x on a11x.language_id= a.id  and a11x.[main_group] = 9 and a11x.[first_group] = 9 
+                LEFT JOIN #alert a12x on a11x.language_id= a.id  and a12x.[main_group] = 9 and a12x.[first_group] = 10 
+                
                 LEFT JOIN #alert i1x on i1x.language_id= 647  and i1x.[main_group] = 10 and i1x.[first_group] = 1  
                 LEFT JOIN #alert i2x on i2x.language_id= 647  and i2x.[main_group] = 10 and i2x.[first_group] = 2  
                 LEFT JOIN #alert i3x on i3x.language_id= 647  and i3x.[main_group] = 10 and i3x.[first_group] = 3  
