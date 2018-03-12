@@ -1532,6 +1532,12 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
             }  
+            $OkulOgretmenID = 'CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC';
+            $operationId = $this->findByOkulOgretmenID(
+                            array( 'OgretmenID' =>$kisiId, 'OkulID' => $OkulID,'Cid' =>$cid,'Did' =>$did,));
+            if (\Utill\Dal\Helper::haveRecord($operationId)) {
+                $OkulOgretmenID = $operationId ['resultSet'][0]['OkulOgretmenID'];
+            } 
             
             $sql = "   
             set nocount on; 
@@ -1587,13 +1593,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     SO.OgretmenID,
                     SNF.SinifID, 
                     SNF.SubeGrupID 
-                FROM BILSANET_TAKEVBODRUM.dbo.GNL_DersProgramlari DP
-                INNER JOIN BILSANET_TAKEVBODRUM.dbo.GNL_SinifDersleri SD ON  SD.SinifDersID = DP.SinifDersID
-                INNER JOIN BILSANET_TAKEVBODRUM.dbo.GNL_SinifOgretmenleri SO  ON SO.SinifID = SD.SinifID AND SO.DersHavuzuID = SD.DersHavuzuID 
+                FROM ".$dbnamex."GNL_DersProgramlari DP
+                INNER JOIN ".$dbnamex."GNL_SinifDersleri SD ON  SD.SinifDersID = DP.SinifDersID
+                INNER JOIN ".$dbnamex."GNL_SinifOgretmenleri SO  ON SO.SinifID = SD.SinifID AND SO.DersHavuzuID = SD.DersHavuzuID 
                                                             AND SO.OgretmenID = '".$kisiId."'
-                INNER JOIN BILSANET_TAKEVBODRUM.dbo.GNL_Siniflar SNF ON SD.SinifID = SNF.SinifID  AND SNF.DersYiliID = '".$dersYiliID."'       
-                INNER JOIN BILSANET_TAKEVBODRUM.dbo.GNL_DersHavuzlari DH ON SD.DersHavuzuID = DH.DersHavuzuID 
-                INNER JOIN BILSANET_TAKEVBODRUM.dbo.GNL_Dersler DRS ON DH.DersID = DRS.DersID 
+                INNER JOIN ".$dbnamex."GNL_Siniflar SNF ON SD.SinifID = SNF.SinifID  AND SNF.DersYiliID = '".$dersYiliID."'       
+                INNER JOIN ".$dbnamex."GNL_DersHavuzlari DH ON SD.DersHavuzuID = DH.DersHavuzuID 
+                INNER JOIN ".$dbnamex."GNL_Dersler DRS ON DH.DersID = DRS.DersID 
                 INNER JOIN #tmpzz on #tmpzz.DersYiliID = SNF.DersYiliID and DP.DonemID = #tmpzz.DonemID 
             
                 OPEN db_cursorx   
@@ -1614,14 +1620,14 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 
                 DECLARE @count int ; 
                 select @count = count(1)  from #ogretmenDersSaatleri ;
-			 
-		 
+			  
 
             SELECT  DISTINCT
                 SinifDersID ,
                 DersAdi,  
                 SinifID, 
-                Aciklama
+                Aciklama,
+                '" + $OkulOgretmenID + "' as OkulOgretmenID  
             FROM ( 
             (	SELECT     
                
