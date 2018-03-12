@@ -614,8 +614,7 @@ $app->get("/OgretmenProgramindakiDersler_mbllogin/", function () use ($app ) {
             "SinifDersID" => $menu["SinifDersID"], 
             "SinifID" =>  ($menu["SinifID"]),
             "DersAdi" => html_entity_decode($menu["DersAdi"]),  
-            "Aciklama" => html_entity_decode($menu["Aciklama"]), 
-            "OkulOgretmenID" =>  ($menu["OkulOgretmenID"]), 
+            "Aciklama" => html_entity_decode($menu["Aciklama"]),  
         );
     }
     
@@ -928,6 +927,7 @@ $app->get("/ogretmenDersPrgDersSaatleriOgrencileri_mbllogin/", function () use (
             "DevamsizlikKodID" =>  html_entity_decode($menu["DevamsizlikKodID"]),
             "Aciklama" =>  html_entity_decode($menu["Aciklama"]), 
             "Fotograf" =>  ($menu["Fotograf"]),  
+            "OkulOgretmenID" =>  ($menu["OkulOgretmenID"]), 
                         
         );
     }
