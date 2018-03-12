@@ -1279,13 +1279,7 @@ $app->get("/OgrenciDevamsizlikListesi_mbllogin/", function () use ($app ) {
         $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
                                                                 $app, 
                                                                 $_GET['lid']));
-    } 
-    $vSID = NULL;
-    if (isset($_GET['sid'])) {
-        $stripper->offsetSet('sid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
-                                                                $app, 
-                                                                $_GET['sid']));
-    } 
+    }  
    
     $stripper->strip();
     if ($stripper->offsetExists('did')) {
@@ -1301,19 +1295,14 @@ $app->get("/OgrenciDevamsizlikListesi_mbllogin/", function () use ($app ) {
         $vdersYiliID = $stripper->offsetGet('dersYiliID')->getFilterValue();
     } 
     if ($stripper->offsetExists('lid')) 
-        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
-    if ($stripper->offsetExists('sid')) 
-        {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }
-   
+        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }    
    
     $resDataInsert = $BLL->ogrenciDevamsizlikListesi(array( 
         'url' => $_GET['url'], 
         'kisiId' => $vkisiId,  
-        'dersYiliID' => $vdersYiliID,  
-        'SID' => $vOkulID,
+        'dersYiliID' => $vdersYiliID,   
         'Cid' => $vCid, 
-        'Did' => $vDid,
-        'SID' => $vSID,
+        'Did' => $vDid, 
         'LanguageID' => $vLanguageID, 
         )); 
   
@@ -1336,17 +1325,7 @@ $app->get("/OgrenciDevamsizlikListesi_mbllogin/", function () use ($app ) {
             "OzursuzDevamsiz1" => $menu["OzursuzDevamsiz1"],
             "OzurluDevamsiz2" => $menu["OzurluDevamsiz2"],
             "OzursuzDevamsiz2" => $menu["OzursuzDevamsiz2"],
-            "alertmessage" => html_entity_decode($menu["alertmessage"]),  
-            "alan1" => html_entity_decode($menu["alan1"]),
-            "alan2" => html_entity_decode($menu["alan2"]),
-            "alan3" => html_entity_decode($menu["alan3"]),
-            "alan4" => html_entity_decode($menu["alan4"]),
-            "alan5" => html_entity_decode($menu["alan5"]),
-            "alan6" => html_entity_decode($menu["alan6"]),
-            "alan7" => html_entity_decode($menu["alan7"]),
-             //    "alan8" => html_entity_decode($menu["alan8"]),
-             //    "alan9" => html_entity_decode($menu["alan9"]),
-            //     "alan10" => html_entity_decode($menu["alan10"]),
+            "alertmessage" => html_entity_decode($menu["alertmessage"]),   
         );
     }
     
@@ -1988,12 +1967,7 @@ $app->get("/GelenMesajListesi_mbllogin/", function () use ($app ) {
                                                                 $app, 
                                                                 $_GET['lid']));
     } 
-    $vSID = NULL;
-    if (isset($_GET['sid'])) {
-        $stripper->offsetSet('sid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
-                                                                $app, 
-                                                                $_GET['sid']));
-    }  
+    
     $stripper->strip();
     if ($stripper->offsetExists('did')) {
         $vDid = $stripper->offsetGet('did')->getFilterValue();
@@ -2005,16 +1979,13 @@ $app->get("/GelenMesajListesi_mbllogin/", function () use ($app ) {
         $vKisiId = $stripper->offsetGet('kisiID')->getFilterValue();
     }
     if ($stripper->offsetExists('lid')) 
-        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
-    if ($stripper->offsetExists('sid')) 
-        {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }   
+        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }  
       
     $resDataInsert = $BLL->gelenMesajListesi(array( 
         'url' => $_GET['url'],  
         'KisiID' => $vKisiId, 
         'Cid' => $vCid, 
-        'Did' => $vDid,
-        'SID' => $vSID,
+        'Did' => $vDid, 
         'LanguageID' => $vLanguageID, 
         )); 
   
@@ -2034,17 +2005,7 @@ $app->get("/GelenMesajListesi_mbllogin/", function () use ($app ) {
             "Mesaj" =>   html_entity_decode($menu["Mesaj"]), 
             "SenderAdi" =>   html_entity_decode($menu["SenderAdi"]), 
             "SenderSoyadi" =>   html_entity_decode($menu["SenderSoyadi"]), 
-            "SenderAdiSoyadi" =>   html_entity_decode($menu["SenderAdiSoyadi"]),  
-            "alan1" => html_entity_decode($menu["alan1"]),
-            "alan2" => html_entity_decode($menu["alan2"]),
-            "alan3" => html_entity_decode($menu["alan3"]),
-            "alan4" => html_entity_decode($menu["alan4"]),
-             //    "alan5" => html_entity_decode($menu["alan5"]),
-             //    "alan6" => html_entity_decode($menu["alan6"]),
-             //    "alan7" => html_entity_decode($menu["alan7"]),
-             //    "alan8" => html_entity_decode($menu["alan8"]),
-             //    "alan9" => html_entity_decode($menu["alan9"]),
-            //     "alan10" => html_entity_decode($menu["alan10"]),
+            "SenderAdiSoyadi" =>   html_entity_decode($menu["SenderAdiSoyadi"]),   
         );
     }
     
@@ -2084,12 +2045,7 @@ $app->get("/GidenMesajListesi_mbllogin/", function () use ($app ) {
                                                                 $app, 
                                                                 $_GET['lid']));
     } 
-    $vSID = NULL;
-    if (isset($_GET['sid'])) {
-        $stripper->offsetSet('sid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
-                                                                $app, 
-                                                                $_GET['sid']));
-    }  
+      
     $stripper->strip();
     if ($stripper->offsetExists('did')) {
         $vDid = $stripper->offsetGet('did')->getFilterValue();
@@ -2102,15 +2058,12 @@ $app->get("/GidenMesajListesi_mbllogin/", function () use ($app ) {
     }
     if ($stripper->offsetExists('lid')) 
         {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
-    if ($stripper->offsetExists('sid')) 
-        {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }  
       
     $resDataInsert = $BLL->gidenMesajListesi(array( 
         'url' => $_GET['url'],  
         'KisiID' => $vKisiId,  
         'Cid' => $vCid, 
-        'Did' => $vDid,
-        'SID' => $vSID,
+        'Did' => $vDid, 
         'LanguageID' => $vLanguageID, 
         )); 
   
@@ -2566,13 +2519,7 @@ $app->get("/OgretmenDersProgramiListesi_mbllogin/", function () use ($app ) {
         $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
                                                                 $app, 
                                                                 $_GET['lid']));
-    } 
-    $vSID = NULL;
-    if (isset($_GET['sid'])) {
-        $stripper->offsetSet('sid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
-                                                                $app, 
-                                                                $_GET['sid']));
-    } 
+    }  
     $stripper->strip();
     if ($stripper->offsetExists('did')) {
         $vDid = $stripper->offsetGet('did')->getFilterValue();
@@ -2621,18 +2568,7 @@ $app->get("/OgretmenDersProgramiListesi_mbllogin/", function () use ($app ) {
             "DersHavuzuID" =>    ($menu["DersHavuzuID"]), 
             "SinifID" =>    ($menu["SinifID"]), 
             "DersID" =>    ($menu["DersID"]),  
-            "aciklama" =>   html_entity_decode($menu["Aciklama"]), 
-            "alan1" => html_entity_decode($menu["alan1"]),
-            "alan2" => html_entity_decode($menu["alan2"]),
-            "alan3" => html_entity_decode($menu["alan3"]),
-            "alan4" => html_entity_decode($menu["alan4"]),
-             //    "alan5" => html_entity_decode($menu["alan5"]),
-             //    "alan6" => html_entity_decode($menu["alan6"]),
-             //    "alan7" => html_entity_decode($menu["alan7"]),
-             //    "alan8" => html_entity_decode($menu["alan8"]),
-             //    "alan9" => html_entity_decode($menu["alan9"]),
-            //     "alan10" => html_entity_decode($menu["alan10"]),
-            
+            "aciklama" =>   html_entity_decode($menu["Aciklama"]),  
         );
     }
     
@@ -4663,8 +4599,7 @@ $app->get("/MsjIcinPersonelListesi_mbllogin/", function () use ($app ) {
     } 
     if ($stripper->offsetExists('lid')) 
         {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
-     
-    
+      
     $resDataMenu = $BLL->msjIcinPersonelListesi(array(  
                                             'Cid' => $vCid,  
                                             'RolID' => $vRolID,  
@@ -4678,17 +4613,7 @@ $app->get("/MsjIcinPersonelListesi_mbllogin/", function () use ($app ) {
         $menus[]  = array(
             "ID" => $menu["ID"],  
             "aciklama" => html_entity_decode($menu["aciklama"]),  
-            "kontrol" => $menu["kontrol"], 
-            "alan1" => html_entity_decode($menu["alan1"]),
-            "alan2" => html_entity_decode($menu["alan2"]),
-            "alan3" => html_entity_decode($menu["alan3"]),
-            "alan4" => html_entity_decode($menu["alan4"]),
-             //    "alan5" => html_entity_decode($menu["alan5"]),
-             //    "alan6" => html_entity_decode($menu["alan6"]),
-             //    "alan7" => html_entity_decode($menu["alan7"]),
-             //    "alan8" => html_entity_decode($menu["alan8"]),
-             //    "alan9" => html_entity_decode($menu["alan9"]),
-            //     "alan10" => html_entity_decode($menu["alan10"]),
+            "kontrol" => $menu["kontrol"],  
         );
     }
     
@@ -4848,9 +4773,7 @@ $app->get("/Msjcombo1_mbllogin/", function () use ($app ) {
         $vKurumID = $stripper->offsetGet('kurumID')->getFilterValue();
     } 
     if ($stripper->offsetExists('lid')) 
-        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
-    if ($stripper->offsetExists('sid')) 
-        {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }   
+        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }    
     
     $resDataMenu = $BLL->msjcombo1(array(  
                                             'Cid' => $vCid,  
@@ -4866,17 +4789,7 @@ $app->get("/Msjcombo1_mbllogin/", function () use ($app ) {
         $menus[]  = array(
             "sendRolID" => $menu["sendRolID"],  
             "RolAdi" => html_entity_decode($menu["RolAdi"]),  
-            "kontrol" => $menu["kontrol"], 
-            "alan1" => html_entity_decode($menu["alan1"]),
-            "alan2" => html_entity_decode($menu["alan2"]),
-            "alan3" => html_entity_decode($menu["alan3"]),
-            "alan4" => html_entity_decode($menu["alan4"]),
-             //    "alan5" => html_entity_decode($menu["alan5"]),
-             //    "alan6" => html_entity_decode($menu["alan6"]),
-             //    "alan7" => html_entity_decode($menu["alan7"]),
-             //    "alan8" => html_entity_decode($menu["alan8"]),
-             //    "alan9" => html_entity_decode($menu["alan9"]),
-            //     "alan10" => html_entity_decode($menu["alan10"]),
+            "kontrol" => $menu["kontrol"] 
         );
     }
     
