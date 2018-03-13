@@ -7237,11 +7237,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $languageIdValue = 647;
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
-            } 
-            $SID = 0;
-            if (isset($params['SID']) && $params['SID'] != "") {
-                $SID = $params['SID'];
-            }
+            }  
              
             $sql = "    
             SET NOCOUNT ON;  
@@ -7273,17 +7269,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 		/*DevamsizlikAdi, */
                 COALESCE(NULLIF(concat(DevamsizlikAdi  collate SQL_Latin1_General_CP1254_CI_AS, ' / ',Aciklama  collate SQL_Latin1_General_CP1254_CI_AS ),' / '),'') as DevamsizlikAdi ,
 		DevamsizlikPeriyodu,  
-		ROW_NUMBER() OVER(ORDER BY Tarih, Adi, Soyadi) AS rownum,
-                COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
-                COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
-                COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
-                COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
-                '' AS alan5,
-                '' AS alan6,
-                '' AS alan7,
-                '' AS alan8,
-                '' AS alan9,
-                '' AS alan10  
+		ROW_NUMBER() OVER(ORDER BY Tarih, Adi, Soyadi) AS rownum                 
             FROM BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six 
             LEFT JOIN  ".$dbnamex."GNL_OgrenciDevamsizliklari OD ON OD.DersYiliID= @DersYiliID AND CONVERT (NVARCHAR(10),(CONVERT(DATETIME,OD.Tarih,103)),120) =  CONVERT (NVARCHAR(10),(CONVERT(DATETIME,@Tarih,103)),120) 
             LEFT JOIN ".$dbnamex."GNL_Kisiler K ON OD.OgrenciID=K.KisiID 
@@ -8555,11 +8541,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $languageIdValue = 647;
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
-            } 
-            $SID = 0;
-            if (isset($params['SID']) && $params['SID'] != "") {
-                $SID = $params['SID'];
-            }
+            }  
               
             $sql = "  
             SET NOCOUNT ON;  
@@ -8678,17 +8660,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     K37,K38,
                     K39,K41,
                     K42,K43,
-                    K44,K45,
-                    COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
-                    COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
-                    COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
-                    COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
-                    '' AS alan5,
-                    '' AS alan6,
-                    '' AS alan7,
-                    '' AS alan8,
-                    '' AS alan9,
-                    '' AS alan10 
+                    K44,K45 
                 FROM (SELECT 
                         YetistirmeKursuNotu,
                         YilSonuNotu,

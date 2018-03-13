@@ -2538,8 +2538,7 @@ $app->get("/OgretmenDersProgramiListesi_mbllogin/", function () use ($app ) {
     }
     if ($stripper->offsetExists('lid')) 
         {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }  
-    if ($stripper->offsetExists('sid')) 
-        {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }  
+   
     
     $resDataInsert = $BLL->ogretmenDersProgramiListesi(array( 
         'url' => $_GET['url'],   
@@ -2547,8 +2546,7 @@ $app->get("/OgretmenDersProgramiListesi_mbllogin/", function () use ($app ) {
         'OgretmenID' => $vOgretmenID,   
         'DonemID' => $vDonemID,   
         'Cid' => $vCid, 
-        'Did' => $vDid,
-        'SID' => $vSID,
+        'Did' => $vDid, 
         'LanguageID' => $vLanguageID, 
         )); 
   
@@ -3088,13 +3086,7 @@ $app->get("/KurumVePersonelDevamsizlik_mbllogin/", function () use ($app ) {
         $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
                                                                 $app, 
                                                                 $_GET['lid']));
-    } 
-    $vSID = NULL;
-    if (isset($_GET['sid'])) {
-        $stripper->offsetSet('sid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
-                                                                $app, 
-                                                                $_GET['sid']));
-    }
+    }  
     $stripper->strip();
     if ($stripper->offsetExists('did')) {
         $vDid = $stripper->offsetGet('did')->getFilterValue();
@@ -3110,15 +3102,13 @@ $app->get("/KurumVePersonelDevamsizlik_mbllogin/", function () use ($app ) {
     } 
     if ($stripper->offsetExists('lid')) 
         {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }  
-    if ($stripper->offsetExists('sid')) 
-        {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }   
+     
     
     $resDataMenu = $BLL->kurumVePersonelDevamsizlik(array(      
                                             'Tarih' => $vtarih,  
                                             'DersYiliID' => $vdersYiliID, 
                                             'Cid' => $vCid, 
-                                            'Did' => $vDid,
-                                            'SID' => $vSID,
+                                            'Did' => $vDid, 
                                             'LanguageID' => $vLanguageID, 
                                            ) ); 
     $menus = array();
@@ -3137,17 +3127,7 @@ $app->get("/KurumVePersonelDevamsizlik_mbllogin/", function () use ($app ) {
             "DevamsizlikKodu" => html_entity_decode($menu["DevamsizlikKodu"]),  
             "DevamsizlikAdi" => html_entity_decode($menu["DevamsizlikAdi"]),  
             "DevamsizlikPeriyodu" => html_entity_decode($menu["DevamsizlikPeriyodu"]),  
-            "rownum" => $menu["rownum"],
-            "alan1" => html_entity_decode($menu["alan1"]),
-            "alan2" => html_entity_decode($menu["alan2"]),
-            "alan3" => html_entity_decode($menu["alan3"]),
-            "alan4" => html_entity_decode($menu["alan4"]),
-             //    "alan5" => html_entity_decode($menu["alan5"]),
-             //    "alan6" => html_entity_decode($menu["alan6"]),
-             //    "alan7" => html_entity_decode($menu["alan7"]),
-             //    "alan8" => html_entity_decode($menu["alan8"]),
-             //    "alan9" => html_entity_decode($menu["alan9"]),
-            //     "alan10" => html_entity_decode($menu["alan10"]),
+            "rownum" => $menu["rownum"], 
         );
     }
     
@@ -4091,12 +4071,7 @@ $app->get("/OgrenciKarnesi_mbllogin/", function () use ($app ) {
                                                                 $app, 
                                                                 $_GET['lid']));
     } 
-    $vSID = NULL;
-    if (isset($_GET['sid'])) {
-        $stripper->offsetSet('sid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
-                                                                $app, 
-                                                                $_GET['sid']));
-    }  
+    
     $stripper->strip();
     if ($stripper->offsetExists('did')) {
         $vDid = $stripper->offsetGet('did')->getFilterValue();
@@ -4112,15 +4087,13 @@ $app->get("/OgrenciKarnesi_mbllogin/", function () use ($app ) {
     }
     if ($stripper->offsetExists('lid')) 
         {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
-    if ($stripper->offsetExists('sid')) 
-        {$vSID = $stripper->offsetGet('sid')->getFilterValue(); }    
+    
     $resDataMenu = $BLL->ogrenciKarnesi(array(  
                                             'Cid' => $vCid, 
                                             'Did' => $vDid, 
                                             'OgrenciID' => $vogrenciID, 
                                             'DonemID' => $vDonemID, 
-                                            'Did' => $vDid,
-                                            'SID' => $vSID,
+                                            'Did' => $vDid, 
                                             'LanguageID' => $vLanguageID, 
                                            ) ); 
     $menus = array();
@@ -4750,12 +4723,7 @@ $app->get("/Msjcombo1_mbllogin/", function () use ($app ) {
                                                                 $app, 
                                                                 $_GET['lid']));
     } 
-    $vSID = NULL;
-    if (isset($_GET['sid'])) {
-        $stripper->offsetSet('sid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
-                                                                $app, 
-                                                                $_GET['sid']));
-    } 
+    
     $stripper->strip();
     if ($stripper->offsetExists('did')) {
         $vDid = $stripper->offsetGet('did')->getFilterValue();
@@ -4780,8 +4748,7 @@ $app->get("/Msjcombo1_mbllogin/", function () use ($app ) {
                                             'RolID' => $vRolID,   
                                             'KisiId' => $vKisiId, 
                                             'KurumID' => $vKurumID,
-                                            'Did' => $vDid,
-                                            'SID' => $vSID,
+                                            'Did' => $vDid, 
                                             'LanguageID' => $vLanguageID, 
                                            ) ); 
     $menus = array();
