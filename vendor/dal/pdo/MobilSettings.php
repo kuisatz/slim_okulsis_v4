@@ -158,6 +158,43 @@ class MobilSettings extends \DAL\DalSlim {
         }
     }
     
+       /** 
+     * @author Okan CIRAN
+     * @ oscode göre proxy döner   !!
+     * @version v 1.0  15.03.2018
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException
+     */
+    public function mobilUrlDataV2($params = array()) {
+        try {
+            $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactoryMobil'); 
+            $oscode = "12121212";
+            if ((isset($params['OSCode']) && $params['OSCode'] != "")) {
+                $oscode = $params['OSCode']; 
+            } 
+            $sql = "  
+            SET NOCOUNT ON;  
+                SELECT TOP 1
+                    proxy                     
+                FROM  BILSANET_MOBILE.dbo.Mobil_Settings
+                WHERE active =0 AND deleted =0 AND
+                    oskey = '".$oscode."'     
+            SET NOCOUNT OFF; 
+                 "; 
+            $statement = $pdo->prepare($sql);   
+   //  echo debugPDO($sql, $params);
+            $statement->execute(); 
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {    
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+   
     /** 
      * @author Okan CIRAN
      * @ wsdl den EncryptPassword  !!

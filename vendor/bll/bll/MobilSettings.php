@@ -93,6 +93,12 @@ class MobilSettings extends \BLL\BLLSlim{
     $resultSet = $DAL->mobilUrlData($params);  
     return $resultSet['resultSet'];
     }
+    
+    public function mobilUrlDataV2($params = array()) {
+    $DAL = $this->slimApp->getDALManager()->get('mobilSettingsPDO');
+    $resultSet = $DAL->mobilUrlDataV2($params);  
+    return $resultSet['resultSet'];
+    }
    
     /**
      * Function to get datagrid row count on user interface layer

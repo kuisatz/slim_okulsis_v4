@@ -140,5 +140,44 @@ $app->get("/MobilwsdlDecryptPassword_mobilsettings/", function () use ($app ) {
      
 }
 );
+
+/**
+ *  * Okan CIRAN
+ * @since 25.10.2017
+ */
+$app->get("/MobilUrlDataV2_mobilsettings/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
+    $BLL = $app->getBLLManager()->get('mobilSettingsBLL');  
+   
+    $voscode = NULL; 
+    if (isset($_GET['oscode'])) {
+        $stripper->offsetSet('oscode', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['oscode']));
+    }
+    
+    $stripper->strip();
+    if ($stripper->offsetExists('oscode')) {
+        $voscode = $stripper->offsetGet('oscode')->getFilterValue();
+    }
+    
+    $resDataInsert = $BLL->mobilUrlDataV2(array(  
+        'url' => $_GET['url'], 
+        'OSCode' => $voscode,  
+        )); 
+  
+    $menus = array();
+    foreach ($resDataInsert as $menu){
+        $menus[]  = array(
+            "proxy" => $menu["proxy"], 
+        );
+    }
+    
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($menus));
+     
+}
+);
+  
   
 $app->run();
