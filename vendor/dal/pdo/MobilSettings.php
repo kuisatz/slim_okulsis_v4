@@ -169,7 +169,7 @@ class MobilSettings extends \DAL\DalSlim {
     public function mobilUrlDataV2($params = array()) {
         try {
             $pdo = $this->slimApp->getServiceManager()->get('pgConnectFactoryMobil'); 
-            $oscode = "12121212";
+            $oscode = "02324644733";
             if ((isset($params['OSCode']) && $params['OSCode'] != "")) {
                 $oscode = $params['OSCode']; 
             } 
