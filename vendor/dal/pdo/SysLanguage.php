@@ -559,7 +559,7 @@ class SysLanguage extends \DAL\DalSlim {
                     COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
                     COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
                     COALESCE(NULLIF(six.a5 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a5_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan5,
-                    '' AS alan6,
+                    COALESCE(NULLIF(six.a5 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a5_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan6,
                     '' AS alan7,
                     COALESCE(NULLIF(spx.description,''),spx.description_eng) AS alan8 , 
                     COALESCE(NULLIF(a8x.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a8x.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS alan9,
