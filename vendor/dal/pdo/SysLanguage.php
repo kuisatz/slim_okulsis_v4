@@ -558,7 +558,7 @@ class SysLanguage extends \DAL\DalSlim {
                     COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
                     COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
                     COALESCE(NULLIF(six.a4 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a4_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan4,
-                    '' AS alan5,
+                    COALESCE(NULLIF(six.a14 collate SQL_Latin1_General_CP1254_CI_AS,''),si.a14_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan5,
                     '' AS alan6,
                     '' AS alan7,
                     COALESCE(NULLIF(spx.description,''),spx.description_eng) AS alan8 , 
@@ -605,6 +605,7 @@ class SysLanguage extends \DAL\DalSlim {
                 LEFT JOIN #alert a11x on a11x.language_id= a.id  and a11x.[main_group] = 9 and a11x.[first_group] = 9 
                 LEFT JOIN #alert a12x on a12x.language_id= a.id  and a12x.[main_group] = 9 and a12x.[first_group] = 10 
                 LEFT JOIN #alert a13x on a13x.language_id= a.id  and a13x.[main_group] = 9 and a13x.[first_group] = 11 
+                LEFT JOIN #alert a14x on a14x.language_id= a.id  and a14x.[main_group] = 9 and a14x.[first_group] = 12
                 
                 LEFT JOIN #alert i1x on i1x.language_id= 647  and i1x.[main_group] = 10 and i1x.[first_group] = 1  
                 LEFT JOIN #alert i2x on i2x.language_id= 647  and i2x.[main_group] = 10 and i2x.[first_group] = 2  
