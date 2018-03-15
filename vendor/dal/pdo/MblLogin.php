@@ -493,9 +493,10 @@ class MblLogin extends \DAL\DalSlim {
                                /* ff.Fotograf,*/
                                 kk.CinsiyetID, 
                                 '+cast(@tcID as nvarchar(20))+'
-                        FROM  ['+@name+'].[dbo].[GNL_Kisiler] kk 
-                        LEFT JOIN ['+@name+'].dbo.GNL_Fotograflar ff on ff.KisiID =kk.[KisiID] 
-                        WHERE kk.[KisiID] = '''+cast(@KisiID as nvarchar(50))+'''' ; 
+                        FROM  '+@name+'.dbo.GNL_Kisiler kk 
+                        INNER JOIN '+@name+'.dbo.OGT_Ogretmenler arsiv ON arsiv.KisiID =kk.KisiID AND arsiv.ArsivTurID = 1 
+                        LEFT JOIN '+@name+'.dbo.GNL_Fotograflar ff on ff.KisiID =kk.KisiID
+                        WHERE kk.KisiID = '''+cast(@KisiID as nvarchar(50))+'''' ; 
                      EXEC sp_executesql @sqlxx; 
                 END
           
