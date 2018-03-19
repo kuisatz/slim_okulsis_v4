@@ -453,57 +453,59 @@ class MblLogin extends \DAL\DalSlim {
                 tcc.[tc]= @tc AND  
                 banTarihi is null;  
             
-            DECLARE db_cursor CURSOR FOR  
-                SELECT sss.database_id, sss.name, tcdbb.KisiID, tcdbb.KurumID,tcdbb.tcID FROM Sys.databases sss
-                INNER JOIN [BILSANET_MOBILE].[dbo].[Mobile_tcdb] tcdbb on  sss.database_id = tcdbb.dbID AND tcdbb.active = 0 AND tcdbb.deleted =0   
-                INNER JOIN [BILSANET_MOBILE].[dbo].[Mobile_tc] tcc ON tcdbb.tcID = tcc.id AND tcc.active = 0 AND tcc.deleted =0
-                WHERE 
-                    sss.state = 0 AND 
-                    tcc.[tc]= @tc AND 
-                    tcdbb.[sifre]  collate SQL_Latin1_General_CP1254_CI_AS = @sifre  collate SQL_Latin1_General_CP1254_CI_AS AND 
-                    banTarihi is null; 
+            IF (@KullaniciKontrol > 0 ) 
+            BEGIN 
+                DECLARE db_cursor CURSOR FOR  
+                    SELECT sss.database_id, sss.name, tcdbb.KisiID, tcdbb.KurumID,tcdbb.tcID FROM Sys.databases sss
+                    INNER JOIN [BILSANET_MOBILE].[dbo].[Mobile_tcdb] tcdbb on  sss.database_id = tcdbb.dbID AND tcdbb.active = 0 AND tcdbb.deleted =0   
+                    INNER JOIN [BILSANET_MOBILE].[dbo].[Mobile_tc] tcc ON tcdbb.tcID = tcc.id AND tcc.active = 0 AND tcc.deleted =0
+                    WHERE 
+                        sss.state = 0 AND 
+                        tcc.[tc]= @tc AND 
+                        tcdbb.[sifre]  collate SQL_Latin1_General_CP1254_CI_AS = @sifre  collate SQL_Latin1_General_CP1254_CI_AS AND 
+                        banTarihi is null; 
 
-            OPEN db_cursor   
-            FETCH NEXT FROM db_cursor INTO  @database_id , @name ,@KisiID , @KurumID, @tcID
-            WHILE @@FETCH_STATUS = 0   
-            BEGIN   
-                IF OBJECT_ID(@name+'..GNL_Kisiler' ) IS NOT NULL
-                begin 
-                    SET @sqlxx =   ' 
-                        INSERT into  ##okidetaydata".$tc." (KisiID, adsoyad, TCKimlikNo, /*Fotograf, */ CinsiyetID,tcID )
-                         SELECT 
-                                kk.[KisiID],   
-                                concat(kk.[Adi]  collate SQL_Latin1_General_CP1254_CI_AS ,'' '' ,kk.[Soyadi]  collate SQL_Latin1_General_CP1254_CI_AS ) as adsoyad,   
-                                kk.[TCKimlikNo] ,
-                               /* ff.Fotograf,*/
-                                kk.CinsiyetID, 
-                                '+cast(@tcID as nvarchar(20))+'
-                        FROM  '+@name+'.dbo.GNL_Kisiler kk  
-                        LEFT JOIN '+@name+'.dbo.GNL_Fotograflar ff on ff.KisiID =kk.KisiID
-                        WHERE kk.KisiID = '''+cast(@KisiID as nvarchar(50))+'''' ; 
-                     EXEC sp_executesql @sqlxx; 
-                END
-          
-            FETCH NEXT FROM db_cursor INTO @database_id,  @name , @KisiID , @KurumID, @tcID;
-            END   
+                OPEN db_cursor   
+                FETCH NEXT FROM db_cursor INTO  @database_id , @name ,@KisiID , @KurumID, @tcID
+                WHILE @@FETCH_STATUS = 0   
+                BEGIN   
+                    IF OBJECT_ID(@name+'..GNL_Kisiler' ) IS NOT NULL
+                    begin 
+                        SET @sqlxx =   ' 
+                            INSERT into  ##okidetaydata".$tc." (KisiID, adsoyad, TCKimlikNo, /*Fotograf, */ CinsiyetID,tcID )
+                             SELECT 
+                                    kk.[KisiID],   
+                                    concat(kk.[Adi]  collate SQL_Latin1_General_CP1254_CI_AS ,'' '' ,kk.[Soyadi]  collate SQL_Latin1_General_CP1254_CI_AS ) as adsoyad,   
+                                    kk.[TCKimlikNo] ,
+                                   /* ff.Fotograf,*/
+                                    kk.CinsiyetID, 
+                                    '+cast(@tcID as nvarchar(20))+'
+                            FROM  '+@name+'.dbo.GNL_Kisiler kk  
+                            LEFT JOIN '+@name+'.dbo.GNL_Fotograflar ff on ff.KisiID =kk.KisiID
+                            WHERE kk.KisiID = '''+cast(@KisiID as nvarchar(50))+'''' ; 
+                         EXEC sp_executesql @sqlxx; 
+                    END
 
-            CLOSE db_cursor;
-            DEALLOCATE db_cursor ;
+                FETCH NEXT FROM db_cursor INTO @database_id,  @name , @KisiID , @KurumID, @tcID;
+                END   
+
+                CLOSE db_cursor;
+                DEALLOCATE db_cursor ;
              
-            DELETE FROM [BILSANET_MOBILE].[dbo].[act_session] WHERE usid = @tcID ; 
-            
-            INSERT INTO [BILSANET_MOBILE].[dbo].[act_session] ([name],[data],[public_key],[usid],[acl],[ip],[deviceId],[lang],[lot],xip)
-            SELECT top 1 adsoyad , '' as data, '' as public_key,tcID as usid,'' as acl,
-            '".$ip."' as ip,'".$deviceid."' as deviceId,'".$Long."' as lang,'".$Lat."' as lot,'".$xip."' as xip  
-            FROM  ##okidetaydata".$tc." 
-            order by Fotograf;
-            
-            INSERT INTO [BILSANET_MOBILE].[dbo].[act_session_log] ([name],[data],[public_key],[usid],[acl],[ip],[deviceId],[lang],[lot],xip)
-            SELECT top 1 adsoyad, '' as data, '' as public_key,tcID as usid,'' as acl,
-            '".$ip."' as ip,'".$deviceid."' as deviceId,'".$Long."' as lang,'".$Lat."' as lot,'".$xip."' as xip
-            FROM  ##okidetaydata".$tc."
-            order by Fotograf; 
-   
+                DELETE FROM [BILSANET_MOBILE].[dbo].[act_session] WHERE usid = @tcID ; 
+
+                INSERT INTO [BILSANET_MOBILE].[dbo].[act_session] ([name],[data],[public_key],[usid],[acl],[ip],[deviceId],[lang],[lot],xip)
+                SELECT top 1 adsoyad , '' as data, '' as public_key,tcID as usid,'' as acl,
+                '".$ip."' as ip,'".$deviceid."' as deviceId,'".$Long."' as lang,'".$Lat."' as lot,'".$xip."' as xip  
+                FROM  ##okidetaydata".$tc." 
+                order by Fotograf;
+
+                INSERT INTO [BILSANET_MOBILE].[dbo].[act_session_log] ([name],[data],[public_key],[usid],[acl],[ip],[deviceId],[lang],[lot],xip)
+                SELECT top 1 adsoyad, '' as data, '' as public_key,tcID as usid,'' as acl,
+                '".$ip."' as ip,'".$deviceid."' as deviceId,'".$Long."' as lang,'".$Lat."' as lot,'".$xip."' as xip
+                FROM  ##okidetaydata".$tc."
+                order by Fotograf; 
+            END
              SELECT top 1 * from ( 
                 SELECT top 1
                     null as KisiID, '' as adsoyad,  null as TCKimlikNo, null as Fotograf, null as CinsiyetID, -99 as tcID, -1 /* @KullaniciKontrol */ as KullaniciKontrol,
