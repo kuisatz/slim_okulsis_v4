@@ -8710,7 +8710,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 AS pvt
                 
                 LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng axx on (axx.DersAdi collate SQL_Latin1_General_CP1254_CI_AS= upper(pvt.DersAdi) collate SQL_Latin1_General_CP1254_CI_AS) and axx.language_id= 647 
-                LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng ax on (ax.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS= axx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS) and ax.language_id= ".intval($languageIdValue)."   and ax.language_parent_id = axx.id1 
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng ax on  ( ax.language_parent_id = axx.id1 OR ax.id1 = axx.id1)  AND ax.language_id= ".intval($languageIdValue)."  
             
                 WHERE OgrenciSeviyeID = '".$findOgrenciseviyeIDValue."' AND
                     AltDers=0
