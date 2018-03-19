@@ -368,24 +368,9 @@ class MblLogin extends \DAL\DalSlim {
             if ((isset($params['Did']) && $params['Did'] != "")) {
                 $did = $params['Did'];
             } 
-            $dbConfigValue = 'pgConnectFactoryMobil';
-         /*   $dbConfig =  MobilSetDbConfigx::mobilDBConfig( array( 'Cid' =>$cid,'Did' =>$did,));
-            if (\Utill\Dal\Helper::haveRecord($dbConfig)) {
-                $dbConfigValue =$dbConfigValue.$dbConfig['resultSet'][0]['configclass'];
-            }  
-          * 
-          */ 
+            $dbConfigValue = 'pgConnectFactoryMobil'; 
             
-            $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue);
-            /*
-            $mebKoduValue = NULL;
-            $dbnameValue = NULL;
-            $mebKodu = $this->gnlKullaniciMebKoduFindByTcKimlikNo(array('tc' => $params['tc']));
-            if ((isset($mebKodu['resultSet'][0]['MEBKodu']) && $mebKodu['resultSet'][0]['MEBKodu'] != "")) {                                    
-                    $mebKoduValue = $mebKodu['resultSet'][0]['MEBKodu'];
-                    $dbnameValue = $mebKodu['resultSet'][0]['name'].'.';
-            }  
-            */
+            $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue); 
             
             if ((isset($params['sifre']) && $params['sifre'] != "")) {            
                 $wsdlValue = NULL; 
@@ -522,9 +507,9 @@ class MblLogin extends \DAL\DalSlim {
              SELECT top 1 * from ( 
                 SELECT top 1
                     null as KisiID, '' as adsoyad,  null as TCKimlikNo, null as Fotograf, null as CinsiyetID, -99 as tcID, -1 /* @KullaniciKontrol */ as KullaniciKontrol,
-                     COALESCE(NULLIF(spdx.description,''),spd.description_eng) as description  
+                     COALESCE(NULLIF(spdx.description,''),spd.description_eng) as description,spd.first_group  
                 FROM [BILSANET_MOBILE].[dbo].sys_specific_definitions spd 
-                left JOIN [BILSANET_MOBILE].[dbo].sys_specific_definitions spdx on (spdx.id = spd.id OR spdx.language_parent_id = spd.id) and spdx.language_id = 647 
+                left JOIN [BILSANET_MOBILE].[dbo].sys_specific_definitions spdx on (spdx.id = spd.id OR spdx.language_parent_id = spd.id) and spdx.language_id = ".$languageIdValue." 
                 WHERE 
                     spd.main_group = 4 and 
                     spd.language_id = 647 and 
@@ -533,7 +518,7 @@ class MblLogin extends \DAL\DalSlim {
             union 
                 SELECT TOP 1 
                     KisiID, adsoyad, TCKimlikNo, Fotograf, CinsiyetID, tcID, @KullaniciKontrol as KullaniciKontrol ,
-                    '' as description  
+                    '' as description,-99 as first_group  
                 FROM ##okidetaydata".$tc."  
               ) as adsdsdasd  
               order by tcID desc,KullaniciKontrol desc 
@@ -565,7 +550,7 @@ class MblLogin extends \DAL\DalSlim {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-    
+     
     /** 
      * @author Okan CIRAN  -- kullanılmıyor
      * @ login olan userin rol bilgileri ve okul id leri   !!
@@ -7168,7 +7153,11 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $languageIdValue = 647;
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
-            }  
+            } 
+            $SID = 9;
+            if (isset($params['SID']) && $params['SID'] != "") {
+                $SID = $params['SID'];
+            } 
              
             $sql = "    
             SET NOCOUNT ON;  
