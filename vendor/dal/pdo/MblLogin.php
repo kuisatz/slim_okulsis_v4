@@ -5130,6 +5130,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             into #legend
             FROM BILSANET_MOBILE.dbo.Mobile_User_Messages mum 
             WHERE mum.main_group=6 and mum.active =0 and mum.deleted =0 and mum.language_id = ".$languageIdValue." ;
+            
             SELECT 
                 OO.OgrenciOdevID,
                 OO.OgrenciID,
@@ -5141,7 +5142,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 OO.OgretmenDegerlendirme,
                 OO.OdevOnayID,
                 K.Adi  collate SQL_Latin1_General_CP1254_CI_AS  + ' ' + K.Soyadi  collate SQL_Latin1_General_CP1254_CI_AS  AS OgretmenAdi,
-                D.DersAdi,
+                COALESCE(NULLIF(COALESCE(NULLIF(dx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS,''),dxx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),D.DersAdi) AS DersAdi,
                 OT.Tanim, 
                 FORMAT(OT.Tarih, 'dd-MM-yyyy') as Tarih, 
                 FORMAT(OT.TeslimTarihi, 'dd-MM-yyyy') as TeslimTarihi, 
@@ -5162,6 +5163,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             INNER JOIN #legend mumx1 on mumx1.first_group =1  
             INNER JOIN #legend mumx2 on mumx2.first_group =2  
             INNER JOIN #legend mumx3 on mumx3.first_group =3
+            INNER JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0 
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dxx on (dxx.DersAdi collate SQL_Latin1_General_CP1254_CI_AS=upper(D.DersAdi) collate SQL_Latin1_General_CP1254_CI_AS) and dxx.language_id= 647
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dx on (dx.language_parent_id = dxx.id1 OR dx.id1 = dxx.id1) AND dx.language_id= lx.id  
+            
             WHERE OO.OgrenciID = '".$OgrenciID."' AND DY.EgitimYilID = ".intval($EgitimYilID)."
                 ".$addSQL."   
             ORDER BY OT.Tarih DESC 
