@@ -9197,7 +9197,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
      * @return array
      * @throws \PDOException
      */
-    public function msjIcinOgretmenListesi($params = array()) {
+    public function msjIcinOgretmenListesi($params = array()) { 
         try {
            $cid = -1;
             if ((isset($params['Cid']) && $params['Cid'] != "")) {
@@ -9239,11 +9239,17 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
              
             $sql = "  
             SET NOCOUNT ON;  
+            SELECT  
+                '[ ' + DersAdi  collate SQL_Latin1_General_CP1254_CI_AS+ ' ]  ' +aciklama,
+                ID,
+                DersAdi,
+                kontrol
+            FROM (
             SELECT DISTINCT    
-                '[ ' + dd.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS+ ' ]  ' + K.Adi  collate SQL_Latin1_General_CP1254_CI_AS+ ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS AS aciklama, 
-                 so.OgretmenID as ID, 
-                 COALESCE(NULLIF(COALESCE(NULLIF(dx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS,''),dxx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),dd.DersAdi) AS DersAdi,
-                 0 as kontrol    
+                K.Adi collate SQL_Latin1_General_CP1254_CI_AS+ ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS AS aciklama, 
+                so.OgretmenID as ID, 
+                COALESCE(NULLIF(COALESCE(NULLIF(dx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS,''),dxx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),dd.DersAdi) AS DersAdi,
+                0 as kontrol    
             FROM ".$dbnamex."GNL_Siniflar gs
             INNER JOIN ".$dbnamex."GNL_OgrenciSeviyeleri os ON gs.SinifID = os.SinifID 
             INNER JOIN ".$dbnamex."GNL_SinifOgretmenleri  so ON gs.SinifID = so.SinifID 
@@ -9258,8 +9264,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dx on (dx.language_parent_id = dxx.id1 OR dx.id1 = dxx.id1) AND dx.language_id= lx.id  
              
             ".$addWhereSQL."
+                ) AS fdsdf
             ORDER BY 
-                '[ ' + dd.DersAdi collate SQL_Latin1_General_CP1254_CI_AS + ' ]  ' + K.Adi collate SQL_Latin1_General_CP1254_CI_AS + ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS;   
+                 '[ ' + DersAdi  collate SQL_Latin1_General_CP1254_CI_AS+ ' ]  ' +aciklama;   
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
