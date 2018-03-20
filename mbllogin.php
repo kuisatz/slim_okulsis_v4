@@ -131,7 +131,12 @@ $app->get("/gnlKullaniciFindForLoginByTcKimlikNo_mbllogin/", function () use ($a
         $stripper->offsetSet('lat', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
                 $app, $_GET['lat']));
     } 
-    
+    $vLanguageID = NULL;
+    if (isset($_GET['lid'])) {
+        $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['lid']));
+    }  
     
     $stripper->strip();
     
@@ -153,6 +158,9 @@ $app->get("/gnlKullaniciFindForLoginByTcKimlikNo_mbllogin/", function () use ($a
     if ($stripper->offsetExists('lat')) {
         $vlat = $stripper->offsetGet('lat')->getFilterValue();
     }
+     if ($stripper->offsetExists('lid')) 
+        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue();
+    }  
    
     $resDataInsert = $BLL->gnlKullaniciFindForLoginByTcKimlikNo(array( 
         'url' => $_GET['url'], 
@@ -163,8 +171,7 @@ $app->get("/gnlKullaniciFindForLoginByTcKimlikNo_mbllogin/", function () use ($a
         'xip' => $vXIP, 
         'Long' => $vlong, 
         'Lat' => $vlat, 
-        
-        
+        'LanguageID' => $vLanguageID,  
         ));
     $app->response()->header("Content-Type", "application/json");
     $app->response()->body(json_encode($resDataInsert));
