@@ -9842,10 +9842,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             LEFT JOIN ".$dbnamex."GNL_Dersler  dd ON dh.DersID = dd.DersID             
  
             SELECT DISTINCT    
-                 K.Adi  collate SQL_Latin1_General_CP1254_CI_AS+ ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS AS aciklama, 
-                 so.OgretmenID  , 
-                 dd.DersAdi,
-                 0 as kontrol    
+                K.Adi collate SQL_Latin1_General_CP1254_CI_AS+ ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS AS aciklama, 
+                so.OgretmenID,                
+                COALESCE(NULLIF(COALESCE(NULLIF(dx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS,''),dxx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),dd.DersAdi) AS DersAdi,
+                0 AS kontrol
             FROM ".$dbnamex."GNL_Siniflar gs
             INNER JOIN ".$dbnamex."GNL_OgrenciSeviyeleri os ON gs.SinifID = os.SinifID 
             INNER JOIN ".$dbnamex."GNL_SinifOgretmenleri  so ON gs.SinifID = so.SinifID 
