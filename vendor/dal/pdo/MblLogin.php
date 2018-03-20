@@ -5357,7 +5357,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             LEFT JOIN BILSANET_MOBILE.dbo.sys_specific_definitions ax on ax.language_id= lx.id  
                 and ax.main_group = 3 and ax.first_group = a.HaftaGunu and  ax.first_group>0 
             LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dxx on (dxx.DersAdi collate SQL_Latin1_General_CP1254_CI_AS=upper(a.DersAdi) collate SQL_Latin1_General_CP1254_CI_AS) and dxx.language_id= 647
-            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dx on (dx.language_parent_id = dxx.id1 OR dx.id1 = dxx.id1) AND (dx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS= dxx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS) and dx.language_id= lx.id  
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dx on (dx.language_parent_id = dxx.id1 OR dx.id1 = dxx.id1) AND dx.language_id= lx.id  
             ORDER BY HaftaGunu ,DersSirasi           
                    
             IF OBJECT_ID('tempdb..#okiogretmendersprogramilistesi') IS NOT NULL DROP TABLE #okiogretmendersprogramilistesi; 
@@ -9834,6 +9834,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
              
             $sql = "   
             SET NOCOUNT ON;  
+            SELECT DISTINCT sd1.SinifDersID, sd1.DersHavuzuID, sd1.SinifID, dd.DersID,dd.DersAdi
+                into #dersller 
+            FROM ".$dbnamex."GNL_SinifDersleri sd1    
+            LEFT JOIN ".$dbnamex."GNL_Siniflar s1 on s1.SinifID = sd1.SinifID
+            LEFT JOIN ".$dbnamex."GNL_DersHavuzlari  dh ON sd1.DersHavuzuID = dh.DersHavuzuID 
+            LEFT JOIN ".$dbnamex."GNL_Dersler  dd ON dh.DersID = dd.DersID             
+ 
             SELECT DISTINCT    
                  K.Adi  collate SQL_Latin1_General_CP1254_CI_AS+ ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS AS aciklama, 
                  so.OgretmenID  , 
@@ -9846,6 +9853,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             INNER JOIN ".$dbnamex."GNL_Kisiler K ON ogt.OgretmenID = K.KisiID 
             INNER JOIN ".$dbnamex."GNL_DersHavuzlari dh ON so.DersHavuzuID = dh.DersHavuzuID 
             INNER JOIN ".$dbnamex."GNL_Dersler dd ON dh.DersID = dd.DersID 
+            INNER JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0 
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dxx on (dxx.DersAdi collate SQL_Latin1_General_CP1254_CI_AS=upper(dd.DersAdi) collate SQL_Latin1_General_CP1254_CI_AS) and dxx.language_id= 647
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dx on (dx.language_parent_id = dxx.id1 OR dx.id1 = dxx.id1) AND dx.language_id= lx.id  
+           
             WHERE os.OgrenciID = '".$KisiId."' 
             ORDER BY 
                  K.Adi  collate SQL_Latin1_General_CP1254_CI_AS+ ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS;   
