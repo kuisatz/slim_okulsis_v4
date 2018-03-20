@@ -9237,12 +9237,12 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
          
             $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue); 
              
-            $sql = "   
+            $sql = "  
             SET NOCOUNT ON;  
             SELECT DISTINCT    
                 '[ ' + dd.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS+ ' ]  ' + K.Adi  collate SQL_Latin1_General_CP1254_CI_AS+ ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS AS aciklama, 
                  so.OgretmenID as ID, 
-                 dd.DersAdi,
+                 COALESCE(NULLIF(COALESCE(NULLIF(dx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS,''),dxx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),dd.DersAdi) AS DersAdi,
                  0 as kontrol    
             FROM ".$dbnamex."GNL_Siniflar gs
             INNER JOIN ".$dbnamex."GNL_OgrenciSeviyeleri os ON gs.SinifID = os.SinifID 
@@ -9253,6 +9253,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             INNER JOIN ".$dbnamex."GNL_Dersler dd ON dh.DersID = dd.DersID
             LEFT JOIN ".$dbnamex."GNL_OgrenciYakinlari VELI ON VELI.OgrenciID = os.OgrenciID
             LEFT JOIN ".$dbnamex."GNL_Kisiler KV ON KV.KisiID = VELI.YakinID   
+            INNER JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0 
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dxx on (dxx.DersAdi collate SQL_Latin1_General_CP1254_CI_AS=upper(dd.DersAdi) collate SQL_Latin1_General_CP1254_CI_AS) and dxx.language_id= 647
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dx on (dx.language_parent_id = dxx.id1 OR dx.id1 = dxx.id1) AND dx.language_id= lx.id  
+             
             ".$addWhereSQL."
             ORDER BY 
                 '[ ' + dd.DersAdi collate SQL_Latin1_General_CP1254_CI_AS + ' ]  ' + K.Adi collate SQL_Latin1_General_CP1254_CI_AS + ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS;   
