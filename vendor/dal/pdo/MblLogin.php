@@ -5460,13 +5460,17 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         Gun7_SinifDersID  varchar(50) collate SQL_Latin1_General_CP1254_CI_AS 
                     ) ;
                     
-            Select distinct sd1.SinifDersID, sd1.DersHavuzuID, sd1.SinifID, dd.DersID,dd.DersAdi
+            SELECT distinct sd1.SinifDersID, sd1.DersHavuzuID, sd1.SinifID, dd.DersID, 
+                COALESCE(NULLIF(COALESCE(NULLIF(dx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS,''),dxx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),dd.DersAdi) AS DersAdi
                 into #dersller 
             FROM ".$dbnamex."GNL_SinifDersleri sd1    
             LEFT JOIN ".$dbnamex."GNL_Siniflar s1 on s1.SinifID = sd1.SinifID
             LEFT JOIN ".$dbnamex."GNL_DersHavuzlari  dh ON sd1.DersHavuzuID = dh.DersHavuzuID 
             LEFT JOIN ".$dbnamex."GNL_Dersler  dd ON dh.DersID = dd.DersID 
-
+            INNER JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0 
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dxx on (dxx.DersAdi collate SQL_Latin1_General_CP1254_CI_AS=upper(dd.DersAdi) collate SQL_Latin1_General_CP1254_CI_AS) and dxx.language_id= 647
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dx on (dx.language_parent_id = dxx.id1 OR dx.id1 = dxx.id1) AND dx.language_id= lx.id  
+            
             INSERT #okiogrencidersprogramilistesi EXEC ".$dbnamex."[PRC_GNL_DersProgrami_FindForOgrenci]
                                             @OgrenciSeviyeID = '".$OgrenciSeviyeID."',
                                             @SinifID =   '".$SinifID."', 
@@ -5658,13 +5662,17 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         Gun7_SinifDersID  varchar(20) collate SQL_Latin1_General_CP1254_CI_AS 
                     ) ;
                     
-            Select distinct sd1.SinifDersID, sd1.DersHavuzuID, sd1.SinifID, dd.DersID,dd.DersAdi
+            SELECT distinct sd1.SinifDersID, sd1.DersHavuzuID, sd1.SinifID, dd.DersID, 
+                COALESCE(NULLIF(COALESCE(NULLIF(dx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS,''),dxx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),dd.DersAdi) AS DersAdi
                 into #dersller 
             FROM ".$dbnamex."GNL_SinifDersleri sd1    
             LEFT JOIN ".$dbnamex."GNL_Siniflar s1 on s1.SinifID = sd1.SinifID
             LEFT JOIN ".$dbnamex."GNL_DersHavuzlari  dh ON sd1.DersHavuzuID = dh.DersHavuzuID 
             LEFT JOIN ".$dbnamex."GNL_Dersler  dd ON dh.DersID = dd.DersID 
-
+            INNER JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0 
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dxx on (dxx.DersAdi collate SQL_Latin1_General_CP1254_CI_AS=upper(dd.DersAdi) collate SQL_Latin1_General_CP1254_CI_AS) and dxx.language_id= 647
+            LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dx on (dx.language_parent_id = dxx.id1 OR dx.id1 = dxx.id1) AND dx.language_id= lx.id  
+            
             INSERT #okikpdersprogramilistesi EXEC ".$dbnamex."[PRC_GNL_DersProgrami_Find] 
                                             @SinifID =  '".$SinifID."', 
                                             @DonemID =  ".intval($DonemID)." ; 
@@ -7363,14 +7371,18 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 CREATE TABLE #DersProgrami(DersSirasi smallint,
                                             HaftaGunu smallint,
                                             SinifDersID nvarchar(4000) collate SQL_Latin1_General_CP1254_CI_AS);
-                Select distinct sd1.SinifDersID, sd1.DersHavuzuID, sd1.SinifID, dd.DersID,dd.DersAdi
-                    into #dersller 
+                SELECT distinct sd1.SinifDersID, sd1.DersHavuzuID, sd1.SinifID, dd.DersID, 
+                    COALESCE(NULLIF(COALESCE(NULLIF(dx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS,''),dxx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),dd.DersAdi) AS DersAdi
+                into #dersller 
                 FROM ".$dbnamex."GNL_SinifDersleri sd1    
                 LEFT JOIN ".$dbnamex."GNL_Siniflar s1 on s1.SinifID = sd1.SinifID
                 LEFT JOIN ".$dbnamex."GNL_DersHavuzlari  dh ON sd1.DersHavuzuID = dh.DersHavuzuID 
                 LEFT JOIN ".$dbnamex."GNL_Dersler  dd ON dh.DersID = dd.DersID 
-
-                 SELECT top 1 
+                INNER JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0 
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dxx on (dxx.DersAdi collate SQL_Latin1_General_CP1254_CI_AS=upper(dd.DersAdi) collate SQL_Latin1_General_CP1254_CI_AS) and dxx.language_id= 647
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dx on (dx.language_parent_id = dxx.id1 OR dx.id1 = dxx.id1) AND dx.language_id= lx.id  
+             
+                SELECT top 1 
                         @DersYiliID = DY.DersYiliID ,
                         @SubeGrupID = S.SubeGrupID , 
                         @OgrenciSeviyeID = OS.OgrenciseviyeID, 
@@ -7566,13 +7578,18 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 IF OBJECT_ID('tempdb..#DersProgrami') IS NOT NULL DROP TABLE #DersProgrami;   
                 IF OBJECT_ID('tempdb..#xxx') IS NOT NULL DROP TABLE #xxx;  
                 IF OBJECT_ID('tempdb..#dersller') IS NOT NULL DROP TABLE #dersller; 
-                Select distinct sd1.SinifDersID, sd1.DersHavuzuID, sd1.SinifID, dd.DersID,dd.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS
-                    into #dersller 
+                
+                SELECT distinct sd1.SinifDersID, sd1.DersHavuzuID, sd1.SinifID, dd.DersID, 
+                     COALESCE(NULLIF(COALESCE(NULLIF(dx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS,''),dxx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),dd.DersAdi) AS DersAdi
+                into #dersller 
                 FROM ".$dbnamex."GNL_SinifDersleri sd1    
                 LEFT JOIN ".$dbnamex."GNL_Siniflar s1 on s1.SinifID = sd1.SinifID
                 LEFT JOIN ".$dbnamex."GNL_DersHavuzlari  dh ON sd1.DersHavuzuID = dh.DersHavuzuID 
                 LEFT JOIN ".$dbnamex."GNL_Dersler  dd ON dh.DersID = dd.DersID 
- 
+                INNER JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0 
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dxx on (dxx.DersAdi collate SQL_Latin1_General_CP1254_CI_AS=upper(dd.DersAdi) collate SQL_Latin1_General_CP1254_CI_AS) and dxx.language_id= 647
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dx on (dx.language_parent_id = dxx.id1 OR dx.id1 = dxx.id1) AND dx.language_id= lx.id  
+            
                 CREATE TABLE #DersProgrami(DersSirasi smallint,
                                             HaftaGunu smallint,
                                             SinifDersID nvarchar(4000)  collate SQL_Latin1_General_CP1254_CI_AS);  
@@ -7792,12 +7809,18 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 IF OBJECT_ID('tempdb..#DersProgrami') IS NOT NULL DROP TABLE #DersProgrami;   
                 IF OBJECT_ID('tempdb..#DersProgramiSonuc') IS NOT NULL DROP TABLE #DersProgramiSonuc;  
                 IF OBJECT_ID('tempdb..#dersller') IS NOT NULL DROP TABLE #dersller; 
-                Select distinct sd1.SinifDersID, sd1.DersHavuzuID, sd1.SinifID, dd.DersID,dd.DersAdi
-                    into #dersller 
+                
+                SELECT distinct sd1.SinifDersID, sd1.DersHavuzuID, sd1.SinifID, dd.DersID, 
+                    COALESCE(NULLIF(COALESCE(NULLIF(dx.DersAdi  collate SQL_Latin1_General_CP1254_CI_AS,''),dxx.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),dd.DersAdi) AS DersAdi
+                into #dersller 
                 FROM ".$dbnamex."GNL_SinifDersleri sd1    
                 LEFT JOIN ".$dbnamex."GNL_Siniflar s1 on s1.SinifID = sd1.SinifID
                 LEFT JOIN ".$dbnamex."GNL_DersHavuzlari  dh ON sd1.DersHavuzuID = dh.DersHavuzuID 
                 LEFT JOIN ".$dbnamex."GNL_Dersler  dd ON dh.DersID = dd.DersID 
+                INNER JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0 
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dxx on (dxx.DersAdi collate SQL_Latin1_General_CP1254_CI_AS=upper(dd.DersAdi) collate SQL_Latin1_General_CP1254_CI_AS) and dxx.language_id= 647
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Dersler_lng dx on (dx.language_parent_id = dxx.id1 OR dx.id1 = dxx.id1) AND dx.language_id= lx.id  
+ 
                 CREATE TABLE #DersProgrami(DersSirasi smallint,
                                             HaftaGunu smallint,
                                             SinifDersID nvarchar(4000)  collate SQL_Latin1_General_CP1254_CI_AS,
@@ -7896,7 +7919,6 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 
                 CLOSE db_cursor   
                 DEALLOCATE db_cursor  
-
 	  
                 SELECT
                     ssdddsdsd.DersSaati, ISNULL(ssdddsdsd.SinifAdi collate SQL_Latin1_General_CP1254_CI_AS,'') as SinifAdi , 1 as dayy, ISNULL(ssdddsdsd.SinifDersID,'') as SinifDersID,ISNULL(ssdddsdsd.DersAdi collate SQL_Latin1_General_CP1254_CI_AS,'') as DersAdi,				  
@@ -9833,13 +9855,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue); 
              
             $sql = "   
-            SET NOCOUNT ON;  
-            SELECT DISTINCT sd1.SinifDersID, sd1.DersHavuzuID, sd1.SinifID, dd.DersID,dd.DersAdi
-                into #dersller 
-            FROM ".$dbnamex."GNL_SinifDersleri sd1    
-            LEFT JOIN ".$dbnamex."GNL_Siniflar s1 on s1.SinifID = sd1.SinifID
-            LEFT JOIN ".$dbnamex."GNL_DersHavuzlari  dh ON sd1.DersHavuzuID = dh.DersHavuzuID 
-            LEFT JOIN ".$dbnamex."GNL_Dersler  dd ON dh.DersID = dd.DersID             
+            SET NOCOUNT ON;   
  
             SELECT DISTINCT    
                 K.Adi collate SQL_Latin1_General_CP1254_CI_AS+ ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS AS aciklama, 
