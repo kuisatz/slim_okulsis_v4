@@ -9240,7 +9240,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $sql = "  
             SET NOCOUNT ON;  
             SELECT  
-                '[ ' + DersAdi  collate SQL_Latin1_General_CP1254_CI_AS+ ' ]  ' +aciklama,
+                '[ ' + DersAdi  collate SQL_Latin1_General_CP1254_CI_AS+ ' ]  ' + aciklama AS aciklama,
                 ID,
                 DersAdi,
                 kontrol
