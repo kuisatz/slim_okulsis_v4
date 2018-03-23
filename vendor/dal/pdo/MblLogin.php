@@ -5123,16 +5123,17 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             }
             $DonemID = NULL;
             $addSQL = " AND DY.DonemID = (select max(DonemID) from ".$dbnamex."GNL_DersYillari dy
-			   where EgitimYilID =  ".$EgitimYilID." and 
+			   where EgitimYilID = ".$EgitimYilID." AND 
 			   cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND cast(dy.Donem2BitisTarihi AS date)) ";
             if ((isset($params['DonemID']) && $params['DonemID'] != "")) {
                 $DonemID = $params['DonemID'];
                 IF ($DonemID == 1 ) {
-                $addSQL = ' AND DY.DonemID = 1 ' ;
+                $addSQL = ' AND DY.DonemID = 1 ' ;              
                 } 
                 ELSE {
                 $addSQL =  ' AND DY.DonemID = 2 ' ;
                 } 
+                  $addSQL ="";
                  $addSQL = $addSQL." AND OT.TeslimTarihi BETWEEN cast(DY.Donem".$DonemID."BaslangicTarihi AS date) AND cast(dy.Donem".$DonemID."BitisTarihi AS date) " ;
             }             
             
