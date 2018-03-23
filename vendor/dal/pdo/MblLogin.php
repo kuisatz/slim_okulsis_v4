@@ -5122,9 +5122,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 $languageIdValue = $params['LanguageID'];
             }
             $DonemID = NULL;
-            $addSQL = ' AND DY.DonemID = (select max(DonemID) from BILSANET_TAKEVBODRUM.dbo.GNL_DersYillari dy
-			   where EgitimYilID =  2017 and 
-			   cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND cast(dy.Donem2BitisTarihi AS date)) ';
+            $addSQL = " AND DY.DonemID = (select max(DonemID) from ".$dbnamex."GNL_DersYillari dy
+			   where EgitimYilID =  ".$EgitimYilID." and 
+			   cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND cast(dy.Donem2BitisTarihi AS date)) ";
             if ((isset($params['DonemID']) && $params['DonemID'] != "")) {
                 $DonemID = $params['DonemID'];
                 IF ($DonemID == 1 ) {
@@ -5133,8 +5133,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 ELSE {
                 $addSQL =  ' AND DY.DonemID = 2 ' ;
                 } 
-            }
-             
+            }             
             
             $sql = "  
             SET NOCOUNT ON;  
