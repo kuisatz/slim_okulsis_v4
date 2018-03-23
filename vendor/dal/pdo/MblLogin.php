@@ -1196,9 +1196,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 COALESCE(NULLIF(six.a28 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a28_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan28,
                 COALESCE(NULLIF(six.a29 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a29_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan29,
                 COALESCE(NULLIF(six.a30 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a30_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan30,
-                ,mumx1.description as l1
-                ,mumx2.description as l2
-                ,mumx3.description as l3 
+                mumx1.description as l1,
+                mumx2.description as l2,
+                mumx3.description as l3 
                 FROM  (  
                     SELECT 
                         a.ID
