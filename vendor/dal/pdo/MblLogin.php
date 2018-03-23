@@ -9761,8 +9761,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                /* set @DersYiliID = '0E210F64-D491-4027-BEE9-C9BD1E8699EF';*/
                 set @OkulID = '".$OkulID."';
                 set @SeviyeID = NULL;
-                set @SinifID =NULL;
- 
+                set @SinifID =NULL; 
               
                 SELECT 
                         O.OgretmenID,
@@ -9772,7 +9771,16 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         COUNT(DISTINCT OO.OgrenciOdevID) AS OgrenciSayisi,
                         COUNT(DISTINCT (CASE WHEN OO.OgrenciGordu = 1 OR OdevOnayID = 2 THEN OO.OgrenciOdevID ELSE NULL END)) AS GorenSayisi,
                         COUNT(DISTINCT (CASE WHEN OO.OgrenciOnay = 1 OR OdevOnayID = 2 THEN OO.OgrenciOdevID ELSE NULL END)) AS YapanSayisi,
-                        COUNT(DISTINCT (CASE WHEN OdevOnayID = 2 THEN OO.OgrenciOdevID ELSE NULL END)) AS OnaySayisi
+                        COUNT(DISTINCT (CASE WHEN OO.OdevOnayID = 2 THEN OO.OgrenciOdevID ELSE NULL END)) AS OnaySayisi,
+                        
+                        COUNT(DISTINCT (CASE WHEN OO.OgrenciGordu = 1 THEN OO.OgrenciOdevID ELSE NULL END)) AS GorulenOdevSayisi,
+                        COUNT(DISTINCT (CASE WHEN OdevOnayID = 0 THEN OO.OgrenciOdevID ELSE NULL END)) AS DegerlendirilmemisOdevSayisi,
+                        COUNT(DISTINCT (CASE WHEN OdevOnayID = 1 THEN OO.OgrenciOdevID ELSE NULL END)) AS KabulEdilenOdevSayisi,
+                        COUNT(DISTINCT (CASE WHEN OdevOnayID = 2 THEN OO.OgrenciOdevID ELSE NULL END)) AS KabulEdilmeyenOdevSayisi,
+                        COUNT(DISTINCT (CASE WHEN OdevOnayID = 3 THEN OO.OgrenciOdevID ELSE NULL END)) AS YapilmayanOdevSayisi,
+                        COUNT(DISTINCT (CASE WHEN OdevOnayID = 4 THEN OO.OgrenciOdevID ELSE NULL END)) AS EksikYapilanOdevSayisi
+
+
                 FROM ".$dbnamex."OGT_Ogretmenler O
                 INNER JOIN ".$dbnamex."GNL_Kisiler K ON (K.KisiID = O.OgretmenID)
                 INNER JOIN ".$dbnamex."GNL_SinifOgretmenleri SO ON (SO.OgretmenID = O.OgretmenID)

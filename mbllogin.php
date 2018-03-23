@@ -5360,7 +5360,12 @@ $app->get("/KyOgretmenOdevListeleri_mbllogin/", function () use ($app ) {
             "Brans" => html_entity_decode($menu["Brans"]), 
             "YapanSayisi" =>  ($menu["YapanSayisi"]),
             "OnaySayisi" =>  ($menu["OnaySayisi"]),
-            
+            "GorulenOdevSayisi" =>  ($menu["GorulenOdevSayisi"]),
+            "DegerlendirilmemisOdevSayisi" =>  ($menu["DegerlendirilmemisOdevSayisi"]),
+            "KabulEdilenOdevSayisi" =>  ($menu["KabulEdilenOdevSayisi"]),
+            "YapilmayanOdevSayisi" =>  ($menu["YapilmayanOdevSayisi"]),
+            "EksikYapilanOdevSayisi" =>  ($menu["EksikYapilanOdevSayisi"]),
+             
         );
     }
     
