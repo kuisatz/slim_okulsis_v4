@@ -5352,14 +5352,111 @@ $app->get("/KyOgretmenOdevListeleri_mbllogin/", function () use ($app ) {
     $menus = array();
     foreach ($resDataInsert as $menu){
         $menus[]  = array( 
-            
+            "OdevSayisi" => $menu["OdevSayisi"],
+            "OgrenciSayisi" => $menu["OgrenciSayisi"],
+            "GorenSayisi" => $menu["GorenSayisi"], 
+            "AdiSoyadi" => html_entity_decode($menu["AdiSoyadi"]), 
+            "Brans" => html_entity_decode($menu["Brans"]),  
+            "YapanSayisi" =>  ($menu["YapanSayisi"]),
+            "OnaySayisi" =>  ($menu["OnaySayisi"]),
+            "Tanim" => '', 
+            "TeslimTarihi" =>  '',
+            "GorulenOdevSayisi" =>  ($menu["GorulenOdevSayisi"]),
+            "DegerlendirilmemisOdevSayisi" =>  ($menu["DegerlendirilmemisOdevSayisi"]),
+            "KabulEdilenOdevSayisi" =>  ($menu["KabulEdilenOdevSayisi"]),
+            "KabulEdilmeyenOdevSayisi" =>  ($menu["KabulEdilmeyenOdevSayisi"]),
+            "YapilmayanOdevSayisi" =>  ($menu["YapilmayanOdevSayisi"]),
+            "EksikYapilanOdevSayisi" =>  ($menu["EksikYapilanOdevSayisi"]),
+             
+        );
+    }
+    
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($menus));
+    
+    
+    
+    
+} 
+);
+
+/**
+ *  * Okan CIRAN
+ * @since 03.10.2017
+ */
+$app->get("/KyOgretmeninOdevListesi_mbllogin/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
+    $BLL = $app->getBLLManager()->get('mblLoginBLL'); 
+     
+    $vOkulID = NULL;     
+    if (isset($_GET['okulID'])) {
+        $stripper->offsetSet('okulID', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['okulID']));
+    } 
+    $vKisiId = NULL;     
+    if (isset($_GET['ogretmenID'])) {
+        $stripper->offsetSet('ogretmenID', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['ogretmenID']));
+    } 
+    $vCid = NULL;   
+    if (isset($_GET['cid'])) {
+        $stripper->offsetSet('cid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                $app, $_GET['cid']));
+    }
+    $vLanguageID = NULL;
+    if (isset($_GET['lid'])) {
+        $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['lid']));
+    } 
+   $vDid = NULL;   
+    if (isset($_GET['did'])) {
+        $stripper->offsetSet('did', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                $app, $_GET['did']));
+    }
+ 
+    $stripper->strip();
+    if ($stripper->offsetExists('did')) {
+        $vDid = $stripper->offsetGet('did')->getFilterValue();
+    }
+    if ($stripper->offsetExists('cid')) {
+        $vCid = $stripper->offsetGet('cid')->getFilterValue();
+    } 
+    if ($stripper->offsetExists('okulID')) {
+        $vOkulID = $stripper->offsetGet('okulID')->getFilterValue();
+    } 
+    if ($stripper->offsetExists('ogretmenID')) {
+        $vKisiId = $stripper->offsetGet('ogretmenID')->getFilterValue();
+    }
+    if ($stripper->offsetExists('lid')) {
+        $vLanguageID = $stripper->offsetGet('lid')->getFilterValue();
+    }
+    
+   
+    $resDataInsert = $BLL->kyOgretmeninOdevListesi(array( 
+        'url' => $_GET['url'],  
+        'LanguageID' => $vLanguageID,  
+        'OkulID' => $vOkulID, 
+        'OgretmenID' => $vKisiId,  
+        'Cid' => $vCid, 
+        'Did' => $vDid,
+        'LanguageID' => $vLanguageID, 
+        ));
+ 
+  
+    $menus = array();
+    foreach ($resDataInsert as $menu){
+        $menus[]  = array(  
             "OdevSayisi" => $menu["OdevSayisi"],
             "OgrenciSayisi" => $menu["OgrenciSayisi"],
             "GorenSayisi" => $menu["GorenSayisi"], 
             "AdiSoyadi" => html_entity_decode($menu["AdiSoyadi"]), 
             "Brans" => html_entity_decode($menu["Brans"]), 
+            "Tanim" => html_entity_decode($menu["Tanim"]), 
             "YapanSayisi" =>  ($menu["YapanSayisi"]),
             "OnaySayisi" =>  ($menu["OnaySayisi"]),
+            "TeslimTarihi" =>  ($menu["TeslimTarihi"]),
             "GorulenOdevSayisi" =>  ($menu["GorulenOdevSayisi"]),
             "DegerlendirilmemisOdevSayisi" =>  ($menu["DegerlendirilmemisOdevSayisi"]),
             "KabulEdilenOdevSayisi" =>  ($menu["KabulEdilenOdevSayisi"]),

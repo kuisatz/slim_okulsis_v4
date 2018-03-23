@@ -9852,6 +9852,145 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
         }
     }
     
+     /** 
+     * @author Okan CIRAN
+     * @ yönetici içinögretmen ödev listesi
+     * @version v 1.0  10.10.2017
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException
+     */
+    public function kyOgretmeninOdevListesi($params = array()) {
+        try {
+           $cid = -1;
+            if ((isset($params['Cid']) && $params['Cid'] != "")) {
+                $cid = $params['Cid'];
+            } 
+            $did = NULL;
+            if ((isset($params['Did']) && $params['Did'] != "")) {
+                $did = $params['Did'];
+            }
+            $dbnamex = 'dbo.';
+            $dbConfigValue = 'pgConnectFactory';
+            $dbConfig =  MobilSetDbConfigx::mobilDBConfig( array( 'Cid' =>$cid,'Did' =>$did,));
+            if (\Utill\Dal\Helper::haveRecord($dbConfig)) {
+                $dbConfigValue =$dbConfigValue.$dbConfig['resultSet'][0]['configclass']; 
+                if ((isset($dbConfig['resultSet'][0]['configclass']) && $dbConfig['resultSet'][0]['configclass'] != "")) {
+                   $dbnamex =$dbConfig['resultSet'][0]['dbname'].'.'.$dbnamex;
+                    }   
+            }    
+            
+            $OkulID =  'CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC';
+            if ((isset($params['OkulID']) && $params['OkulID'] != "")) {
+                $OkulID = $params['OkulID'];
+            }  
+            $OgretmenID =  'CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC';
+            if ((isset($params['OgretmenID']) && $params['OgretmenID'] != "")) {
+                $OgretmenID = $params['OgretmenID'];
+            }
+            $languageIdValue = 647;
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            } 
+            
+          // 
+            
+            $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue); 
+             
+            $sql = "   
+                SET NOCOUNT ON;  
+ 
+                declare @DersYiliID UNIQUEIDENTIFIER,
+                        @OkulID UNIQUEIDENTIFIER,
+                        @SeviyeID INT,
+                        @OgretmenID UNIQUEIDENTIFIER,
+                        @SinifID UNIQUEIDENTIFIER ; 
+ 
+               /* set @DersYiliID = '0E210F64-D491-4027-BEE9-C9BD1E8699EF';*/
+                set @OkulID = '".$OkulID."';
+                set @OgretmenID =  '".$OgretmenID."';
+                set @SeviyeID = NULL;
+                set @SinifID =NULL; 
+              
+                SELECT 
+                        O.OgretmenID,
+                        K.Adi  collate SQL_Latin1_General_CP1254_CI_AS+ ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS AS AdiSoyadi,
+                        B.Brans,
+                        OT.Tanim,
+                        OT.TeslimTarihi,
+                        COUNT(DISTINCT OT.OdevTanimID) AS OdevSayisi,
+                        COUNT(DISTINCT OO.OgrenciOdevID) AS OgrenciSayisi,
+                        COUNT(DISTINCT (CASE WHEN OO.OgrenciGordu = 1 OR OdevOnayID = 2 THEN OO.OgrenciOdevID ELSE NULL END)) AS GorenSayisi,
+                        COUNT(DISTINCT (CASE WHEN OO.OgrenciOnay = 1 OR OdevOnayID = 2 THEN OO.OgrenciOdevID ELSE NULL END)) AS YapanSayisi,
+                        COUNT(DISTINCT (CASE WHEN OO.OdevOnayID = 2 THEN OO.OgrenciOdevID ELSE NULL END)) AS OnaySayisi,
+                        
+                        COUNT(DISTINCT (CASE WHEN OO.OgrenciGordu = 1 THEN OO.OgrenciOdevID ELSE NULL END)) AS GorulenOdevSayisi,
+                        COUNT(DISTINCT (CASE WHEN OdevOnayID = 0 THEN OO.OgrenciOdevID ELSE NULL END)) AS DegerlendirilmemisOdevSayisi,
+                        COUNT(DISTINCT (CASE WHEN OdevOnayID = 1 THEN OO.OgrenciOdevID ELSE NULL END)) AS KabulEdilenOdevSayisi,
+                        COUNT(DISTINCT (CASE WHEN OdevOnayID = 2 THEN OO.OgrenciOdevID ELSE NULL END)) AS KabulEdilmeyenOdevSayisi,
+                        COUNT(DISTINCT (CASE WHEN OdevOnayID = 3 THEN OO.OgrenciOdevID ELSE NULL END)) AS YapilmayanOdevSayisi,
+                        COUNT(DISTINCT (CASE WHEN OdevOnayID = 4 THEN OO.OgrenciOdevID ELSE NULL END)) AS EksikYapilanOdevSayisi
+
+
+                FROM ".$dbnamex."OGT_Ogretmenler O
+                INNER JOIN ".$dbnamex."GNL_Kisiler K ON (K.KisiID = O.OgretmenID)
+                INNER JOIN ".$dbnamex."GNL_SinifOgretmenleri SO ON (SO.OgretmenID = O.OgretmenID)
+                INNER JOIN ".$dbnamex."GNL_Siniflar S ON (S.SinifID = SO.SinifID)
+                INNER JOIN ".$dbnamex."OGT_Branslar B ON (B.BransID = O.BransID) 
+                INNER JOIN ".$dbnamex."GNL_DersYillari DY ON S.DersYiliID =  DY.DersYiliID  and dy.OkulID = @OkulID  AND DY.AktifMi =1  
+                LEFT OUTER JOIN ".$dbnamex."ODV_OdevTanimlari OT ON (OT.OgretmenID = O.OgretmenID)
+                LEFT OUTER JOIN ".$dbnamex."ODV_OgrenciOdevleri OO ON (OO.OdevTanimID = OT.OdevTanimID)
+                WHERE
+		(
+                    (OT.OdevTanimID IS NULL) OR
+                    (OT.OdevTanimID IN 
+                        (
+                            SELECT 
+                                INFO_OT.OdevTanimID
+                            FROM ".$dbnamex."ODV_OdevTanimlari INFO_OT
+                            INNER JOIN ".$dbnamex."GNL_SinifDersleri INFO_SD ON (INFO_SD.SinifDersID = INFO_OT.SinifDersID)
+                            INNER JOIN ".$dbnamex."GNL_SinifOgretmenleri INFO_SO ON (INFO_SO.SinifID = INFO_SD.SinifID AND INFO_SO.DersHavuzuID = INFO_SD.DersHavuzuID)
+                            INNER JOIN ".$dbnamex."GNL_Siniflar INFO_S ON (INFO_S.SinifID = INFO_SD.SinifID)
+                            INNER JOIN ".$dbnamex."GNL_DersHavuzlari INFO_DH ON (INFO_DH.DersHavuzuID = INFO_SD.DersHavuzuID)
+                            INNER JOIN ".$dbnamex."GNL_Dersler INFO_D ON (INFO_D.DersID = INFO_DH.DersID)
+                            WHERE
+                                INFO_OT.OgretmenID = O.OgretmenID AND 
+                                INFO_S.DersYiliID = S.DersYiliID AND
+                                INFO_S.SeviyeID = S.SeviyeID AND
+                                INFO_S.SinifID=S.SinifID 
+						
+                        )
+                    )
+		) AND 
+		/*  S.DersYiliID = @DersYiliID AND */ 
+                DY.EgitimYilID = (SELECT max(EgitimYilID) FROM ".$dbnamex."GNL_DersYillari dyx  where dyx.OkulID = dy.OkulID and dyx.AktifMi =1) AND 
+		((@SeviyeID IS NOT NULL AND S.SeviyeID = @SeviyeID) OR @SeviyeID IS NULL OR @SeviyeID = 0) AND
+                ((@SinifID IS NOT NULL AND S.SinifID = @SinifID) OR @SinifID IS NULL ) 
+                        GROUP BY
+                               O.OgretmenID,OT.Tanim,OT.TeslimTarihi,
+                               K.Adi,
+                               K.Soyadi,
+                               B.Brans
+                       ORDER BY 
+                           AdiSoyadi  /*  K.Adi + ' ' + K.Soyadi */ 
+	
+                SET NOCOUNT OFF  
+ 
+                 "; 
+            $statement = $pdo->prepare($sql);   
+    // echo debugPDO($sql, $params);
+            $statement->execute(); 
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {    
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
+    
+    
     /** 
      * @author Okan CIRAN
      * @ders ogretmen listesi 
