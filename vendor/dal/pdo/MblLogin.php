@@ -1148,24 +1148,24 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             WHERE mum.main_group=6 and mum.active =0 and mum.deleted =0 and mum.language_id = ".$languageIdValue." ;
                   
             SELECT 
-                ID,
-                MenuID,
-                ParentID,  
-                MenuAdi,
-                dbMenuAdi,
-                Aciklama,
-                URL,
-                RolID,
-                SubDivision,
-                ImageURL,
-                divid,
-                iconcolor,
-                iconclass,
-                collapse,
-                sira,
-                dashboardSira,
-                header,
-                description,
+                dataz.ID,
+                dataz.MenuID,
+                dataz.ParentID,  
+                dataz.MenuAdi,
+                dataz.dbMenuAdi,
+                dataz.Aciklama,
+                dataz.URL,
+                dataz.RolID,
+                dataz.SubDivision,
+                dataz.ImageURL,
+                dataz.divid,
+                dataz.iconcolor,
+                dataz.iconclass,
+                dataz.collapse,
+                dataz.sira,
+                dataz.dashboardSira,
+                dataz.header,
+                dataz.description,
                 COALESCE(NULLIF(six.a1 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a1_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan1,
                 COALESCE(NULLIF(six.a2 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a2_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan2,
                 COALESCE(NULLIF(six.a3 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a3_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan3,
@@ -1255,14 +1255,14 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         a.RolID = ".intval($RolID)." AND 
                         a.language_parent_id =0 AND 
                         a.ParentID >0 
-                ) AS asasdasd
+                ) AS dataz
                 /* INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = ".intval($SID)." */
                 LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."
                 INNER JOIN #legend mumx1 on mumx1.first_group =1  
                 INNER JOIN #legend mumx2 on mumx2.first_group =2  
                 INNER JOIN #legend mumx3 on mumx3.first_group =3 
                /* ORDER BY MenuID, ParentID, sira */
-                ORDER BY dashboardSira, sira
+                ORDER BY dataz.dashboardSira, dataz.sira
                 IF OBJECT_ID('tempdb..#legend') IS NOT NULL DROP TABLE #legend;      
                  ";  
             $statement = $pdo->prepare($sql);            
