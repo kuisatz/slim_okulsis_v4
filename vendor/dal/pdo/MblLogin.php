@@ -1120,8 +1120,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 $cid = $params['Cid'];
             } 
         
-            $dbConfigValue = 'pgConnectFactoryMobil';
-         
+            $dbConfigValue = 'pgConnectFactoryMobil'; 
             $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue);
             
             $RolID = -11;
@@ -1141,7 +1140,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 $SID = $params['SID'];
             }
             
-            $sql = "  
+            $sql = " 
+            IF OBJECT_ID('tempdb..#legend') IS NOT NULL DROP TABLE #legend; 
+            SELECT * 
+            into #legend
+            FROM BILSANET_MOBILE.dbo.Mobile_User_Messages mum 
+            WHERE mum.main_group=6 and mum.active =0 and mum.deleted =0 and mum.language_id = ".$languageIdValue." ;
+                  
             SELECT 
                 ID,
                 MenuID,
@@ -1190,7 +1195,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 COALESCE(NULLIF(six.a27 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a27_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan27,
                 COALESCE(NULLIF(six.a28 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a28_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan28,
                 COALESCE(NULLIF(six.a29 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a29_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan29,
-                COALESCE(NULLIF(six.a30 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a30_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan30         
+                COALESCE(NULLIF(six.a30 collate SQL_Latin1_General_CP1254_CI_AS,''),six.a30_eng  collate SQL_Latin1_General_CP1254_CI_AS) AS alan30,
+                ,mumx1.description as l1
+                ,mumx2.description as l2
+                ,mumx3.description as l3 
                 FROM  (  
                     SELECT 
                         a.ID
@@ -1210,11 +1218,11 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         a.sira,
                         a.dashboardSira,
                         COALESCE(NULLIF(ax.header,''),a.headerEng) as header,
-                        COALESCE(NULLIF(ax.description,''),a.descriptionEng) as description    
+                        COALESCE(NULLIF(ax.description,''),a.descriptionEng) AS description    
                     FROM BILSANET_MOBILE.dbo.[Mobil_Menuleri] a 
                     INNER JOIN BILSANET_MOBILE.dbo.sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0 
                     LEFT JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
-                    LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Menuleri ax on (ax.language_parent_id = a.ID or ax.ID = a.ID ) and  ax.language_id= lx.id  
+                    LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Menuleri ax ON (ax.language_parent_id = a.ID or ax.ID = a.ID ) and  ax.language_id= lx.id  
                     WHERE a.active = 0 AND a.deleted = 0 AND 
                         a.RolID = ".intval($RolID)."  AND 
                         a.language_parent_id =0 AND 
@@ -1239,20 +1247,23 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         a.dashboardSira,
                         COALESCE(NULLIF(ax.header,''),a.headerEng) as header,
                         COALESCE(NULLIF(ax.description,''),a.descriptionEng) as description
-                    FROM BILSANET_MOBILE.dbo.[Mobil_Menuleri] a 
+                    FROM BILSANET_MOBILE.dbo.Mobil_Menuleri a 
                     INNER JOIN BILSANET_MOBILE.dbo.sys_language l ON l.id = a.language_id AND l.deleted =0 AND l.active =0 
                     LEFT JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
-                    LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Menuleri ax on (ax.language_parent_id = a.ID or ax.ID = a.ID ) and  ax.language_id= lx.id  
+                    LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Menuleri ax on (ax.language_parent_id = a.ID or ax.ID = a.ID) and  ax.language_id= lx.id  
                     WHERE a.active = 0 AND a.deleted = 0 AND 
-                        a.RolID = ".intval($RolID)."  AND 
+                        a.RolID = ".intval($RolID)." AND 
                         a.language_parent_id =0 AND 
                         a.ParentID >0 
                 ) AS asasdasd
                 /* INNER JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items si on si.language_parent_id =0 and si.screen_id = ".intval($SID)." */
-                LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."                 
+                LEFT JOIN BILSANET_MOBILE.dbo.Mobile_User_Screen_Items six on six.active =0 AND six.deleted =0 AND six.language_id=".intval($languageIdValue)."  and six.screen_id = ".intval($SID)."
+                INNER JOIN #legend mumx1 on mumx1.first_group =1  
+                INNER JOIN #legend mumx2 on mumx2.first_group =2  
+                INNER JOIN #legend mumx3 on mumx3.first_group =3 
                /* ORDER BY MenuID, ParentID, sira */
                 ORDER BY dashboardSira, sira
-                     
+                IF OBJECT_ID('tempdb..#legend') IS NOT NULL DROP TABLE #legend;      
                  ";  
             $statement = $pdo->prepare($sql);            
       //echo debugPDO($sql, $params);

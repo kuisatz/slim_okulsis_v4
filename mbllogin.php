@@ -373,6 +373,9 @@ $app->get("/mobilMenu_mbllogin/", function () use ($app ) {
             "alan28" => html_entity_decode($menu["alan28"]),
             "alan29" => html_entity_decode($menu["alan29"]),
             "alan30" => html_entity_decode($menu["alan30"]),
+            "l1" => html_entity_decode($menu["l1"]), 
+            "l2" => html_entity_decode($menu["l2"]),  
+            "l3" => html_entity_decode($menu["l3"]), 
             
         );
     }
@@ -2383,10 +2386,7 @@ $app->get("/OdevListesiOgrenciveYakin_mbllogin/", function () use ($app ) {
             "Tanim" =>   html_entity_decode($menu["Tanim"]), 
             "Tarih" =>   ($menu["Tarih"]), 
             "TeslimTarihi" =>   ($menu["TeslimTarihi"]),  
-            "Aciklama" => $stripper2-> ripTags( strip_tags($filterHTMLTags->filter(  html_entity_decode($menu["Aciklama"] )))),
-            "l1" =>   html_entity_decode($menu["l1"]), 
-            "l2" =>   html_entity_decode($menu["l2"]),  
-            "l3" =>   html_entity_decode($menu["l3"]), 
+            "Aciklama" => $stripper2-> ripTags( strip_tags($filterHTMLTags->filter(  html_entity_decode($menu["Aciklama"] )))),          
           //  "alan1" => html_entity_decode($menu["alan1"]),
          //   "alan2" => html_entity_decode($menu["alan2"]),
          //   "alan3" => html_entity_decode($menu["alan3"]),
