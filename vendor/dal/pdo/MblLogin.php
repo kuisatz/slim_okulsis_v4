@@ -1141,6 +1141,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             }
             
             $sql = " 
+            set nocount on; 
             IF OBJECT_ID('tempdb..#legend') IS NOT NULL DROP TABLE #legend; 
             SELECT * 
             into #legend
@@ -1263,7 +1264,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 INNER JOIN #legend mumx3 on mumx3.first_group =3 
                /* ORDER BY MenuID, ParentID, sira */
                 ORDER BY dataz.dashboardSira, dataz.sira
-                IF OBJECT_ID('tempdb..#legend') IS NOT NULL DROP TABLE #legend;      
+                IF OBJECT_ID('tempdb..#legend') IS NOT NULL DROP TABLE #legend; 
+                 set nocount off; 
                  ";  
             $statement = $pdo->prepare($sql);            
       //echo debugPDO($sql, $params);
