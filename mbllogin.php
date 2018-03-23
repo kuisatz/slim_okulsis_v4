@@ -5363,6 +5363,7 @@ $app->get("/KyOgretmenOdevListeleri_mbllogin/", function () use ($app ) {
             "GorulenOdevSayisi" =>  ($menu["GorulenOdevSayisi"]),
             "DegerlendirilmemisOdevSayisi" =>  ($menu["DegerlendirilmemisOdevSayisi"]),
             "KabulEdilenOdevSayisi" =>  ($menu["KabulEdilenOdevSayisi"]),
+            "KabulEdilmeyenOdevSayisi" =>  ($menu["KabulEdilmeyenOdevSayisi"]),
             "YapilmayanOdevSayisi" =>  ($menu["YapilmayanOdevSayisi"]),
             "EksikYapilanOdevSayisi" =>  ($menu["EksikYapilanOdevSayisi"]),
              
