@@ -5494,6 +5494,111 @@ $app->get("/KyOgretmeninOdevListesiSinifBazli_mbllogin/", function () use ($app 
     if (isset($_GET['ogretmenID'])) {
         $stripper->offsetSet('ogretmenID', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
                 $app, $_GET['ogretmenID']));
+    }  
+    $vSinifID = NULL;     
+    if (isset($_GET['sinifID'])) {
+        $stripper->offsetSet('sinifID', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['sinifID']));
+    }   
+    $vCid = NULL;   
+    if (isset($_GET['cid'])) {
+        $stripper->offsetSet('cid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                $app, $_GET['cid']));
+    }
+    $vLanguageID = NULL;
+    if (isset($_GET['lid'])) {
+        $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['lid']));
+    } 
+   $vDid = NULL;   
+    if (isset($_GET['did'])) {
+        $stripper->offsetSet('did', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                $app, $_GET['did']));
+    }
+ 
+    $stripper->strip();
+    if ($stripper->offsetExists('did')) {
+        $vDid = $stripper->offsetGet('did')->getFilterValue();
+    }
+    if ($stripper->offsetExists('cid')) {
+        $vCid = $stripper->offsetGet('cid')->getFilterValue();
+    } 
+    if ($stripper->offsetExists('okulID')) {
+        $vOkulID = $stripper->offsetGet('okulID')->getFilterValue();
+    } 
+    if ($stripper->offsetExists('ogretmenID')) {
+        $vKisiId = $stripper->offsetGet('ogretmenID')->getFilterValue();
+    } 
+    if ($stripper->offsetExists('sinifID')) {
+        $vSinifID = $stripper->offsetGet('sinifID')->getFilterValue();
+    }
+    if ($stripper->offsetExists('lid')) {
+        $vLanguageID = $stripper->offsetGet('lid')->getFilterValue();
+    }
+    
+   
+    $resDataInsert = $BLL->KyOgretmeninOdevListesiSinifBazli(array( 
+        'url' => $_GET['url'],  
+        'LanguageID' => $vLanguageID,  
+        'OkulID' => $vOkulID, 
+        'OgretmenID' => $vKisiId,  
+        'SinifID' => $vSinifID,  
+        'Cid' => $vCid, 
+        'Did' => $vDid,
+        'LanguageID' => $vLanguageID, 
+        ));
+ 
+  
+    $menus = array();
+    foreach ($resDataInsert as $menu){
+        $menus[]  = array(  
+           
+            "SinifID" => $menu["SinifID"],
+            "Tanim" => html_entity_decode($menu["Tanim"]), 
+            "TeslimTarihi" =>  ($menu["TeslimTarihi"]), 
+            "OdevTanimID" => $menu["OdevTanimID"],  
+            "OdevSayisi" =>  ($menu["OdevSayisi"]),  
+            "OgrenciSayisi" =>  ($menu["OgrenciSayisi"]),
+            "GorenSayisi" =>  ($menu["GorenSayisi"]),
+            "YapanSayisi" =>  ($menu["YapanSayisi"]),
+            "OnaySayisi" =>  ($menu["OnaySayisi"]), 
+            "GorulenOdevSayisi" =>  ($menu["GorulenOdevSayisi"]),
+            "DegerlendirilmemisOdevSayisi" =>  ($menu["DegerlendirilmemisOdevSayisi"]),
+            "KabulEdilenOdevSayisi" =>  ($menu["KabulEdilenOdevSayisi"]),
+            "KabulEdilmeyenOdevSayisi" =>  ($menu["KabulEdilmeyenOdevSayisi"]),
+            "YapilmayanOdevSayisi" =>  ($menu["YapilmayanOdevSayisi"]),
+            "EksikYapilanOdevSayisi" =>  ($menu["EksikYapilanOdevSayisi"]),
+                 
+        );
+    }
+    
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($menus));
+    
+    
+    
+    
+} 
+);
+/**
+ *  * Okan CIRAN
+ * @since 03.10.2017
+ */
+$app->get("/KyOgretmeninOdevListesiOgrenciBazli_mbllogin/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();
+    $BLL = $app->getBLLManager()->get('mblLoginBLL'); 
+     
+    $vOkulID = NULL;     
+    if (isset($_GET['okulID'])) {
+        $stripper->offsetSet('okulID', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['okulID']));
+    } 
+    $vKisiId = NULL;     
+    if (isset($_GET['ogretmenID'])) {
+        $stripper->offsetSet('ogretmenID', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['ogretmenID']));
     } 
     $vOgrenciID = NULL;     
     if (isset($_GET['ogrenciID'])) {
