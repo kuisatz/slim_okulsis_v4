@@ -1322,7 +1322,7 @@ class MblLogin extends \BLL\BLLSlim{
     $resultSet = $DAL->kyOgretmenOdevListeleri($params);  
     return $resultSet['resultSet'];
     } 
-        /**
+    /**
      * Function to get datagrid row count on user interface layer
      * @param array | null $params 
      * @return array
@@ -1330,6 +1330,17 @@ class MblLogin extends \BLL\BLLSlim{
     public function kyOgretmeninOdevListesi($params = array()) {
     $DAL = $this->slimApp->getDALManager()->get('mblLoginPDO');
     $resultSet = $DAL->kyOgretmeninOdevListesi($params);  
+    return $resultSet['resultSet'];
+    } 
+    
+    /**
+     * Function to get datagrid row count on user interface layer
+     * @param array | null $params 
+     * @return array
+     */
+    public function kyOgretmeninOdevListesiSinifBazli($params = array()) {
+    $DAL = $this->slimApp->getDALManager()->get('mblLoginPDO');
+    $resultSet = $DAL->kyOgretmeninOdevListesiSinifBazli($params);  
     return $resultSet['resultSet'];
     } 
      
