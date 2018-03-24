@@ -5652,7 +5652,7 @@ $app->get("/KyOgretmeninOdevListesiOgrenciBazli_mbllogin/", function () use ($ap
     }
     
    
-    $resDataInsert = $BLL->KyOgretmeninOdevListesiSinifBazli(array( 
+    $resDataInsert = $BLL->KyOgretmeninOdevListesiOgrenciBazli(array( 
         'url' => $_GET['url'],  
         'LanguageID' => $vLanguageID,  
         'OkulID' => $vOkulID, 
