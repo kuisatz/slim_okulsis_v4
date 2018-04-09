@@ -255,7 +255,9 @@ $app->get("/mobilfirstdata_mbllogin/", function () use ($app ) {
             "defaultFotoURL" =>  ($menu["defaultFotoURL"]),
             "OkulAdiKisa" => html_entity_decode($menu["OkulAdiKisa"]), 
             "okullogoURL" =>  ($menu["okullogoURL"]),  
+            "kurumGrupID" =>  ($menu["KurumGrupID"]),  
             "rowID" =>  ($menu["rowID"]),  
+            
             
             
             
@@ -6725,5 +6727,72 @@ $app->get("/OgrenciSinavSonucListesiRpt_mbllogin/", function () use ($app ) {
     $app->response()->body(json_encode($menus));
   
 }); 
+
+/**
+ * Okan CIRAN
+ * @since 25-10-2017 
+ */
+$app->get("/SinavTurleriCombo_mbllogin/", function () use ($app ) {
+    $stripper = $app->getServiceManager()->get('filterChainerCustom');
+    $stripChainerFactory = new \Services\Filter\Helper\FilterChainerFactory();        
+    $BLL = $app->getBLLManager()->get('mblLoginBLL'); 
+    $headerParams = $app->request()->headers(); 
+     
+    $vKurumGrupID= null;     
+    if (isset($_GET['kurumGrupID'])) {
+        $stripper->offsetSet('kurumGrupID', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                $app, $_GET['kurumGrupID']));
+    } 
+    $vCid = NULL;   
+    if (isset($_GET['cid'])) {
+        $stripper->offsetSet('cid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                $app, $_GET['cid']));
+    }
+    $vDid = NULL;   
+    if (isset($_GET['did'])) {
+        $stripper->offsetSet('did', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                $app, $_GET['did']));
+    }
+    $vLanguageID = NULL;
+    if (isset($_GET['lid'])) {
+        $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                                                                $app, 
+                                                                $_GET['lid']));
+    } 
+    $stripper->strip();
+    if ($stripper->offsetExists('did')) {
+        $vDid = $stripper->offsetGet('did')->getFilterValue();
+    }
+    if ($stripper->offsetExists('cid')) {
+        $vCid = $stripper->offsetGet('cid')->getFilterValue();
+    } 
+    if ($stripper->offsetExists('kurumGrupID')) {
+        $vKurumGrupID = $stripper->offsetGet('kurumGrupID')->getFilterValue();
+    } 
+    if ($stripper->offsetExists('lid')) 
+        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
+    
+        $resDataMenu = $BLL->sinifSeviyeleriCombo(array(      
+                                            'KurumGrupID' => $vKurumGrupID,  
+                                            'Cid' => $vCid, 
+                                            'Did' => $vDid,
+                                            'LanguageID' => $vLanguageID, 
+                                           ) ); 
+    $menus = array();
+    foreach ($resDataMenu as $menu){
+        $menus[]  = array(
+            "SinavTurID" => $menu["SinavTurID"], 
+            "SinavTurAdi" => html_entity_decode($menu["SinavTurAdi"]),   
+            "SinavTurAciklama" => html_entity_decode($menu["SinavTurAciklama"]),   
+             
+        );
+    }
+    
+    $app->response()->header("Content-Type", "application/json"); 
+    $app->response()->body(json_encode($menus));
+  
+});
+
+
 
 $app->run();

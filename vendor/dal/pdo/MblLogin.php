@@ -842,7 +842,8 @@ class MblLogin extends \DAL\DalSlim {
                      CREATE TABLE ##okiokullogo".$tc."
                         (LogoDosyaID [uniqueidentifier],
                         OkulID [uniqueidentifier],
-                        OkulLogo varbinary(max));
+                        OkulLogo varbinary(max),
+                        KurumGrupID int);
 
                 declare @dbnamex  nvarchar(200)='' collate SQL_Latin1_General_CP1254_CI_AS;
                 declare @KisiID  uniqueidentifier;
@@ -919,10 +920,11 @@ LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Okullar_Lng golx ON golx.OkulID=sss.OkulID a
 LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Roller_lng rrx on (rrx.language_parent_id=sss.RolID or rrx.RolID=sss.RolID) and rrx.language_id=lx.id
 WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND cast(dy.Donem2BitisTarihi AS date)';
                 SET @sqlx1 = '
-                INSERT INTO ##okiokullogo".$tc." (LogoDosyaID,OkulLogo,OkulID)
-                SELECT dx.DosyaID, dx.Dosya ,oox.OkulID
+                INSERT INTO ##okiokullogo".$tc." (LogoDosyaID,OkulLogo,OkulID,KurumGrupID)
+                SELECT dx.DosyaID, dx.Dosya ,oox.OkulID,KT.KurumGrupID
                 FROM '+@dbnamex+'.dbo.GNL_Okullar oox
                 INNER JOIN ['+@dbnamex+'].[dbo].GNL_Dosyalar dx ON dx.DosyaID = oox.LogoDosyaID
+                INNER JOIN ['+@dbnamex+'].[dbo].GNL_KurumTurleri KT ON KT.KurumTurID = oox.KurumTurID
                 WHERE oox.[OkulID] IN (SELECT DISTINCT OkulID FROM ##omfd".$tc.");
                 ';
                 /* print(@sqlx); */
@@ -936,7 +938,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 SET NOCOUNT OFF;
 
         SET NOCOUNT ON;
-            SELECT ssddsdsdsd.*,logo.OkulLogo , ROW_NUMBER() OVER(ORDER BY KisiID) AS rowID  from ( 
+            SELECT ssddsdsdsd.*,logo.OkulLogo , logo.KurumGrupID ROW_NUMBER() OVER(ORDER BY KisiID) AS rowID  from ( 
                 SELECT
                     null AS OkulKullaniciID,
                     null AS OkulID,
@@ -1072,6 +1074,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     "defaultFotoURL" =>  ($menu["defaultFotoURL"]),
                     "OkulAdiKisa" =>  ($menu["OkulAdiKisa"]), 
                     "okullogoURL" =>  $okullogoURL,  
+                    "KurumGrupID" =>   ($menu["KurumGrupID"]), 
                     "rowID" =>  ($menu["rowID"]), 
                     );
                       
@@ -11925,6 +11928,74 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
   
       
     
+     /** 
+     * @author Okan CIRAN
+     * @ sınav turlrtini listeler (combobox)... 
+     * @version v 1.0  25.10.2017
+     * @param array | null $args
+     * @return array
+     * @throws \PDOException
+     */
+    public function sinavTurleriCombo($params = array()) {
+        try {
+            $cid = -1;
+            if ((isset($params['Cid']) && $params['Cid'] != "")) {
+                $cid = $params['Cid'];
+            } 
+            $did = NULL;
+            if ((isset($params['Did']) && $params['Did'] != "")) {
+                $did = $params['Did'];
+            }
+            $dbnamex = 'dbo.';
+            $dbConfigValue = 'pgConnectFactory';
+            $dbConfig =  MobilSetDbConfigx::mobilDBConfig( array( 'Cid' =>$cid,'Did' =>$did,));
+            if (\Utill\Dal\Helper::haveRecord($dbConfig)) {
+                $dbConfigValue =$dbConfigValue.$dbConfig['resultSet'][0]['configclass']; 
+                if ((isset($dbConfig['resultSet'][0]['configclass']) && $dbConfig['resultSet'][0]['configclass'] != "")) {
+                   $dbnamex =$dbConfig['resultSet'][0]['dbname'].'.'.$dbnamex;
+                    }   
+            }    
+            
+            $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue);
+             
+            $languageIdValue = 647;
+            if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
+                $languageIdValue = $params['LanguageID'];
+            } 
+            $KurumGrupID = 0;
+            if (isset($params['KurumGrupID']) && $params['KurumGrupID'] != "") {
+                $KurumGrupID = $params['KurumGrupID'];
+            } 
+             
+            $sql = "  
+            SET NOCOUNT ON;  
+
+            SELECT  
+                a.SinavTurID, 
+                a.SinavTurAdi, 
+              /*  a.SecenekSayisi,
+                a.SinavMetni, */
+                COALESCE(NULLIF(axx.SinavTurAciklama  collate SQL_Latin1_General_CP1254_CI_AS,''),ax.SinavTurAciklamaEng  collate SQL_Latin1_General_CP1254_CI_AS) AS SinavTurAciklama
+            FROM ".$dbnamex."SNV_SinavTurleri a  
+            left join [BILSANET_MOBILE].[dbo].[Mobil_SNVSinavTurleri_lng] ax on a.SinavTurID = ax.SinavTurID and a.KurumGrupID=ax.KurumGrupID and ax.[language_id] = 647 
+            left join [BILSANET_MOBILE].[dbo].[Mobil_SNVSinavTurleri_lng] axx on  (axx.language_parent_id = ax.[id] or  axx.[id] = ax.[id] ) and axx.[language_id] = ".$languageIdValue." 
+            WHERE a.KurumGrupID = ".$KurumGrupID."  
+ 
+            SET NOCOUNT OFF;  
+                 "; 
+            $statement = $pdo->prepare($sql);   
+        // echo debugPDO($sql, $params);
+            $statement->execute();
+           
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            $errorInfo = $statement->errorInfo();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
+        } catch (\PDOException $e /* Exception $e */) {    
+            return array("found" => false, "errorInfo" => $e->getMessage());
+        }
+    }
     
     
    
