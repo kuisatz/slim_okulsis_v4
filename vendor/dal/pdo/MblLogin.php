@@ -11973,14 +11973,26 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT ON;  
 
             SELECT  
+                -1 as  SinavTurID, 
+                '' as  SinavTurAdi, 
+              /*  -1 as  SecenekSayisi,
+                '' as  SinavMetni,*/
+                COALESCE(NULLIF(ax.description collate SQL_Latin1_General_CP1254_CI_AS,''),a.description_eng collate SQL_Latin1_General_CP1254_CI_AS) AS SinavTurAciklama                 
+            FROM BILSANET_MOBILE.dbo.sys_specific_definitions a 
+            LEFT JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0
+            LEFT JOIN BILSANET_MOBILE.dbo.sys_specific_definitions ax on (ax.language_parent_id = a.id or ax.id = a.id) and ax.language_id= lx.id  
+            WHERE a.main_group = 1 AND a.first_group = 14 AND
+                a.language_parent_id =0  
+	union  
+            SELECT  
                 a.SinavTurID, 
                 a.SinavTurAdi, 
               /*  a.SecenekSayisi,
                 a.SinavMetni, */
-                COALESCE(NULLIF(axx.SinavTurAciklama  collate SQL_Latin1_General_CP1254_CI_AS,''),ax.SinavTurAciklamaEng  collate SQL_Latin1_General_CP1254_CI_AS) AS SinavTurAciklama
+                COALESCE(NULLIF(axx.SinavTurAciklama collate SQL_Latin1_General_CP1254_CI_AS,''),ax.SinavTurAciklamaEng collate SQL_Latin1_General_CP1254_CI_AS) AS SinavTurAciklama
             FROM ".$dbnamex."SNV_SinavTurleri a  
-            left join [BILSANET_MOBILE].[dbo].[Mobil_SNVSinavTurleri_lng] ax on a.SinavTurID = ax.SinavTurID and a.KurumGrupID=ax.KurumGrupID and ax.[language_id] = 647 
-            left join [BILSANET_MOBILE].[dbo].[Mobil_SNVSinavTurleri_lng] axx on  (axx.language_parent_id = ax.[id] or  axx.[id] = ax.[id] ) and axx.[language_id] = ".$languageIdValue." 
+            left join BILSANET_MOBILE.dbo.Mobil_SNVSinavTurleri_lng ax on a.SinavTurID = ax.SinavTurID and a.KurumGrupID=ax.KurumGrupID and ax.language_id = 647 
+            left join BILSANET_MOBILE.dbo.Mobil_SNVSinavTurleri_lng axx on (axx.language_parent_id = ax.id or axx.id = ax.id) and axx.language_id = ".$languageIdValue." 
             WHERE a.KurumGrupID = ".$KurumGrupID."  
  
             SET NOCOUNT OFF;  
