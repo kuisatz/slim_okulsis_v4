@@ -840,10 +840,12 @@ class MblLogin extends \DAL\DalSlim {
                         cinsiyetID smallint
                     );
                      CREATE TABLE ##okiokullogo".$tc."
-                        (LogoDosyaID [uniqueidentifier],
-                        OkulID [uniqueidentifier],
+                        ( 
+                        LogoDosyaID uniqueidentifier,
+                        OkulID uniqueidentifier,
                         OkulLogo varbinary(max),
-                        KurumGrupID int);
+                        KurumGrupID int 
+                        );
 
                 declare @dbnamex  nvarchar(200)='' collate SQL_Latin1_General_CP1254_CI_AS;
                 declare @KisiID  uniqueidentifier;
@@ -921,7 +923,7 @@ LEFT JOIN BILSANET_MOBILE.dbo.Mobil_Roller_lng rrx on (rrx.language_parent_id=ss
 WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND cast(dy.Donem2BitisTarihi AS date)';
                 SET @sqlx1 = '
                 INSERT INTO ##okiokullogo".$tc." (LogoDosyaID,OkulLogo,OkulID,KurumGrupID)
-                SELECT dx.DosyaID, dx.Dosya ,oox.OkulID,KT.KurumGrupID
+                SELECT dx.DosyaID, dx.Dosya ,oox.OkulID, KT.KurumGrupID
                 FROM '+@dbnamex+'.dbo.GNL_Okullar oox
                 INNER JOIN ['+@dbnamex+'].[dbo].GNL_Dosyalar dx ON dx.DosyaID = oox.LogoDosyaID
                 INNER JOIN ['+@dbnamex+'].[dbo].GNL_KurumTurleri KT ON KT.KurumTurID = oox.KurumTurID
@@ -938,7 +940,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 SET NOCOUNT OFF;
 
         SET NOCOUNT ON;
-            SELECT ssddsdsdsd.*,logo.OkulLogo , logo.KurumGrupID ROW_NUMBER() OVER(ORDER BY KisiID) AS rowID  from ( 
+            SELECT ssddsdsdsd.*,logo.OkulLogo , logo.KurumGrupID , ROW_NUMBER() OVER(ORDER BY KisiID) AS rowID  from ( 
                 SELECT
                     null AS OkulKullaniciID,
                     null AS OkulID,
