@@ -11974,10 +11974,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 
             SELECT  
                 -1 as  SinavTurID, 
-                '' as  SinavTurAdi, 
+                COALESCE(NULLIF(ax.description collate SQL_Latin1_General_CP1254_CI_AS,''),a.description_eng collate SQL_Latin1_General_CP1254_CI_AS) AS SinavTurAdi, 
               /*  -1 as  SecenekSayisi,
                 '' as  SinavMetni,*/
-                COALESCE(NULLIF(ax.description collate SQL_Latin1_General_CP1254_CI_AS,''),a.description_eng collate SQL_Latin1_General_CP1254_CI_AS) AS SinavTurAciklama                 
+                COALESCE(NULLIF(ax.description collate SQL_Latin1_General_CP1254_CI_AS,''),a.description_eng collate SQL_Latin1_General_CP1254_CI_AS) AS SinavTurAciklama  
             FROM BILSANET_MOBILE.dbo.sys_specific_definitions a 
             LEFT JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".$languageIdValue." AND lx.deleted =0 AND lx.active =0
             LEFT JOIN BILSANET_MOBILE.dbo.sys_specific_definitions ax on (ax.language_parent_id = a.id or ax.id = a.id) and ax.language_id= lx.id  
