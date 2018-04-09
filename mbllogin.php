@@ -6772,7 +6772,7 @@ $app->get("/SinavTurleriCombo_mbllogin/", function () use ($app ) {
     if ($stripper->offsetExists('lid')) 
         {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
     
-        $resDataMenu = $BLL->sinifSeviyeleriCombo(array(      
+        $resDataMenu = $BLL->SinavTurleriCombo(array(      
                                             'KurumGrupID' => $vKurumGrupID,  
                                             'Cid' => $vCid, 
                                             'Did' => $vDid,
