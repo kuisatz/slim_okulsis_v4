@@ -10417,6 +10417,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (isset($params['SinavTurID']) && $params['SinavTurID'] != "") {
                 $SinavTurID = $params['SinavTurID'];
                 $addSQL =" AND SinavTurID IN (".$SinavTurID.")"; 
+                if  ($SinavTurID == 0) {  $addSQL =" AND SinavTurID IN (300,301)"; }
+                 
             } 
           
             $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue);              
