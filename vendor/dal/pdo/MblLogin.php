@@ -10412,23 +10412,31 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (\Utill\Dal\Helper::haveRecord($findOgrenciseviyeID)) {
                 $findOgrenciseviyeIDValue = $findOgrenciseviyeID ['resultSet'][0]['OgrenciseviyeID'];
             }  
-         
-            $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue); 
-             
-            $sql = "   
-            SET NOCOUNT ON;   
+            $KurumGrupID = 0;
+            $addSQL =" AND SinavTurID IN (300,301)";
+            if (isset($params['KurumGrupID']) && $params['KurumGrupID'] != "") {
+                $KurumGrupID = $params['KurumGrupID'];
+                $addSQL =" AND SinavTurID IN (  SELECT  
+                                                    ax.SinavTurID  
+                                                FROM ".$dbnamex."SNV_SinavTurleri ax  
+                                                WHERE ax.KurumGrupID = ".$KurumGrupID."  )"; 
+            } 
+          
+            $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue);              
+            $sql = "
+            SET NOCOUNT ON;
 	 
-            DECLARE  
+            DECLARE
                 @OgrenciSeviyeID UNIQUEIDENTIFIER,
                 @DonemID int; 
              
             set @OgrenciSeviyeID ='".$findOgrenciseviyeIDValue."';
-            set @DonemID =".$DonemID.";
-	 
-            SELECT  
-                SINAV.SinavID, 
+            set @DonemID =".$DonemID."; 
+
+            SELECT
+                SINAV.SinavID,
                 SINAV.SinavAciklamasi collate SQL_Latin1_General_CP1254_CI_AS as SinavAciklamasi,
-                cast(OP.Puan as numeric(18,2)) as Puan 
+                cast(OP.Puan as numeric(18,2)) as Puan
             FROM ".$dbnamex."GNL_OgrenciSeviyeleri OS
             INNER JOIN ".$dbnamex."GNL_Siniflar S ON S.SinifID = OS.SinifID
             INNER JOIN ".$dbnamex."GNL_DersYillari DY ON DY.DersYiliID = S.DersYiliID
@@ -10439,12 +10447,11 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             INNER JOIN ".$dbnamex."OD_OgrenciPuanlari OP ON OP.SinavOgrenciID = SO.SinavOgrenciID
             INNER JOIN ".$dbnamex."SNV_SinavSiniflari SS ON SS.SinavSinifID = SO.SinavSinifID
             INNER JOIN ".$dbnamex."SNV_Sinavlar SINAV ON SINAV.SinavID = SS.SinavID
-                                                     AND SinavTurID IN ( 300, 301 )
-                 
+                                           ".$addSQL."    
             WHERE SINAV.isOgrenciVeliSinavVisible = 1 AND
                 OS.OgrenciSeviyeID = @OgrenciSeviyeID AND
                 SINAV.NotDonemID = @DonemID
-            ORDER BY  SINAV.YaziliStsSinavDersiDersHavuzuID  ,  SINAV.SinavTarihi desc,    SinavAciklamasi;
+            ORDER BY SINAV.YaziliStsSinavDersiDersHavuzuID,SINAV.SinavTarihi desc,SinavAciklamasi;
             
             SET NOCOUNT OFF;   
                  "; 
@@ -10530,7 +10537,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             LEFT JOIN ".$dbnamex."OD_OgrenciPuanlari OP ON OP.SinavOgrenciID = SO.SinavOgrenciID
             INNER JOIN ".$dbnamex."SNV_SinavSiniflari SS ON SS.SinavSinifID = SO.SinavSinifID
             INNER JOIN ".$dbnamex."SNV_Sinavlar SINAV ON SINAV.SinavID = SS.SinavID
-                                                     AND SinavTurID IN ( 300, 301 )
+                                                    AND SinavTurID IN ( 300, 301 )
             WHERE 
                 ".$addSQL."
                 SS.SinavID =@SinavID

@@ -5805,11 +5805,16 @@ $app->get("/OgrencininAldigiNotlar_mbllogin/", function () use ($app ) {
         $stripper->offsetSet('did', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
                 $app, $_GET['did']));
     }
-     $vLanguageID = NULL;
+    $vLanguageID = NULL;
     if (isset($_GET['lid'])) {
         $stripper->offsetSet('lid', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
                                                                 $app, 
                                                                 $_GET['lid']));
+    } 
+    $vKurumGrupID= null;     
+    if (isset($_GET['kurumGrupID'])) {
+        $stripper->offsetSet('kurumGrupID', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                $app, $_GET['kurumGrupID']));
     } 
     $stripper->strip();
     if ($stripper->offsetExists('did')) {
@@ -5825,13 +5830,18 @@ $app->get("/OgrencininAldigiNotlar_mbllogin/", function () use ($app ) {
         $vDonemID = $stripper->offsetGet('donemID')->getFilterValue();
     } 
     if ($stripper->offsetExists('lid')) 
-        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue(); }   
+        {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue();         
+    }      
+    if ($stripper->offsetExists('kurumGrupID')) 
+        {$vKurumGrupID = $stripper->offsetGet('kurumGrupID')->getFilterValue();         
+    }   
     
     $resDataMenu = $BLL->ogrencininAldigiNotlar(array(  
                                             'Cid' => $vCid,   
                                             'KisiID' => $vKisiId, 
                                             'DonemID' => $vDonemID,  
                                             'Did' => $vDid,
+                                            'KurumGrupID' => $vKurumGrupID,
                                             'LanguageID' => $vLanguageID, 
                                            ) ); 
     $menus = array();
@@ -5839,17 +5849,7 @@ $app->get("/OgrencininAldigiNotlar_mbllogin/", function () use ($app ) {
         $menus[]  = array( 
             "SinavID" =>  ($menu["SinavID"]),  
             "Aciklamasi" => html_entity_decode($menu["SinavAciklamasi"]),  
-            "Puan" => html_entity_decode($menu["Puan"]), 
-         //   "alan1" => html_entity_decode($menu["alan1"]),
-        //    "alan2" => html_entity_decode($menu["alan2"]),
-        //    "alan3" => html_entity_decode($menu["alan3"]),
-        //    "alan4" => html_entity_decode($menu["alan4"]),
-             //    "alan5" => html_entity_decode($menu["alan5"]),
-             //    "alan6" => html_entity_decode($menu["alan6"]),
-             //    "alan7" => html_entity_decode($menu["alan7"]),
-             //    "alan8" => html_entity_decode($menu["alan8"]),
-             //    "alan9" => html_entity_decode($menu["alan9"]),
-            //     "alan10" => html_entity_decode($menu["alan10"]),
+            "Puan" => html_entity_decode($menu["Puan"]),  
         );
     }
     
