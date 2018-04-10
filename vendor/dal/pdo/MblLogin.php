@@ -11977,7 +11977,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT ON;  
 
             SELECT  
-                NULL as  SinavTurID, 
+                0 as SinavTurID, 
                 COALESCE(NULLIF(ax.description collate SQL_Latin1_General_CP1254_CI_AS,''),a.description_eng collate SQL_Latin1_General_CP1254_CI_AS) AS SinavTurAdi, 
               /*  -1 as  SecenekSayisi,
                 '' as  SinavMetni,*/
