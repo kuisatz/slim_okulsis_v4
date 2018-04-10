@@ -10412,14 +10412,11 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if (\Utill\Dal\Helper::haveRecord($findOgrenciseviyeID)) {
                 $findOgrenciseviyeIDValue = $findOgrenciseviyeID ['resultSet'][0]['OgrenciseviyeID'];
             }  
-            $KurumGrupID = 0;
+            $SinavTurID = 0;
             $addSQL =" AND SinavTurID IN (300,301)";
-            if (isset($params['KurumGrupID']) && $params['KurumGrupID'] != "") {
-                $KurumGrupID = $params['KurumGrupID'];
-                $addSQL =" AND SinavTurID IN (  SELECT  
-                                                    ax.SinavTurID  
-                                                FROM ".$dbnamex."SNV_SinavTurleri ax  
-                                                WHERE ax.KurumGrupID = ".$KurumGrupID."  )"; 
+            if (isset($params['SinavTurID']) && $params['SinavTurID'] != "") {
+                $SinavTurID = $params['SinavTurID'];
+                $addSQL =" AND SinavTurID IN (".$SinavTurID.")"; 
             } 
           
             $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue);              

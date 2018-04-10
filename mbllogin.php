@@ -5811,10 +5811,10 @@ $app->get("/OgrencininAldigiNotlar_mbllogin/", function () use ($app ) {
                                                                 $app, 
                                                                 $_GET['lid']));
     } 
-    $vKurumGrupID= null;     
-    if (isset($_GET['kurumGrupID'])) {
-        $stripper->offsetSet('kurumGrupID', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
-                $app, $_GET['kurumGrupID']));
+    $vsinavTurID= null;     
+    if (isset($_GET['sinavTurID'])) {
+        $stripper->offsetSet('sinavTurID', $stripChainerFactory->get(stripChainers::FILTER_ONLY_NUMBER_ALLOWED, 
+                $app, $_GET['sinavTurID']));
     } 
     $stripper->strip();
     if ($stripper->offsetExists('did')) {
@@ -5832,8 +5832,8 @@ $app->get("/OgrencininAldigiNotlar_mbllogin/", function () use ($app ) {
     if ($stripper->offsetExists('lid')) 
         {$vLanguageID = $stripper->offsetGet('lid')->getFilterValue();         
     }      
-    if ($stripper->offsetExists('kurumGrupID')) 
-        {$vKurumGrupID = $stripper->offsetGet('kurumGrupID')->getFilterValue();         
+    if ($stripper->offsetExists('sinavTurID')) 
+        {$vsinavTurID = $stripper->offsetGet('sinavTurID')->getFilterValue();         
     }   
     
     $resDataMenu = $BLL->ogrencininAldigiNotlar(array(  
@@ -5841,7 +5841,7 @@ $app->get("/OgrencininAldigiNotlar_mbllogin/", function () use ($app ) {
                                             'KisiID' => $vKisiId, 
                                             'DonemID' => $vDonemID,  
                                             'Did' => $vDid,
-                                            'KurumGrupID' => $vKurumGrupID,
+                                            'SinavTurID' => $vsinavTurID,
                                             'LanguageID' => $vLanguageID, 
                                            ) ); 
     $menus = array();
