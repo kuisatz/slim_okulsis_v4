@@ -8441,11 +8441,16 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             ';  
             
             $statement = $pdo->prepare($sql); 
+            $result =NULL;
+            $errorInfo = NULL;
       // echo debugPDO($sql, $params);
             if ($cid == 138)  { 
             $result = $statement->execute(); 
-            }
             $errorInfo = $statement->errorInfo();
+            }
+            else { 
+            
+            } 
              
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
