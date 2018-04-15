@@ -2429,7 +2429,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $statement = $pdo->prepare($sql);
          //    print_r( '22'); 
          //     echo debugPDO($sql, $params); 
-      //      $result = $statement->execute();
+              
+            if ($cid == 138)  { 
+                $result = $statement->execute();
+            }
              $insertID =1;
             $errorInfo = $statement->errorInfo(); 
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
@@ -2447,7 +2450,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $statement = $pdo->prepare($sql);
           // echo debugPDO($sql, $params);
        //     print_r( '33'); 
-     //       $result = $statement->execute();
+           if ($cid == 138)  { 
+                $result = $statement->execute();
+            }
              $insertID =1;
             $errorInfo = $statement->errorInfo(); 
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
@@ -2463,7 +2468,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $statement = $pdo->prepare($sql);
             // echo debugPDO($sql, $params);
        //      print_r( '44'); 
-     //       $result = $statement->execute();
+            if ($cid == 138)  { 
+            $result = $statement->execute();
+            }
              $insertID =1;
             $errorInfo = $statement->errorInfo(); 
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
@@ -2479,10 +2486,12 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
       //        print_r( '55'); 
             $statement = $pdo->prepare($sql);
            // echo debugPDO($sql, $params);
+            if ($cid == 138)  { 
             $result = $statement->execute();
-      //      $insertID =1;
-            $errorInfo = $statement->errorInfo(); 
-          
+            $insertID =1;
+            }
+         
+            $errorInfo = $statement->errorInfo();           
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             $pdo->commit();
@@ -8368,24 +8377,14 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $devamsizlikKodID = NULL;
             if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
                 $XmlData = $params['XmlData'];
-                $dataValue =  json_decode($XmlData, true);
-                
-             //   print_r( "////////////"); 
-            //   print_r($dataValue  ); 
-                // echo( "\\\\\\console\\\\\\"); 
-                    foreach ($dataValue as $std) {                      
-                        if ($std  != null) {
-                        //   print_r($std ); 
-                        //   if ($std[1] == 1) { $devamsizlikKodID = 2 ;}
-                        //   if ($std[2] == 1) { $devamsizlikKodID = 0 ;}
-                     
-                          //  print_r(htmlentities('<Ogrenci><OgrenciID>').$dataValue[0][0]).htmlentities('</OgrenciID><DevamsizlikKodID>').$dataValue[0][1].htmlentities('</DevamsizlikKodID> ' )  ; 
-                      // echo( '<Ogrenci><OgrenciID>'.$std[0].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ); 
-                         $SendXmlData =$SendXmlData.'<ID VALUE="'.$std.'"/>' ;  
-                        }
+                $dataValue =  json_decode($XmlData, true); 
+                $xml = new \SimpleXMLElement('<IDLIST></IDLIST>');  
+                foreach ($dataValue as $std) {                      
+                    if ($std  != null) { 
+                    $ID = $xml->addChild('ID');
+                    $ID->addAttribute('VALUE', $std[0]); 
                     }
-                  
-               $SendXmlData = '<IDLIST>'.$SendXmlData.'</IDLIST>';
+                }  
             }  
                 
             } 
@@ -8403,10 +8402,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                    @DosyaID1 UNIQUEIDENTIFIER ,
                    @NotIleDegerlendirilsin1 BIT,
                    @DonemNotunaEtkiEtsin1 BIT,
-                   @SentSms1 BIT,
-                   @SentEPosta1 BIT;
+                   @SentSms1 BIT =0,
+                   @SentEPosta1 BIT =0;
  
-            set @p1 =   NEWID()  ;
+            set @p1 = NEWID();
  
             set @SinifDersID1 ='".$SinifDersID."';
             set @OgretmenID1 ='".$OgretmenID."';
@@ -8418,10 +8417,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 
             set @NotIleDegerlendirilsin1 = ".$NotIleDegerlendirilsin.";
             set @DonemNotunaEtkiEtsin1 =".$DonemNotunaEtkiEtsin.";
-            set @SentSms1 =0;
-            set @SentEPosta1 =0;
-          
-            exec dbo.PRC_ODV_OdevTanimlari_Save 
+             
+            exec ".$dbnamex."PRC_ODV_OdevTanimlari_Save 
                     @OdevTanimID=@p1,
                     @SinifDersID=@SinifDersID1,
                     @OgretmenID=@OgretmenID1,
@@ -8436,19 +8433,18 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @SentSms=@SentSms1,
                     @SentEPosta=@SentEPosta1; 
  
-                declare @p2 xml
-                set @p2=convert(xml,N";
-           
-        $sql = $sql. "'".$SendXmlData."')
-                exec dbo.PRC_ODV_OdevTanimlari_Dagit @OdevTanimID= @p1 ,@OgrenciXML=@p2
-  
-
+            declare @p2 xml
+            set @p2=convert(xml,N"; 
+            $sql = $sql. '\''.$xml.'\')
+                exec  '.$dbnamex.'PRC_ODV_OdevTanimlari_Dagit @OdevTanimID= @p1 ,@OgrenciXML=@p2 
             SET NOCOUNT OFF; 
-                ";  
+            ';  
             
             $statement = $pdo->prepare($sql); 
       // echo debugPDO($sql, $params);
+            if ($cid == 138)  { 
             $result = $statement->execute(); 
+            }
             $errorInfo = $statement->errorInfo();
              
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
@@ -9857,7 +9853,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
         }
     }
     
-     /** 
+    /** 
      * @author Okan CIRAN
      * @ yönetici içinögretmen ödev listesi
      * @version v 1.0  10.10.2017
@@ -9995,7 +9991,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
         }
     }
     
-      /** 
+    /** 
      * @author Okan CIRAN
      * @ yönetici içinögretmen ödev listesi
      * @version v 1.0  10.10.2017
@@ -10133,9 +10129,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-    
-    
-         /** 
+     
+    /** 
      * @author Okan CIRAN
      * @ yönetici içinögretmen ödev listesi
      * @version v 1.0  10.10.2017
@@ -10288,8 +10283,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-    
-    
+     
     /** 
      * @author Okan CIRAN
      * @ders ogretmen listesi 
@@ -11128,27 +11122,19 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 </Nodes>'
                   
                  */
-            $XmlData = ' '; 
-            $dataValue = NULL;
-            $SinavOgrenciSoruCevapID = NULL;
-            $ogrenciid = NULL;
-            $soruid = NULL;
-            $puan = NULL;
-            if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
-                $XmlData = $params['XmlData'];
-                $dataValue =  json_decode($XmlData, true);
-                
-             //   print_r( "////////////"); 
-             //   print_r($dataValue[0]['SinavOgrenciSoruCevapID'] );    print_r( "/////"); 
-            //    print_r($dataValue[0]['ogrenciid']   );    print_r( "///////"); 
-            //    print_r($dataValue[0]['soruid']  );    print_r( "////////"); 
-             //   print_r($dataValue[0]['puan']   );    print_r( "///////"); 
-              // echo($dataValue[0]['id']   ); 
-             //     print_r( $dataValue[0]["yok"] ); 
-             // print_r( "////////////"); 
+                $XmlData = ' '; 
+                $dataValue = NULL;
+                $SinavOgrenciSoruCevapID = NULL;
+                $ogrenciid = NULL;
+                $soruid = NULL;
+                $puan = NULL;
+                if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
+                    $XmlData = $params['XmlData'];
+                    $dataValue =  json_decode($XmlData, true);
+                    $xml = new \SimpleXMLElement('<Nodes></Nodes>'); 
+
                     foreach ($dataValue as $std) {                      
-                        if ($std  != null) {
-                        //   print_r($std ); 
+                        if ($std  != null) { 
                         $SinavOgrenciSoruCevapID = $std ['SinavOgrenciSoruCevapID'] ; 
                         $ogrenciid = $std ['ogrenciid'] ; 
                         $soruid = $std ['soruid'] ; 
@@ -11156,17 +11142,19 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         if (( $puan != "")) {
                           //  print_r(htmlentities('<Ogrenci><OgrenciID>').$dataValue[0][0]).htmlentities('</OgrenciID><DevamsizlikKodID>').$dataValue[0][1].htmlentities('</DevamsizlikKodID> ' )  ; 
                       // echo( '<Ogrenci><OgrenciID>'.$std[0].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ); 
-                         $SendXmlData =$SendXmlData.'<Dugum SinavOgrenciSoruCevapID="'.$SinavOgrenciSoruCevapID.'" SinavOgrenciID="'.$ogrenciid.'" SinavSoruID="'.$soruid.'" isDogru="True" AldigiPuan="'.$puan.'"/>' ;  
+                        // $SendXmlData =$SendXmlData.'<Dugum SinavOgrenciSoruCevapID="'.$SinavOgrenciSoruCevapID.'" SinavOgrenciID="'.$ogrenciid.'" SinavSoruID="'.$soruid.'" isDogru="True" AldigiPuan="'.$puan.'"/>' ;  
+                        $Dugum = $xml->addChild('Dugum');
+                        $Dugum->addAttribute('SinavOgrenciSoruCevapID', $SinavOgrenciSoruCevapID);
+                        $Dugum->addAttribute('SinavOgrenciID', $ogrenciid);
+                        $Dugum->addAttribute('SinavSoruID', $soruid);
+                        $Dugum->addAttribute('isDogru', 'True');
+                        $Dugum->addAttribute('AldigiPuan', $puan);
                         }}
-                    }
-                  
-               $SendXmlData = '<Nodes>'.$SendXmlData.'</Nodes>';
-            }  
-          //     echo(  $SendXmlData);
+                    } 
+                }  
             } 
             $sql = "  
-            SET NOCOUNT ON;   
-            
+            SET NOCOUNT ON;  
             DECLARE @p1 xml;  
             
             UPDATE SO 
@@ -11175,24 +11163,26 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             INNER JOIN ".$dbnamex."SNV_SinavKitapciklari SK ON SK.SinavKitapcikID = SO.SinavKitapcikID
             INNER JOIN ".$dbnamex."SNV_SinavKitapciklari SK1 ON SK1.SinavID = SK.SinavID AND SK1.KitapcikTurID = '".$KitapcikTurID."'
             WHERE 
-                SO.SinavOgrenciID= '".$ogrenciid."';
-
-
-            
+                SO.SinavOgrenciID= '".$ogrenciid."'; 
             set @p1=convert(xml,N"; 
-           
-            $sql = $sql. "'".$SendXmlData."')
-         
-            exec PRC_SNV_SinavOgrenciSoruCevaplari_Save_DersCevaplari @XMLData=@p1
+            
+            $sql = $sql. '\''.$xml.'\') 
+            exec  '.$dbnamex.'PRC_SNV_SinavOgrenciSoruCevaplari_Save_DersCevaplari @XMLData=@p1
 
             SET NOCOUNT OFF; 
-                ";  
+            ';  
             
             $statement = $pdo->prepare($sql); 
      //  echo debugPDO($sql, $params);
-     //     $result = $statement->execute(); 
-            $errorInfo = $statement->errorInfo();
-             
+            if ($cid == 138)  { 
+                $result = $statement->execute(); 
+                $errorInfo = $statement->errorInfo();
+            } 
+            else {
+                $result = NULL; 
+                $errorInfo = NULL;
+            }
+              
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
