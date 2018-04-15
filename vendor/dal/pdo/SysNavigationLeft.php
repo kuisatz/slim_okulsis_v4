@@ -43,7 +43,7 @@ class SysNavigationLeft extends \DAL\DalSlim {
                      user_id = " . $opUserIdValue . "     
                 WHERE id = " . intval($params['id']);
                     $statement = $pdo->prepare($sql);
-                  //   echo debugPDO($sql, $params);
+                  //   
                     $update = $statement->execute();
                     $afterRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -243,7 +243,7 @@ class SysNavigationLeft extends \DAL\DalSlim {
                 $statement->bindValue(':language_id', $languageIdValue, \PDO::PARAM_INT);
                 $statement->bindValue(':menu_types_id', $MenuTypesId, \PDO::PARAM_INT);
                 
-              // echo debugPDO($sql, $params);
+              // 
                 $result = $statement->execute();
                 $insertID = $pdo->lastInsertId('sys_navigation_left_id_seq');
                 $errorInfo = $statement->errorInfo();
@@ -331,7 +331,7 @@ class SysNavigationLeft extends \DAL\DalSlim {
                 $statement->bindValue(':menu_name_eng', $params['menu_name_eng'], \PDO::PARAM_STR);                
                 $statement->bindValue(':icon_class', $params['icon_class'], \PDO::PARAM_STR);                
                 $statement->bindValue(':url', $params['url'], \PDO::PARAM_STR);  
-               // echo debugPDO($sql, $params);
+               // 
                 $update = $statement->execute();
                 $affectedRows = $statement->rowCount();
                 $errorInfo = $statement->errorInfo();
@@ -653,7 +653,7 @@ class SysNavigationLeft extends \DAL\DalSlim {
             //ORDER BY a.parent, a.z_index
             $statement = $pdo->prepare($sql);
    
-         //echo debugPDO($sql, $params);  
+         //  
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -993,7 +993,7 @@ class SysNavigationLeft extends \DAL\DalSlim {
                 ORDER BY a.parent, a.z_index           
                                  ";
             $statement = $pdo->prepare($sql);            
-            //echo debugPDO($sql, $params);
+            //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1091,7 +1091,7 @@ class SysNavigationLeft extends \DAL\DalSlim {
                     collapse = 1 
                  ";
                 $statement = $pdo->prepare($sql);
-              //  echo debugPDO($sql, $params);                
+              //                  
                 $update = $statement->execute();
                 $afterRows = $statement->rowCount();
                 $errorInfo = $statement->errorInfo();
@@ -1148,7 +1148,7 @@ class SysNavigationLeft extends \DAL\DalSlim {
                 AND collapse = 0 
                 " ;
                 $statement = $pdo->prepare($sql);
-             // echo debugPDO($sql, $params);
+             // 
                 $update = $statement->execute();
                 $afterRows = $statement->rowCount();
                 $errorInfo = $statement->errorInfo();
@@ -1190,7 +1190,7 @@ class SysNavigationLeft extends \DAL\DalSlim {
                 )                                 
                 WHERE id = " . intval($params['id']);
                 $statement = $pdo->prepare($sql);
-                //  echo debugPDO($sql, $params);
+                //  
                 $update = $statement->execute();
                 $afterRows = $statement->rowCount();
                 $errorInfo = $statement->errorInfo();
@@ -1228,7 +1228,7 @@ class SysNavigationLeft extends \DAL\DalSlim {
                 user_id = " . intval($opUserIdValue) . "
                 WHERE id = " . intval($params['id']);
                     $statement = $pdo->prepare($sql);
-                    //  echo debugPDO($sql, $params);
+                    //  
                     $update = $statement->execute();
                     $afterRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -1288,7 +1288,7 @@ class SysNavigationLeft extends \DAL\DalSlim {
             LIMIT 1                       
                                ";
             $statement = $pdo->prepare($sql);
-           //echo debugPDO($sql, $params);
+           //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

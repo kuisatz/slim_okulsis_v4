@@ -405,7 +405,7 @@ class SysOperationTypesTools extends \DAL\DalSlim {
                 ORDER BY name                   
                                  ";
             $statement = $pdo->prepare($sql);            
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -459,7 +459,7 @@ class SysOperationTypesTools extends \DAL\DalSlim {
                 ORDER BY name                
                                  ";
             $statement = $pdo->prepare($sql);  
-         // echo debugPDO($sql, $params);
+         // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

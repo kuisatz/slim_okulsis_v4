@@ -227,7 +227,7 @@ class InfoUsersSendingMail extends \DAL\DalSlim {
                     $statement->bindValue(':user_id', $opUserIdValue, \PDO::PARAM_INT);
                     $statement->bindValue(':op_user_id', $opUserIdValue, \PDO::PARAM_INT);
                     $statement->bindValue(':user_link', $params['user_link'], \PDO::PARAM_STR);
-                    // echo debugPDO($sql, $params);
+                    // 
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('info_users_sending_mail_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -450,7 +450,7 @@ class InfoUsersSendingMail extends \DAL\DalSlim {
                         WHERE id =  " . intval($params['id']) . " 
                         ";
                     $statement_act_insert = $pdo->prepare($sql);
-                    //   echo debugPDO($sql, $params);
+                    //   
                     $insert_act_insert = $statement_act_insert->execute();
                     $affectedRows = $statement_act_insert->rowCount();                    
                     $insertID = $pdo->lastInsertId('info_users_sending_mail_id_seq');                               
@@ -654,7 +654,7 @@ class InfoUsersSendingMail extends \DAL\DalSlim {
                               
                     ";
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -700,7 +700,7 @@ class InfoUsersSendingMail extends \DAL\DalSlim {
                 op_user_id = " . intval($opUserIdValue) . "
                 WHERE id = " . intval($params['id']);
                     $statement = $pdo->prepare($sql);
-                    //  echo debugPDO($sql, $params);
+                    //  
                     $update = $statement->execute();
                     $afterRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -797,7 +797,7 @@ class InfoUsersSendingMail extends \DAL\DalSlim {
                         WHERE id =  " . intval($params['id']) . " 
                         ";
                 $statement_act_insert = $pdo->prepare($sql);
-                // echo debugPDO($sql, $params);
+                // 
                 $insert_act_insert = $statement_act_insert->execute();
                 $affectedRows = $statement_act_insert->rowCount();
                 $insertID = $pdo->lastInsertId('info_users_sending_mail_id_seq');
@@ -878,7 +878,7 @@ class InfoUsersSendingMail extends \DAL\DalSlim {
             $mail->sendInfoMailSMTP($params);
             $sql = "";
             $statement = $pdo->prepare($sql);
-            //  echo debugPDO($sql, $params);                
+            //                  
             // $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -927,7 +927,7 @@ class InfoUsersSendingMail extends \DAL\DalSlim {
             $mail->sendInfoMailSMTP($params);
             $sql = "";
             $statement = $pdo->prepare($sql);
-            //  echo debugPDO($sql, $params);                
+            //                  
             // $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -968,7 +968,7 @@ class InfoUsersSendingMail extends \DAL\DalSlim {
                             '". $params['key']."'
                     )";                                
                 $statement = $pdo->prepare($sql);                               
-               // echo debugPDO($sql, $params);
+               // 
                 $result = $statement->execute();
                 $insertID = $pdo->lastInsertId('info_users_sending_mail_id_seq');                                
                 $errorInfo = $statement->errorInfo();

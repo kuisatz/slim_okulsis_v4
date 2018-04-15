@@ -142,7 +142,7 @@ class SysLanguage extends \DAL\DalSlim {
                 " . $addSql . "  
                                ";
             $statement = $pdo->prepare($sql);
-         // echo debugPDO($sql, $params);
+         // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -634,7 +634,7 @@ class SysLanguage extends \DAL\DalSlim {
                                  ");
              
                 $statement->execute();
-             // echo debugPDO($sql, $params);
+             // 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);                        
             $errorInfo = $statement->errorInfo();
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
@@ -664,7 +664,7 @@ class SysLanguage extends \DAL\DalSlim {
                 where a.deleted =0 AND a.active = 0 AND 
                     a.language_main_code = '" . $params['language_code'] . "'               
                 LIMIT 1                ";
-           //  echo debugPDO($sql, $params);   
+           //     
             $statement = $pdo->prepare($sql);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 

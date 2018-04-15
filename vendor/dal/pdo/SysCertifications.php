@@ -39,7 +39,7 @@ class SysCertifications extends \DAL\DalSlim {
                      op_user_id = " . $opUserIdValue . "     
                 WHERE id = ". intval($params['id']) ;
                 $statement = $pdo->prepare($sql) ; 
-             //  echo debugPDO($sql, $params);
+             //  
                 $update = $statement->execute();
                 $afterRows = $statement->rowCount();
                 $errorInfo = $statement->errorInfo();
@@ -240,7 +240,7 @@ class SysCertifications extends \DAL\DalSlim {
                 AND a.deleted=0  
                                ";
             $statement = $pdo->prepare($sql);
-            //echo debugPDO($sql, $params);
+            //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -307,7 +307,7 @@ class SysCertifications extends \DAL\DalSlim {
                 $statement->bindValue(':certificate_short_eng', $params['certificate_short_eng'], \PDO::PARAM_STR);
                 $statement->bindValue(':description_eng', $params['description_eng'], \PDO::PARAM_STR);                
                 $statement->bindValue(':logo', $params['logo'], \PDO::PARAM_STR);     
-               // echo debugPDO($sql, $params);
+               // 
                 $update = $statement->execute();
                 $affectedRows = $statement->rowCount();
                 $errorInfo = $statement->errorInfo();
@@ -467,7 +467,7 @@ class SysCertifications extends \DAL\DalSlim {
                  " . $whereSql . "               
                     ";
             $statement = $pdo->prepare($sql);
-           // echo debugPDO($sql, $params);
+           // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

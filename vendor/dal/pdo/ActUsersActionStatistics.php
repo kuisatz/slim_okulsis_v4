@@ -270,7 +270,7 @@ class ActUsersActionStatistics extends \DAL\DalSlim {
                 ORDER BY processingtime DESC
                     ";
             $statement = $pdo->prepare($sql);
-        //  echo debugPDO($sql, $params);
+        //  
             $statement->execute();            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -353,7 +353,7 @@ class ActUsersActionStatistics extends \DAL\DalSlim {
                         ) AS xxtable   
                     ";
             $statement = $pdo->prepare($sql);
-           //  echo debugPDO($sql, $params);
+           //  
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -441,7 +441,7 @@ class ActUsersActionStatistics extends \DAL\DalSlim {
                         ) AS xxtable    
                     ";
             $statement = $pdo->prepare($sql);
-           //  echo debugPDO($sql, $params);
+           //  
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -734,7 +734,7 @@ class ActUsersActionStatistics extends \DAL\DalSlim {
            
                     ";
             $statement = $pdo->prepare($sql);
-         // echo debugPDO($sql, $params);
+         // 
             $statement->execute();            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

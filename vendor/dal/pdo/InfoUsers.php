@@ -236,7 +236,7 @@ class InfoUsers extends \DAL\DalSlim {
                AND deleted =0   
                                ";
             $statement = $pdo->prepare($sql);
-          //echo debugPDO($sql, $params);
+          //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -276,7 +276,7 @@ class InfoUsers extends \DAL\DalSlim {
                AND deleted =0   
                                ";
             $statement = $pdo->prepare($sql);
-            //    echo debugPDO($sql, $params);
+            //    
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -385,7 +385,7 @@ class InfoUsers extends \DAL\DalSlim {
                     $statement->bindValue(':username', $params['username'], \PDO::PARAM_STR);
                     $statement->bindValue(':password', md5($params['password']), \PDO::PARAM_STR);
                     $statement->bindValue(':role_id', $roleId, \PDO::PARAM_INT);
-                    // echo debugPDO($sql, $params);
+                    // 
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('info_users_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -521,7 +521,7 @@ class InfoUsers extends \DAL\DalSlim {
                 $statement->bindValue(':root_id', $params['root_id'], \PDO::PARAM_INT);
                 $statement->bindValue(':role_id', $params['role_id'], \PDO::PARAM_INT);
                 $statement->bindValue(':op_user_id', $params['op_user_id'], \PDO::PARAM_INT);
-           //   echo debugPDO($sql, $params);
+           //   
                 $result = $statement->execute();
                 $insertID = $pdo->lastInsertId('info_users_detail_id_seq');
                 $errorInfo = $statement->errorInfo();
@@ -629,7 +629,7 @@ class InfoUsers extends \DAL\DalSlim {
                     $statement->bindValue(':username', $params['username'], \PDO::PARAM_STR);
                     //$statement->bindValue(':password', md5($params['password']), \PDO::PARAM_STR);
                     $statement->bindValue(':password',$password, \PDO::PARAM_STR);
-                  //echo debugPDO($sql, $params);
+                  //
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('info_users_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -870,7 +870,7 @@ class InfoUsers extends \DAL\DalSlim {
 						AND b.active =1 AND b.deleted =0)  
                     ";
                     $statementActInsert = $pdo->prepare($sql);
-                    //   echo debugPDO($sql, $params);
+                    //   
                     $insertAct = $statementActInsert->execute();
                     $affectedRows = $statementActInsert->rowCount();
                     $insertID = $pdo->lastInsertId('info_users_detail_id_seq');                                      
@@ -1042,7 +1042,7 @@ class InfoUsers extends \DAL\DalSlim {
  
                     ";
                     $statementActInsert = $pdo->prepare($sql);
-                   //  echo debugPDO($sql, $params);                                
+                   //                                  
                     $insertAct = $statementActInsert->execute();
                     $affectedRows = $statementActInsert->rowCount();
                     $insertID = $pdo->lastInsertId('info_users_detail_id_seq');                                      
@@ -1121,7 +1121,7 @@ class InfoUsers extends \DAL\DalSlim {
                     ";
              $statement = $pdo->prepare($sql); 
             $statement->bindValue(':id', $params['id'], \PDO::PARAM_INT);
-          //  echo debugPDO($sql, $params);
+          //  
             $update = $statement->execute();
             $affectedRows = $statement->rowCount();
             $errorInfo = $statement->errorInfo();
@@ -1612,7 +1612,7 @@ class InfoUsers extends \DAL\DalSlim {
                   * 
                   */
             $statement = $pdo->prepare($sql);
-           //  echo debugPDO($sql, $params);
+           //  
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1658,7 +1658,7 @@ class InfoUsers extends \DAL\DalSlim {
                         WHERE pkeytemp = TRUE 
              */
             $statement = $pdo->prepare($sql);
-         //  echo debugPDO($sql, $params);
+         //  
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1695,7 +1695,7 @@ class InfoUsers extends \DAL\DalSlim {
                 WHERE pkeytemp = TRUE 
                 "; 
             $statement = $pdo->prepare($sql);
-         // echo debugPDO($sql, $params);
+         // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1813,7 +1813,7 @@ class InfoUsers extends \DAL\DalSlim {
                 $statement_log_insert->bindValue(':sf_private_key_value', $params['sf_private_key_value'], \PDO::PARAM_STR);
                 $statement_log_insert->bindValue(':sf_private_key_value_temp', $params['sf_private_key_value_temp'], \PDO::PARAM_STR);
                 $statement_log_insert->bindValue(':oid', $params['oid'], \PDO::PARAM_INT);
-               //  echo debugPDO($sql, $params);
+               //  
                 $insert_log = $statement_log_insert->execute();
                 $affectedRows = $statement_log_insert->rowCount();
                 $errorInfo = $statement_log_insert->errorInfo();
@@ -1850,7 +1850,7 @@ class InfoUsers extends \DAL\DalSlim {
                      id =" .intval( $params['id']) . "
                 ";
             $statement = $pdo->prepare($sql);
-           // echo debugPDO($sql, $params);
+           // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1890,7 +1890,7 @@ class InfoUsers extends \DAL\DalSlim {
                 limit 1
                                  ";
                 $statement = $pdo->prepare($sql);
-                // echo debugPDO($sql, $params);
+                // 
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -2046,7 +2046,7 @@ class InfoUsers extends \DAL\DalSlim {
 
                 ";
                 $statement = $pdo->prepare($sql);
-               // echo debugPDO($sql, $params);
+               // 
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -2197,7 +2197,7 @@ class InfoUsers extends \DAL\DalSlim {
 
                 ";
                 $statement = $pdo->prepare($sql);
-                //echo debugPDO($sql, $params);
+                //
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -2268,7 +2268,7 @@ class InfoUsers extends \DAL\DalSlim {
                         a.network_key = '" . $params['network_key'] . "'                   
                    ";
                 $statement = $pdo->prepare($sql);
-               // echo debugPDO($sql, $params);
+               // 
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -2308,7 +2308,7 @@ class InfoUsers extends \DAL\DalSlim {
                     ) AS xtable limit 1 
                                  ";
                 $statement = $pdo->prepare($sql);
-               //echo debugPDO($sql, $params);
+               //
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -2420,7 +2420,7 @@ class InfoUsers extends \DAL\DalSlim {
                         )";                                
 
                     $statement = $pdo->prepare($sql);
-                    // echo debugPDO($sql, $params);
+                    // 
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('info_users_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -2566,7 +2566,7 @@ class InfoUsers extends \DAL\DalSlim {
                 $statement->bindValue(':language_id', $params['language_id'], \PDO::PARAM_INT);
                 $statement->bindValue(':root_id', $params['root_id'], \PDO::PARAM_INT);
                 $statement->bindValue(':op_user_id', $params['op_user_id'], \PDO::PARAM_INT);
-           //   echo debugPDO($sql, $params);
+           //   
                 $result = $statement->execute();
                 $insertID = $pdo->lastInsertId('info_users_detail_id_seq');
                 $errorInfo = $statement->errorInfo();
@@ -2619,7 +2619,7 @@ class InfoUsers extends \DAL\DalSlim {
                                             ) AS zxtable )
                     )";         
                 $statement = $pdo->prepare($sql);                               
-                // echo debugPDO($sql, $params);
+                // 
                 $result = $statement->execute();
                 $insertID = $pdo->lastInsertId('sys_osb_consultants_id_seq');                                
                 $errorInfo = $statement->errorInfo();
@@ -2729,7 +2729,7 @@ class InfoUsers extends \DAL\DalSlim {
                                 
 
                     $statement = $pdo->prepare($sql);
-                    // echo debugPDO($sql, $params);
+                    // 
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('info_users_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -2905,7 +2905,7 @@ class InfoUsers extends \DAL\DalSlim {
             $statement->bindValue(':language_id', $params['language_id'], \PDO::PARAM_INT);
             $statement->bindValue(':root_id', $params['root_id'], \PDO::PARAM_INT);
             $statement->bindValue(':op_user_id', $params['op_user_id'], \PDO::PARAM_INT);
-            //   echo debugPDO($sql, $params);
+            //   
             $result = $statement->execute();
             $insertID = $pdo->lastInsertId('info_users_detail_id_seq');
             $errorInfo = $statement->errorInfo();
@@ -2941,7 +2941,7 @@ class InfoUsers extends \DAL\DalSlim {
                             ". intval($params['op_user_id'])." 
                     )";                                
                 $statement = $pdo->prepare($sql);                               
-                // echo debugPDO($sql, $params);
+                // 
                 $result = $statement->execute();
                 $insertID = $pdo->lastInsertId('sys_osb_person_id_seq');                                
                 $errorInfo = $statement->errorInfo();
@@ -2983,7 +2983,7 @@ class InfoUsers extends \DAL\DalSlim {
                     ) AS xtable                              
                                  ";
                 $statement = $pdo->prepare($sql);
-              // echo debugPDO($sql, $params);
+              // 
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -3027,7 +3027,7 @@ class InfoUsers extends \DAL\DalSlim {
                     ) AS xtable
                                  ";
                 $statement = $pdo->prepare($sql);
-              // echo debugPDO($sql, $params);
+              // 
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -3157,7 +3157,7 @@ class InfoUsers extends \DAL\DalSlim {
 						AND active =1 AND deleted =0)  
                     ";
                     $statementActInsert = $pdo->prepare($sql);
-                   //  echo debugPDO($sql, $params);                                
+                   //                                  
                     $insertAct = $statementActInsert->execute();
                     $affectedRows = $statementActInsert->rowCount();
                     $insertID = $pdo->lastInsertId('info_users_detail_id_seq');
@@ -3234,7 +3234,7 @@ class InfoUsers extends \DAL\DalSlim {
             $statement = $pdo->prepare($sql);
             $statement->bindValue(':sesionId', $params['sesionId'], \PDO::PARAM_STR);
             $statement->bindValue(':pktemp', $params['pktemp'], \PDO::PARAM_STR);     
-           // echo debugPDO($sql, $params);  
+           //   
             $update = $statement->execute();
             $affectedRows = $statement->rowCount();
             $errorInfo = $statement->errorInfo();
@@ -3314,7 +3314,7 @@ class InfoUsers extends \DAL\DalSlim {
                         ) as xctable          
                    ";
                 $statement = $pdo->prepare($sql);
-               //echo debugPDO($sql, $params);
+               //
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -3402,7 +3402,7 @@ class InfoUsers extends \DAL\DalSlim {
                     LIMIT 1
                    ";
                 $statement = $pdo->prepare($sql);
-               //  echo debugPDO($sql, $params);
+               //  
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -3486,7 +3486,7 @@ class InfoUsers extends \DAL\DalSlim {
                     LIMIT 1
                    ";
                 $statement = $pdo->prepare($sql);
-               // echo debugPDO($sql, $params);
+               // 
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();

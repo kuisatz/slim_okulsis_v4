@@ -167,7 +167,7 @@ class SysMailServer extends \DAL\DalSlim {
                     $statement->bindValue(':headers', $params['headers'], \PDO::PARAM_STR);
                     $statement->bindValue(':body_road', $params['body_road'], \PDO::PARAM_STR);                    
                     $statement->bindValue(':op_user_id', $opUserIdValue, \PDO::PARAM_INT);
-                    // echo debugPDO($sql, $params);
+                    // 
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('sys_mail_server_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -221,7 +221,7 @@ class SysMailServer extends \DAL\DalSlim {
                AND a.deleted =0    
                                ";
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -279,7 +279,7 @@ class SysMailServer extends \DAL\DalSlim {
                     $statement->bindValue(':headers', $params['headers'], \PDO::PARAM_STR);
                     $statement->bindValue(':body_road', $params['body_road'], \PDO::PARAM_STR);                    
                     $statement->bindValue(':op_user_id', $opUserIdValue, \PDO::PARAM_INT);
-                    //echo debugPDO($sql, $params);
+                    //
                     $update = $statement->execute();
                     $affectedRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -415,7 +415,7 @@ class SysMailServer extends \DAL\DalSlim {
                 INNER JOIN info_users u ON u.id = a.op_user_id  
                     ";
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -504,7 +504,7 @@ class SysMailServer extends \DAL\DalSlim {
                 op_user_id = " . intval($opUserIdValue) . "
                 WHERE id = " . intval($params['id']);
                     $statement = $pdo->prepare($sql);
-                    //  echo debugPDO($sql, $params);
+                    //  
                     $update = $statement->execute();
                     $afterRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();

@@ -354,7 +354,7 @@ class InfoUsersAddresses extends \DAL\DalSlim {
                 AND a.deleted=0    
                                ";
             $statement = $pdo->prepare($sql);
-            //echo debugPDO($sql, $params);
+            //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -700,7 +700,7 @@ class InfoUsersAddresses extends \DAL\DalSlim {
                     " . $whereSql . "
                     ";
             $statement = $pdo->prepare($sql);
-            //echo debugPDO($sql, $params);
+            //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -875,7 +875,7 @@ class InfoUsersAddresses extends \DAL\DalSlim {
                         a.user_id = " . intval($opUserIdValue) ." 
                         ";
                 $statement = $pdo->prepare($sql);
-                 // echo debugPDO($sql, $params);
+                 // 
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -1341,7 +1341,7 @@ class InfoUsersAddresses extends \DAL\DalSlim {
                 $statement->bindValue(':description', $params['description'], \PDO::PARAM_STR);
                 $statement->bindValue(':city_name', $params['city_name'], \PDO::PARAM_STR);
                 $statement->bindValue(':profile_public', $params['profile_public'], \PDO::PARAM_INT);
-              // echo debugPDO($sql, $params);              
+              //               
                 $result = $statement->execute();   
                 $insertID = $pdo->lastInsertId('info_users_addresses_id_seq');
                 $errorInfo = $statement->errorInfo();
@@ -1657,7 +1657,7 @@ class InfoUsersAddresses extends \DAL\DalSlim {
                             a.user_id = " . intval($opUserIdValue). "
                     ";
                 $statement = $pdo->prepare($sql);
-                 //echo debugPDO($sql, $params);  
+                 //  
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -1719,7 +1719,7 @@ class InfoUsersAddresses extends \DAL\DalSlim {
                 ORDER BY name                       
                                  ";
                 $statement = $pdo->prepare($sql);
-              //  echo debugPDO($sql, $params);  
+              //    
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();

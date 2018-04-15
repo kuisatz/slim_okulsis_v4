@@ -179,7 +179,7 @@ class BlActivationReport extends \DAL\DalSlim {
                 ORDER BY op.operation_name
                     ";  
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();       
             $result = $statement->fetchAll(\PDO::FETCH_CLASS);        
             $errorInfo = $statement->errorInfo();
@@ -270,7 +270,7 @@ class BlActivationReport extends \DAL\DalSlim {
                 
                     ";  
             $statement = $pdo->prepare($sql);
-            //  echo debugPDO($sql, $params);
+            //  
             $statement->execute();       
             $result = $statement->fetchAll(\PDO::FETCH_CLASS);        
             $errorInfo = $statement->errorInfo();
@@ -380,7 +380,7 @@ class BlActivationReport extends \DAL\DalSlim {
             
             
             $statement = $pdo->prepare($sql);
-            //  echo debugPDO($sql, $params);
+            //  
             $statement->execute();       
             $result = $statement->fetchAll(\PDO::FETCH_CLASS);        
             $errorInfo = $statement->errorInfo();
@@ -443,7 +443,7 @@ class BlActivationReport extends \DAL\DalSlim {
   
                     ";  
             $statement = $pdo->prepare($sql);
-          // echo debugPDO($sql, $params);
+          // 
             $statement->execute();       
             $result = $statement->fetchAll(\PDO::FETCH_CLASS);        
             $errorInfo = $statement->errorInfo();
@@ -587,7 +587,7 @@ class BlActivationReport extends \DAL\DalSlim {
   
                     ";
                 $statement = $pdo->prepare($sql);
-                // echo debugPDO($sql, $params);
+                // 
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_CLASS);
                 $errorInfo = $statement->errorInfo();
@@ -676,7 +676,7 @@ class BlActivationReport extends \DAL\DalSlim {
                 ORDER BY ids 
                     ";   
             $statement = $pdo->prepare($sql);
-            //  echo debugPDO($sql, $params);
+            //  
             $statement->execute();       
             $result = $statement->fetchAll(\PDO::FETCH_CLASS);        
             $errorInfo = $statement->errorInfo();
@@ -818,7 +818,7 @@ class BlActivationReport extends \DAL\DalSlim {
 
                     ";   
             $statement = $pdo->prepare($sql);
-            //  echo debugPDO($sql, $params);
+            //  
             $statement->execute();       
             $result = $statement->fetchAll(\PDO::FETCH_CLASS);        
             $errorInfo = $statement->errorInfo();
@@ -890,7 +890,7 @@ class BlActivationReport extends \DAL\DalSlim {
                 */
                                  ";
                 $statement = $pdo->prepare($sql);
-                //echo debugPDO($sql, $params);
+                //
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -940,7 +940,7 @@ class BlActivationReport extends \DAL\DalSlim {
                 */
                                  ";
                 $statement = $pdo->prepare($sql);
-                //echo debugPDO($sql, $params);
+                //
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();

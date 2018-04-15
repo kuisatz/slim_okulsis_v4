@@ -437,7 +437,7 @@ class BlLoginLogout extends \DAL\DalSlim {
             
             $statement = $pdo->prepare($sql);
             $statement->bindValue(':public_key', $params['pk'], \PDO::PARAM_STR);
-           // echo debugPDO($sql, $params);
+           // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

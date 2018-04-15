@@ -159,7 +159,7 @@ class SysMenuTypes extends \DAL\DalSlim {
                         ".intval($opUserIdValue)."
                                              )   ";
                     $statement = $pdo->prepare($sql);                            
-                //   echo debugPDO($sql, $params);
+                //   
                     $result = $statement->execute();                  
                     $insertID = $pdo->lastInsertId('sys_menu_types_id_seq');
                     $errorInfo = $statement->errorInfo();  
@@ -213,7 +213,7 @@ class SysMenuTypes extends \DAL\DalSlim {
                 AND a.deleted =0    
                                ";
             $statement = $pdo->prepare($sql);
-         // echo debugPDO($sql, $params);
+         // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -261,7 +261,7 @@ class SysMenuTypes extends \DAL\DalSlim {
                         op_user_id = ".intval($opUserIdValue)."
                     WHERE id = " . intval($params['id']);
                     $statement = $pdo->prepare($sql);
-                    //echo debugPDO($sql, $params);
+                    //
                     $update = $statement->execute();
                     $affectedRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -410,7 +410,7 @@ class SysMenuTypes extends \DAL\DalSlim {
                 WHERE a.deleted =0 AND a.language_parent_id =0  
                     ";
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -460,7 +460,7 @@ class SysMenuTypes extends \DAL\DalSlim {
                 ORDER BY menu_type_name
                                  ";
             $statement = $pdo->prepare($sql);            
-          // echo debugPDO($sql, $params);
+          // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
@@ -504,7 +504,7 @@ class SysMenuTypes extends \DAL\DalSlim {
                 op_user_id = " . intval($opUserIdValue) . "
                 WHERE id = " . intval($params['id']);
                     $statement = $pdo->prepare($sql);
-                    //  echo debugPDO($sql, $params);
+                    //  
                     $update = $statement->execute();
                     $afterRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -653,7 +653,7 @@ class SysMenuTypes extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             );
             $statement = $pdo->prepare($sql);
-        // echo debugPDO($sql, $params);
+        // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -758,7 +758,7 @@ class SysMenuTypes extends \DAL\DalSlim {
                 ) AS xxtable     
                  ";
             $statement = $pdo->prepare($sql);            
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

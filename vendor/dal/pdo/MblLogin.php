@@ -231,7 +231,7 @@ class MblLogin extends \DAL\DalSlim {
              * 
              */
             $statement = $pdo->prepare($sql);            
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -338,7 +338,7 @@ class MblLogin extends \DAL\DalSlim {
              * 
              */
             $statement = $pdo->prepare($sql);            
-        // echo debugPDO($sql, $params);
+        // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -541,7 +541,7 @@ class MblLogin extends \DAL\DalSlim {
              * 
              */
             $statement = $pdo->prepare($sql);            
-      // echo debugPDO($sql, $params);
+      // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -600,7 +600,7 @@ class MblLogin extends \DAL\DalSlim {
  
                  "; 
             $statement = $pdo->prepare($sql);            
-         //echo debugPDO($sql, $params);
+         //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -697,7 +697,7 @@ class MblLogin extends \DAL\DalSlim {
 
                  "; 
             $statement = $pdo->prepare($sql);   
-   // echo debugPDO($sql, $params);
+   // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -1015,7 +1015,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 SET NOCOUNT OFF;
                  "; 
             $statement = $pdo->prepare($sql);   
-     // echo debugPDO($sql, $params);
+     // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -1273,7 +1273,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                  set nocount off; 
                  ";  
             $statement = $pdo->prepare($sql);            
-      //echo debugPDO($sql, $params);
+      //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1331,7 +1331,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     order by GNL_OKULLAR.OkulAdi  
                  "; 
             $statement = $pdo->prepare($sql);            
-         //echo debugPDO($sql, $params);
+         //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1501,7 +1501,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 
                  "; 
             $statement = $pdo->prepare($sql);   
-   // echo debugPDO($sql, $params);
+   // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -1708,7 +1708,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  
                  "; 
             $statement = $pdo->prepare($sql);   
-   // echo debugPDO($sql, $params);
+   // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -1862,7 +1862,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  
                  "; 
             $statement = $pdo->prepare($sql);   
-   // echo debugPDO($sql, $params);
+   // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -2025,7 +2025,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-          // echo debugPDO($sql, $params);
+          // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -2193,7 +2193,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -2278,7 +2278,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-           // echo debugPDO($sql, $params);
+           // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -2354,7 +2354,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if ((isset($params['OkulOgretmenID']) && $params['OkulOgretmenID'] != "")) {
                 $OkulOgretmenID = $params['OkulOgretmenID'];
             } 
-            $Tarih = NULL;
+            $Tarih =  date("Y-m-d H:i:s") ;
             if ((isset($params['Tarih']) && $params['Tarih'] != "")) {
                 $Tarih = $params['Tarih'];
             } 
@@ -2364,77 +2364,46 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $devamsizlikKodID = NULL;
             if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
                 $XmlData = $params['XmlData'];
-             //    var_dump($XmlData   ); 
+                $xml = new \SimpleXMLElement('<Table></Table>');  
                 $dataValue =  json_decode($XmlData, true);
-               //   print_r( "////////////"); 
-              //   var_dump($dataValue[0]['id'] , $dataValue[0]["yok"]  , $dataValue[0]["gec"]); 
-             //   var_dump($dataValue   ); 
-              // echo($dataValue[0]['id']   ); 
-             //     print_r( $dataValue[0]["yok"] ); 
-             // print_r( "////////////"); 
-           //   $ii =0 ; 
-                 // echo( "\\\\\\console\\\\\\"); 
-                    foreach ($dataValue as $std) {
-                    
-                        if ($std  != null) {
-  // print_r("<<<<<<<"); 
-  //   print_r($std ['id'] );  
-  //    print_r(">>>>>>> "); 
-    //  $ii +=1;
-      $devamsizlikKodID = -1 ; 
-   //   print_r($std ['yok']);
-                       
-                        if ($std ['yokgec']  == 1) { $devamsizlikKodID = 1 ;}
-                        if ($std ['yokgec']  == 2) { $devamsizlikKodID = 2 ;}
-    //   print_r("<<<<<<<"); 
-   //  print_r($devamsizlikKodID);  
-  //   print_r(">>>>>>> ");            
-        //  print_r(htmlentities('<Ogrenci><OgrenciID>').$dataValue[0][0]).htmlentities('</OgrenciID><DevamsizlikKodID>').$dataValue[0][1].htmlentities('</DevamsizlikKodID> ' )  ; 
-         //    IF ($devamsizlikKodID >-1)  {  echo( '<Ogrenci><OgrenciID>'.$std ['id'].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ); }
-              IF ($devamsizlikKodID >0)  { $SendXmlData =$SendXmlData.'<Ogrenci><OgrenciID>'.$std ['id'].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ; }
-                        }
+              
+                foreach ($dataValue as $std) { 
+                    if ($std  != null) { 
+                    $devamsizlikKodID = -1 ;  
+                    if ($std ['yokgec']  == 1) { $devamsizlikKodID = 1 ;}
+                    if ($std ['yokgec']  == 2) { $devamsizlikKodID = 2 ;}
+     
+                    IF ($devamsizlikKodID >0)  { $SendXmlData =$SendXmlData.'<Ogrenci><OgrenciID>'.$std ['id'].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ;
+                        $Ogrenci = $xml->addChild('Ogrenci');
+                        $Ogrenci->addAttribute('OgrenciID', $std ['id']);  
+                        $Ogrenci->addAttribute('DevamsizlikKodID', $devamsizlikKodID);  
+                        $Ogrenci->addAttribute('Aciklama', '');  
+                        }  
                     }
-                  
-               $SendXmlData = '<Table>'.$SendXmlData.'</Table>';
+                } 
             } 
-          // echo($SendXmlData); 
-            //  $xml = new SimpleXMLElement('<xml/>'); 
-            /*
-             * // <Table><Ogrenci><OgrenciID>c6bc540a-1c6e-4ee9-a7f6-3d76eb9027eb</OgrenciID><DevamsizlikKodID>0</DevamsizlikKodID><Aciklama/></Ogrenci><Ogrenci><OgrenciID>4d6ea4f9-8ad9-410e-97f9-930b6b8fe41a</OgrenciID><DevamsizlikKodID>0</DevamsizlikKodID><Aciklama/></Ogrenci><Ogrenci><OgrenciID>c82cc86a-6dde-4213-82a2-812344275720</OgrenciID><DevamsizlikKodID>0</DevamsizlikKodID><Aciklama/></Ogrenci><Ogrenci><OgrenciID>8eae147f-0798-4a77-af17-16972fc10382</OgrenciID><DevamsizlikKodID>0</DevamsizlikKodID><Aciklama/></Ogrenci><Ogrenci><OgrenciID>cf7223bc-4b0c-49c5-bf49-922a4d7f252d</OgrenciID><DevamsizlikKodID>0</DevamsizlikKodID><Aciklama/></Ogrenci></Table>
-             $xml = new SimpleXMLElement('<xml/>');
-                <tr><td>09:00 - 09:40</td><td>Dersiniz Yok</td><td></td></tr>
-                </tbody><tbody><tr><td>09:50 - 10:30</td><td>Dersiniz Yok</td><td></td></tr></tbody><tbody><tr><td>10:40 - 11:20</td><td>Dersiniz Yok</td><td></td></tr></tbody><tbody><tr><td>11:30 - 12:10</td><td>Dersiniz Yok</td><td></td></tr></tbody><tbody><tr><td>12:20 - 13:00</td><td>Dersiniz Yok</td><td></td></tr></tbody><tbody><tr><td>13:50 - 14:30</td><td>Dersiniz Yok</td><td></td></tr></tbody><tbody><tr><td>14:40 - 15:20</td><td>Dersiniz Yok</td><td></td></tr></tbody><tbody><tr><td>15:30 - 16:10</td><td>Dersiniz Yok</td><td></td></tr></tbody><tbody><tr><td>16:20 - 16:40</td><td>Dersiniz Yok</td><td></td></tr>
-              
-             */
-          // echo($SendXmlData); 
-              /*
-            <Table><Ogrenci><OgrenciID>AEEFE2B7-6653-4776-9343-031155AF6181</OgrenciID><DevamsizlikKodID>2</DevamsizlikKodID><Aciklama/></Ogrenci><Ogrenci><OgrenciID>FA56401D-B693-4292-A726-8784BBB6FF30</OgrenciID><DevamsizlikKodID>2</DevamsizlikKodID><Aciklama/></Ogrenci></Table>
-              */
-               
-              
-            $XmlData = $SendXmlData;
-         //   print_r($XmlData); 
-      //     print_r( '11'); 
-            $sql = " 
+         
+            $sql =   '    
             declare @XmlD XML;
-            set @XmlD = '" . $XmlData . "'  ; 
-
-                exec ".$dbnamex."PRC_GNL_OgrenciDevamsizlikSaatleri_SaveXML 
-                    @DersYiliID='" . $DersYiliID . "',
-                    @Tarih='" . $Tarih . "', 
-                    @DersSirasi=" . intval($DersSirasi) . " ,
-                    @XmlData= @XmlD,
-                    @SinifDersID='" . $SinifDersID . "' ; 
- ";
-            $statement = $pdo->prepare($sql);
-         //    print_r( '22'); 
-         //     echo debugPDO($sql, $params); 
-              
+            set @XmlD = \''.$xml.'\';  
+            exec  '.$dbnamex.'PRC_GNL_OgrenciDevamsizlikSaatleri_SaveXML 
+                @DersYiliID=\''.$DersYiliID.'\',
+                @Tarih=\''.$Tarih.'\', 
+                @DersSirasi=' . intval($DersSirasi).',
+                @XmlData= @XmlD,
+                @SinifDersID=\''.$SinifDersID.'\'; 
+             ';
+            $statement = $pdo->prepare($sql); 
+         //      
+            $result = null;
+            $errorInfo = null;  
+            $insertID =0;
             if ($cid == 138)  { 
                 $result = $statement->execute();
+                $insertID =1;
+                $errorInfo = $statement->errorInfo(); 
             }
-             $insertID =1;
-            $errorInfo = $statement->errorInfo(); 
+             
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             
@@ -2444,17 +2413,16 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @DersYiliID= '" . $DersYiliID . "',
                     @SinifID='" . $SinifID . "',
                     @DersID= '" . $DersID . "',
-                    @DersSirasi=" . intval($DersSirasi) . " ; 
-                 
-  ";
+                    @DersSirasi=" . intval($DersSirasi) . " ;  
+                ";
             $statement = $pdo->prepare($sql);
-          // echo debugPDO($sql, $params);
-       //     print_r( '33'); 
+          //  
            if ($cid == 138)  { 
                 $result = $statement->execute();
+                $insertID =1;
+                $errorInfo = $statement->errorInfo(); 
             }
-             $insertID =1;
-            $errorInfo = $statement->errorInfo(); 
+            
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
              $sql = " 
@@ -2466,13 +2434,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @DonemID=" . intval($DersSirasi) . " ; 
  ";
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
-       //      print_r( '44'); 
+            //  
             if ($cid == 138)  { 
             $result = $statement->execute();
-            }
-             $insertID =1;
+            $insertID =1;
             $errorInfo = $statement->errorInfo(); 
+            }
+           
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
              $sql = " 
@@ -2480,18 +2448,20 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @OkulOgretmenID='" . $OkulOgretmenID . "',
                     @SinifID='" . $SinifID . "',
                     @YoklamaTarihi='" . date("Y-m-d H:i:s") . "',
-                    @KayitTarihi='" . date("Y-m-d H:i:s") . "';
- 
+                    @KayitTarihi='" . date("Y-m-d H:i:s") . "'; 
                     ";
-      //        print_r( '55'); 
+    
             $statement = $pdo->prepare($sql);
-           // echo debugPDO($sql, $params);
+           // 
+            $result = null;
+            $errorInfo = null;  
+            $insertID =0;
             if ($cid == 138)  { 
             $result = $statement->execute();
+            $errorInfo = $statement->errorInfo();  
             $insertID =1;
-            }
-         
-            $errorInfo = $statement->errorInfo();           
+            }  
+                    
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             $pdo->commit();
@@ -2612,7 +2582,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 
             $statement = $pdo->prepare($sql);
             
-          // echo debugPDO($sql, $params);
+          // 
             $statement->execute();
          //   $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             
@@ -2755,7 +2725,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-        // echo debugPDO($sql, $params);
+        // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -2857,7 +2827,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-        // echo debugPDO($sql, $params);
+        // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -2958,7 +2928,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-     // echo debugPDO($sql, $params);
+     // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -3047,7 +3017,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-      // echo debugPDO($sql, $params);
+      // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -3192,7 +3162,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-     //  echo debugPDO($sql, $params);
+     //  
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -3365,7 +3335,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-       // echo debugPDO($sql, $params);
+       // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -3567,7 +3537,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-       // echo debugPDO($sql, $params);
+       // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -3725,7 +3695,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-       // echo debugPDO($sql, $params);
+       // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -3888,7 +3858,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  
                  "; 
             $statement = $pdo->prepare($sql);   
-       // echo debugPDO($sql, $params);
+       // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -4046,7 +4016,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-       // echo debugPDO($sql, $params);
+       // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -4122,7 +4092,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -4213,7 +4183,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-     // echo debugPDO($sql, $params);
+     // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -4311,7 +4281,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-     // echo debugPDO($sql, $params);
+     // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -4459,7 +4429,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                             SET NOCOUNT OFF;    
                                 ";
                             $statement = $pdo->prepare($sql); 
-                         //   echo debugPDO($sql, $params);
+                         //   
                          //   $result = $statement->execute();
 
                           
@@ -4786,7 +4756,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;
                  "; 
             $statement = $pdo->prepare($sql);   
-        // echo debugPDO($sql, $params);
+        // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -4887,7 +4857,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-        // echo debugPDO($sql, $params);
+        // 
             $statement->execute(); 
             
             $gelenMesajOkunduParams = array('MesajID' =>  $MesajID, 'KisiID'=>  $KisiID, ); 
@@ -4963,7 +4933,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     SET NOCOUNT OFF;   
                            ";
             $statement = $pdo->prepare($sql); 
-      // echo debugPDO($sql, $params);
+      // 
             $result = $statement->execute(); 
             $errorInfo = $statement->errorInfo();
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
@@ -5080,7 +5050,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-    //echo debugPDO($sql, $params);
+    //
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -5201,7 +5171,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-       // echo debugPDO($sql, $params);
+       // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -5281,7 +5251,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-     // echo debugPDO($sql, $params);
+     // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -5396,7 +5366,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-       // echo debugPDO($sql, $params);
+       // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -5534,7 +5504,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -5620,7 +5590,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -5735,7 +5705,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-      // echo debugPDO($sql, $params);
+      // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -5820,7 +5790,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-        // echo debugPDO($sql, $params);
+        // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -5918,7 +5888,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-        //echo debugPDO($sql, $params);
+        //
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -6006,7 +5976,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-        //echo debugPDO($sql, $params);
+        //
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -6280,7 +6250,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                      
                  ";  
             $statement = $pdo->prepare($sql);            
-      //echo debugPDO($sql, $params);
+      //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -6504,7 +6474,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-        //echo debugPDO($sql, $params);
+        //
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -6698,7 +6668,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-        //echo debugPDO($sql, $params);
+        //
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -6831,7 +6801,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-        //echo debugPDO($sql, $params);
+        //
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -6939,7 +6909,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-        //echo debugPDO($sql, $params);
+        //
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -7045,7 +7015,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-        //echo debugPDO($sql, $params);
+        //
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -7141,7 +7111,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-        //echo debugPDO($sql, $params);
+        //
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -7249,7 +7219,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-        //echo debugPDO($sql, $params);
+        //
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -7326,7 +7296,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -7543,7 +7513,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
    
                  "; 
             $statement = $pdo->prepare($sql);   
-  // echo debugPDO($sql, $params);
+  // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -7768,7 +7738,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
      
                  "; 
             $statement = $pdo->prepare($sql);   
-      // echo debugPDO($sql, $params);
+      // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -8015,7 +7985,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
           
                  "; 
             $statement = $pdo->prepare($sql);   
-   // echo debugPDO($sql, $params);
+   // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -8198,7 +8168,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;
                  "; 
             $statement = $pdo->prepare($sql);   
-   // echo debugPDO($sql, $params);
+   // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -8278,7 +8248,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
   
                  "; 
             $statement = $pdo->prepare($sql);   
-      // echo debugPDO($sql, $params);
+      // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -8443,7 +8413,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $statement = $pdo->prepare($sql); 
             $result =NULL;
             $errorInfo = NULL;
-      // echo debugPDO($sql, $params);
+      // 
             if ($cid == 138)  { 
             $result = $statement->execute(); 
             $errorInfo = $statement->errorInfo();
@@ -8755,7 +8725,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
              SET NOCOUNT OFF; 
                  "; 
             $statement = $pdo->prepare($sql);   
-        // echo debugPDO($sql, $params);
+        // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -8866,7 +8836,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-      //  echo debugPDO($sql, $params);
+      //  
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -8970,7 +8940,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-     // echo debugPDO($sql, $params);
+     // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -9085,7 +9055,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-     // echo debugPDO($sql, $params);
+     // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -9196,7 +9166,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -9289,7 +9259,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-      // echo debugPDO($sql, $params);
+      // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -9389,7 +9359,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-     // echo debugPDO($sql, $params);
+     // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -9466,7 +9436,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-        // echo debugPDO($sql, $params);
+        // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -9591,7 +9561,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  
                  "; 
             $statement = $pdo->prepare($sql);   
-     // echo debugPDO($sql, $params);
+     // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -9716,7 +9686,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  
                  "; 
             $statement = $pdo->prepare($sql);   
-  // echo debugPDO($sql, $params);
+  // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -9846,7 +9816,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  
                  "; 
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -9984,7 +9954,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  
                  "; 
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -10123,7 +10093,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  
                  "; 
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -10277,7 +10247,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  
                  "; 
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -10353,7 +10323,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -10453,7 +10423,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                  "; 
             $statement = $pdo->prepare($sql);   
-     // echo debugPDO($sql, $params);
+     // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -10543,7 +10513,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;     
                 "; 
             $statement = $pdo->prepare($sql);   
-       //echo debugPDO($sql, $params);
+       //
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -10645,7 +10615,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -10702,7 +10672,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;   
                 "; 
             $statement = $pdo->prepare($sql); 
-           //  echo debugPDO($sql, $params);
+           //  
          //   $result = $statement->execute();
              $insertID =1;
             $errorInfo = $statement->errorInfo(); 
@@ -10837,7 +10807,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -10991,7 +10961,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-   // echo debugPDO($sql, $params);
+   // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -11178,7 +11148,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             ';  
             
             $statement = $pdo->prepare($sql); 
-     //  echo debugPDO($sql, $params);
+     //  
             $result = NULL; 
             $errorInfo = NULL;
             if ($cid == 138)  { 
@@ -11368,7 +11338,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                  
                  "; 
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -11649,7 +11619,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
            // $sql =  $sql +  $sql1;
        //    print_r($sql);
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute();
             
             //   http://localhost:8081/jasperserver/flow.html?_flowId=viewReportFlow&reportUnit=/reports/bilsa/mobile/oppp&output=pdf&j_username=jasperadmin&j_password=12345678oki
@@ -11897,7 +11867,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
            // $sql =  $sql +  $sql1;
        //    print_r($sql);
             $statement = $pdo->prepare($sql);   
-    // echo debugPDO($sql, $params);
+    // 
             $statement->execute();
             
             //   http://localhost:8081/jasperserver/flow.html?_flowId=viewReportFlow&reportUnit=/reports/bilsa/mobile/oppp&output=pdf&j_username=jasperadmin&j_password=12345678oki
@@ -11999,7 +11969,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             SET NOCOUNT OFF;  
                  "; 
             $statement = $pdo->prepare($sql);   
-        // echo debugPDO($sql, $params);
+        // 
             $statement->execute();
            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);

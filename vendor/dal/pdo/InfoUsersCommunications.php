@@ -321,7 +321,7 @@ class InfoUsersCommunications extends \DAL\DalSlim {
                 AND deleted=0  
                                ";
             $statement = $pdo->prepare($sql);
-            //echo debugPDO($sql, $params);
+            //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1275,7 +1275,7 @@ class InfoUsersCommunications extends \DAL\DalSlim {
                 $statement->bindValue(':profile_public', $params['profile_public'], \PDO::PARAM_INT);
                 $statement->bindValue(':default_communication_id', $params['default_communication_id'], \PDO::PARAM_INT);
                 $statement->bindValue(':consultant_id',$ConsultantId, \PDO::PARAM_INT);
-                // echo debugPDO($sql, $params);                
+                //                 
                 $result = $statement->execute();
                 $insertID = $pdo->lastInsertId('info_users_communications_id_seq');
                 $errorInfo = $statement->errorInfo();
@@ -1569,7 +1569,7 @@ class InfoUsersCommunications extends \DAL\DalSlim {
                     a.user_id = " . intval($opUserId ['resultSet'][0]['user_id'])."                     
                     ";
                 $statement = $pdo->prepare($sql);
-                // echo debugPDO($sql, $params);
+                // 
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();

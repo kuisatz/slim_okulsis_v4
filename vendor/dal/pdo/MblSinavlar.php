@@ -78,7 +78,7 @@ class MblSinavlar extends \DAL\DalSlim {
                AND deleted =0   
                                ";
             $statement = $pdo->prepare($sql);
-            //   echo debugPDO($sql, $params);
+            //   
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -199,7 +199,7 @@ class MblSinavlar extends \DAL\DalSlim {
             SET NOCOUNT OFF;  
                 "; 
             $statement = $pdo->prepare($sql);   
-  //  echo debugPDO($sql, $params);
+  //  
             $statement->execute(); 
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

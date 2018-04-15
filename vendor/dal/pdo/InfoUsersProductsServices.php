@@ -172,7 +172,7 @@ class InfoUsersProductsServices extends \DAL\DalSlim {
                 " . $addSql . "                  
                                ";
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -288,7 +288,7 @@ class InfoUsersProductsServices extends \DAL\DalSlim {
                         $statement = $pdo->prepare($sql);
                         $statement->bindValue(':firm_id', $getFirmId, \PDO::PARAM_INT);
                         $statement->bindValue(':unspsc_codes_id', $params['unspsc_codes_id'], \PDO::PARAM_INT);
-                        //  echo debugPDO($sql, $params);
+                        //  
                         $result = $statement->execute();
                         $insertID = $pdo->lastInsertId('info_users_products_services_id_seq');
                         $errorInfo = $statement->errorInfo();
@@ -689,7 +689,7 @@ class InfoUsersProductsServices extends \DAL\DalSlim {
                         WHERE id =  " . intval($params['id']) . " 
                         ";
                 $statement_act_insert = $pdo->prepare($sql);
-                //  echo debugPDO($sql, $params);
+                //  
                 $insert_act_insert = $statement_act_insert->execute();
                 $affectedRows = $statementInsert->rowCount();
                 $insertID = $pdo->lastInsertId('info_users_products_services_id_seq');
@@ -782,7 +782,7 @@ class InfoUsersProductsServices extends \DAL\DalSlim {
 		    ORDER BY unspsc_name
                 ";
                     $statement = $pdo->prepare($sql);
-                    //echo debugPDO($sql, $params);
+                    //
                     $statement->execute();
                     $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                     $errorInfo = $statement->errorInfo();
@@ -839,7 +839,7 @@ class InfoUsersProductsServices extends \DAL\DalSlim {
 		    ORDER BY unspsc_name
                 ";
                     $statement = $pdo->prepare($sql);
-                    //echo debugPDO($sql, $params);
+                    //
                     $statement->execute();
                     $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                     $errorInfo = $statement->errorInfo();
@@ -910,7 +910,7 @@ class InfoUsersProductsServices extends \DAL\DalSlim {
 		    ORDER BY unspsc_name
                 ";
                 $statement = $pdo->prepare($sql);
-                echo debugPDO($sql, $params);
+                
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -958,7 +958,7 @@ class InfoUsersProductsServices extends \DAL\DalSlim {
 		    ORDER BY unspsc_name
                 ";
                 $statement = $pdo->prepare($sql);
-                //echo debugPDO($sql, $params);
+                //
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();

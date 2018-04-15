@@ -431,7 +431,7 @@ class SysVillage extends \DAL\DalSlim {
                 ORDER BY a.name                
                                  ";
             $statement = $pdo->prepare($sql);
-           //echo debugPDO($sql, $params);
+           //
             $statement->bindValue(':language_code', $params['language_code'], \PDO::PARAM_STR);
             $statement->bindValue(':country_id', $params['country_id'], \PDO::PARAM_INT);
             $statement->bindValue(':city_id', $params['city_id'], \PDO::PARAM_INT);

@@ -181,7 +181,7 @@ class InfoUsersVerbal extends \DAL\DalSlim {
                    " . $addSql . "                  
                                ";
             $statement = $pdo->prepare($sql);
-         //echo debugPDO($sql, $params);
+         //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -363,7 +363,7 @@ class InfoUsersVerbal extends \DAL\DalSlim {
                         $statement->bindValue(':verbal2_eng', $params['verbal2_eng'], \PDO::PARAM_STR);
                         $statement->bindValue(':verbal3_title_eng', $params['verbal3_title_eng'], \PDO::PARAM_STR);
                         $statement->bindValue(':verbal3_eng', $params['verbal3_eng'], \PDO::PARAM_STR);
-                        //  echo debugPDO($sql, $params);
+                        //  
                         $result = $statement->execute();
                         $insertID = $pdo->lastInsertId('info_users_verbal_id_seq');
                         $errorInfo = $statement->errorInfo();
@@ -532,7 +532,7 @@ class InfoUsersVerbal extends \DAL\DalSlim {
                         WHERE id =  " . intval($params['id']) . " 
                         ";
                         $statement_act_insert = $pdo->prepare($sql);
-                   // echo debugPDO($sql, $params);
+                   // 
                         $insert_act_insert = $statement_act_insert->execute();
                         $affectedRows = $statement_act_insert->rowCount();                                         
                         $insertID = $pdo->lastInsertId('info_users_verbal_id_seq');                               
@@ -1076,7 +1076,7 @@ class InfoUsersVerbal extends \DAL\DalSlim {
                         $statement_act_insert = $pdo->prepare($sql);
                         
                         $insert_act_insert = $statement_act_insert->execute();
-                        // echo debugPDO($sql, $params);
+                        // 
                         $affectedRows = $statement_act_insert->rowCount();
                         $insertID = $pdo->lastInsertId('info_users_verbal_id_seq');
                         /*
@@ -1203,7 +1203,7 @@ class InfoUsersVerbal extends \DAL\DalSlim {
                     limit 1 
                         ";
                 $statement = $pdo->prepare($sql);
-              // echo debugPDO($sql, $params);
+              // 
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -1289,7 +1289,7 @@ class InfoUsersVerbal extends \DAL\DalSlim {
                     limit 1                 
                         ";
                 $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -1345,7 +1345,7 @@ class InfoUsersVerbal extends \DAL\DalSlim {
                 ORDER BY  iud.name, iud.surname 
                 ";
                 $statement = $pdo->prepare($sql);
-               //   echo debugPDO($sql, $params);                
+               //                   
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();

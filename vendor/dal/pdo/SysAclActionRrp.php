@@ -131,7 +131,7 @@ class SysAclActionRrp extends \DAL\DalSlim {
                AND deleted =0   
                                ";
             $statement = $pdo->prepare($sql);
-            //   echo debugPDO($sql, $params);
+            //   
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -180,7 +180,7 @@ class SysAclActionRrp extends \DAL\DalSlim {
                     $statement->bindValue(':name_eng', $params['name_eng'], \PDO::PARAM_STR);                    
                     $statement->bindValue(':resource_id', $params['resource_id'], \PDO::PARAM_INT);
                     $statement->bindValue(':description', $params['description'], \PDO::PARAM_STR);
-                   // echo debugPDO($sql, $params);
+                   // 
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('sys_acl_action_rrp_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -520,7 +520,7 @@ class SysAclActionRrp extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             );
             $statement = $pdo->prepare($sql);
-            //echo debugPDO($sql, $params);
+            //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -631,7 +631,7 @@ class SysAclActionRrp extends \DAL\DalSlim {
                             ) AS xxtable 
                          ";
             $statement = $pdo->prepare($sql); 
-            //echo debugPDO($sql, $params);
+            //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -693,7 +693,7 @@ class SysAclActionRrp extends \DAL\DalSlim {
                 ORDER BY name  
                                  ";
               $statement = $pdo->prepare($sql);
-           // echo debugPDO($sql, $params);
+           // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -750,7 +750,7 @@ class SysAclActionRrp extends \DAL\DalSlim {
                 ORDER BY name    
                                  ";
              $statement = $pdo->prepare( $sql);
-       // echo debugPDO($sql, $params);
+       // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -793,7 +793,7 @@ class SysAclActionRrp extends \DAL\DalSlim {
                 op_user_id = " . intval($opUserIdValue) . "
                 WHERE id = " . intval($params['id']);
                     $statement = $pdo->prepare($sql);
-                    //  echo debugPDO($sql, $params);
+                    //  
                     $update = $statement->execute();
                     $afterRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -857,7 +857,7 @@ class SysAclActionRrp extends \DAL\DalSlim {
                 ORDER BY privilege_name
                                  ";
             $statement = $pdo->prepare($sql); 
-       //echo debugPDO($sql, $params);
+       //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -920,7 +920,7 @@ class SysAclActionRrp extends \DAL\DalSlim {
                 ORDER BY privilege_name     
                         ";
             $statement = $pdo->prepare($sql); 
-          // echo debugPDO($sql, $params);
+          // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1122,7 +1122,7 @@ class SysAclActionRrp extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             );
             $statement = $pdo->prepare($sql);
-         // echo debugPDO($sql, $params);
+         // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1247,7 +1247,7 @@ class SysAclActionRrp extends \DAL\DalSlim {
                         ) AS xtable
                  ";           
             $statement = $pdo->prepare($sql);
-           // echo debugPDO($sql, $params);
+           // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1288,7 +1288,7 @@ class SysAclActionRrp extends \DAL\DalSlim {
                         " . intval($opUserIdValue) . "
                     )";
                     $statement = $pdo->prepare($sql);
-                   //  echo debugPDO($sql, $params);
+                   //  
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('sys_acl_action_rrp_id_seq');
                     $errorInfo = $statement->errorInfo();

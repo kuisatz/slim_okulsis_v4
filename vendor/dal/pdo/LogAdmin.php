@@ -110,7 +110,7 @@ class LogAdmin extends \DAL\DalSlim {
                 $statement->bindValue(':ip', $params['ip'], \PDO::PARAM_STR);
                 $statement->bindValue(':params', $params['params'], \PDO::PARAM_STR);
                 $statement->bindValue(':log_datetime', $params['log_datetime'], \PDO::PARAM_STR);
-               // echo debugPDO($sql, $params);
+               // 
                 $result = $statement->execute();
                 $insertID = $pdo->lastInsertId('admin_log_id_seq');
                 $errorInfo = $statement->errorInfo();
@@ -240,7 +240,7 @@ class LogAdmin extends \DAL\DalSlim {
                 INNER JOIN sys_operation_types op ON op.id = a.op_type_id              
                ";
             $statement = $pdo->prepare($sql);
-           // echo debugPDO($sql, $params);
+           // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

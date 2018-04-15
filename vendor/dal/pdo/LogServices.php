@@ -132,7 +132,7 @@ class LogServices extends \DAL\DalSlim {
                 $statement->bindValue(':op_user_id', $userIdValue, \PDO::PARAM_INT);            
                 $statement->bindValue(':method', $params['method'], \PDO::PARAM_STR);
                 $statement->bindValue(':request_info', $params['request_info'], \PDO::PARAM_STR);
-               // echo debugPDO($sql, $params);
+               // 
                 $result = $statement->execute();
                 $insertID = $pdo->lastInsertId('services_log_id_seq');
                 $errorInfo = $statement->errorInfo();
@@ -266,7 +266,7 @@ class LogServices extends \DAL\DalSlim {
                 INNER JOIN sys_operation_types op ON op.id = a.op_type_id              
                ";
             $statement = $pdo->prepare($sql);
-           // echo debugPDO($sql, $params);
+           // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

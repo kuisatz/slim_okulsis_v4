@@ -185,7 +185,7 @@ class ActProcessConfirm extends \DAL\DalSlim {
                         '" . $params['url'] ."' 
                                              )";
                 $statement = $pdo->prepare($sql);
-               //echo debugPDO($sql, $params);
+               //
                 $result = $statement->execute();
                 $insertID = $pdo->lastInsertId('act_process_confirm_id_seq');
                 $errorInfo = $statement->errorInfo();
@@ -231,7 +231,7 @@ class ActProcessConfirm extends \DAL\DalSlim {
                         cons_operation_type_id " . intval($consOperationIdValue) . "
                     WHERE id = " . intval($params['id']);
                 $statement = $pdo->prepare($sql);
-                //echo debugPDO($sql, $params);
+                //
                 $update = $statement->execute();
                 $affectedRows = $statement->rowCount();
                 $errorInfo = $statement->errorInfo();
@@ -405,7 +405,7 @@ class ActProcessConfirm extends \DAL\DalSlim {
                 
                 ";
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

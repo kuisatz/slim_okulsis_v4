@@ -135,7 +135,7 @@ class LogConnection extends \DAL\DalSlim {
             $statement->bindValue(':method', $params['method'], \PDO::PARAM_STR);
             $statement->bindValue(':request_info', $params['request_info'], \PDO::PARAM_STR);
 
-          //  echo debugPDO($sql, $params);
+          //  
             $result = $statement->execute();
             $insertID = $pdo->lastInsertId('connection_log_id_seq');
             $errorInfo = $statement->errorInfo();
@@ -269,7 +269,7 @@ class LogConnection extends \DAL\DalSlim {
                     Or CRYPT(b.sf_private_key_value_temp,CONCAT('_J9..',REPLACE(a.pk,'*','/'))) = CONCAT('_J9..',REPLACE(a.pk,'*','/'))     
                 ORDER BY a.s_date   ";
             $statement = $pdo->prepare($sql);
-           // echo debugPDO($sql, $params);
+           // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

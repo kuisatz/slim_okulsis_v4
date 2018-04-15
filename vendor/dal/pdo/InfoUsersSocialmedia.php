@@ -204,7 +204,7 @@ class InfoUsersSocialmedia extends \DAL\DalSlim {
                     $statement->bindValue(':user_id', $opUserIdValue, \PDO::PARAM_INT);
                     $statement->bindValue(':op_user_id', $opUserIdValue, \PDO::PARAM_INT);
                     $statement->bindValue(':user_link', $params['user_link'], \PDO::PARAM_STR);
-                    // echo debugPDO($sql, $params);
+                    // 
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('info_users_socialmedia_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -277,7 +277,7 @@ class InfoUsersSocialmedia extends \DAL\DalSlim {
                    WHERE user_link = '" . $params['user_link'] . "' 
                ";
             $statement = $pdo->prepare($sql);
-         //   echo debugPDO($sql, $params);
+         //   
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -373,7 +373,7 @@ class InfoUsersSocialmedia extends \DAL\DalSlim {
                         WHERE id =  " . intval($params['id']) . " 
                         ";
                     $statement_act_insert = $pdo->prepare($sql);
-                    //   echo debugPDO($sql, $params);
+                    //   
                     $insert_act_insert = $statement_act_insert->execute();
                     $affectedRows = $statement_act_insert->rowCount();                    
                     $insertID = $pdo->lastInsertId('info_users_socialmedia_id_seq');                               
@@ -570,7 +570,7 @@ class InfoUsersSocialmedia extends \DAL\DalSlim {
                               
                     ";
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -615,7 +615,7 @@ class InfoUsersSocialmedia extends \DAL\DalSlim {
                 op_user_id = " . intval($opUserIdValue) . "
                 WHERE id = " . intval($params['id']);
                     $statement = $pdo->prepare($sql);
-                    //  echo debugPDO($sql, $params);
+                    //  
                     $update = $statement->execute();
                     $afterRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -709,7 +709,7 @@ class InfoUsersSocialmedia extends \DAL\DalSlim {
                 ORDER BY iud.language_id, iud.root_id
                 ";
                 $statement = $pdo->prepare($sql);
-                // echo debugPDO($sql, $params);
+                // 
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -766,7 +766,7 @@ class InfoUsersSocialmedia extends \DAL\DalSlim {
 			AND iud.root_id = " . intval($userIdValue) . "
                 ";
                 $statement = $pdo->prepare($sql);
-                //  echo debugPDO($sql, $params);
+                //  
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -836,7 +836,7 @@ class InfoUsersSocialmedia extends \DAL\DalSlim {
                         WHERE id =  " . intval($params['id']) . " 
                         ";
                 $statement_act_insert = $pdo->prepare($sql);
-                // echo debugPDO($sql, $params);
+                // 
                 $insert_act_insert = $statement_act_insert->execute();
                 $affectedRows = $statement_act_insert->rowCount();
                 $insertID = $pdo->lastInsertId('info_users_socialmedia_id_seq');
@@ -932,7 +932,7 @@ class InfoUsersSocialmedia extends \DAL\DalSlim {
                 ORDER BY iud.language_id, iud.name, iud.surname                 
                 ";
                 $statement = $pdo->prepare($sql);
-               // echo debugPDO($sql, $params);
+               // 
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();
@@ -985,7 +985,7 @@ class InfoUsersSocialmedia extends \DAL\DalSlim {
                     iud.language_parent_id =0
                 ";
                 $statement = $pdo->prepare($sql);
-                //  echo debugPDO($sql, $params);
+                //  
                 $statement->execute();
                 $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = $statement->errorInfo();

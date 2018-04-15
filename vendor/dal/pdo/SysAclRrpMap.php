@@ -135,7 +135,7 @@ class SysAclRrpMap extends \DAL\DalSlim {
                 ) AS ssd
                                    ";
             $statement = $pdo->prepare($sql);        
-         //   echo debugPDO($sql, $params);
+         //   
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -178,7 +178,7 @@ class SysAclRrpMap extends \DAL\DalSlim {
                 $statement->bindValue(':privilege_id', $params['privilege_id'], \PDO::PARAM_INT);
                 $statement->bindValue(':description', $params['description'], \PDO::PARAM_STR);
                 $statement->bindValue(':user_id', $params['user_id'], \PDO::PARAM_INT);
-                // echo debugPDO($sql, $params);
+                // 
                 $result = $statement->execute();
                 $insertID = $pdo->lastInsertId('sys_acl_rrpmap_id_seq');
                 $errorInfo = $statement->errorInfo();
@@ -228,7 +228,7 @@ class SysAclRrpMap extends \DAL\DalSlim {
                 $statement->bindValue(':privilege_id', $params['privilege_id'], \PDO::PARAM_INT);
                 $statement->bindValue(':description', $params['description'], \PDO::PARAM_STR);
                 $statement->bindValue(':user_id', $params['user_id'], \PDO::PARAM_INT);
-                //  echo debugPDO($sql, $params);          
+                //            
                 $update = $statement->execute();
                 $affectedRows = $statement->rowCount();
                 $errorInfo = $statement->errorInfo();
@@ -474,7 +474,7 @@ class SysAclRrpMap extends \DAL\DalSlim {
                     . $whereNameSQL . "
                 ORDER BY name           
                                  ");
-         //   echo debugPDO($sql, $params);
+         //   
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);          
             $errorInfo = $statement->errorInfo();

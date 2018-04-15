@@ -154,7 +154,7 @@ class SysUnitSystems extends \DAL\DalSlim {
                     $statement->bindValue(':system', $params['system'], \PDO::PARAM_STR);                                        
                     $statement->bindValue(':language_id', $languageIdValue, \PDO::PARAM_INT);
                     $statement->bindValue(':op_user_id', $opUserIdValue, \PDO::PARAM_INT);                    
-                    // echo debugPDO($sql, $params);
+                    // 
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('sys_unit_systems_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -207,7 +207,7 @@ class SysUnitSystems extends \DAL\DalSlim {
             AND a.deleted =0    
                                ";
             $statement = $pdo->prepare($sql);
-           //   echo debugPDO($sql, $params);
+           //   
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -254,7 +254,7 @@ class SysUnitSystems extends \DAL\DalSlim {
             LIMIT 1                      
                                ";
             $statement = $pdo->prepare($sql);
-           //echo debugPDO($sql, $params);
+           //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -304,7 +304,7 @@ class SysUnitSystems extends \DAL\DalSlim {
                     $statement->bindValue(':system_eng', $params['system_eng'], \PDO::PARAM_STR);                    
                     $statement->bindValue(':system', $params['system'], \PDO::PARAM_STR);                                        
                     $statement->bindValue(':op_user_id', $opUserIdValue, \PDO::PARAM_INT);   
-                 //   echo debugPDO($sql, $params);
+                 //   
                     $update = $statement->execute();
                     $affectedRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -459,7 +459,7 @@ class SysUnitSystems extends \DAL\DalSlim {
                 " . $whereSql . "               
                     ";
             $statement = $pdo->prepare($sql);
-           // echo debugPDO($sql, $params);
+           // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -510,7 +510,7 @@ class SysUnitSystems extends \DAL\DalSlim {
                 ORDER BY system
                                  ";
             $statement = $pdo->prepare($sql);            
-        //  echo debugPDO($sql, $params);
+        //  
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -562,7 +562,7 @@ class SysUnitSystems extends \DAL\DalSlim {
                     a.deleted =0   
                     ";
             $statement = $pdo->prepare($sql);            
-       //echo debugPDO($sql, $params);
+       //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

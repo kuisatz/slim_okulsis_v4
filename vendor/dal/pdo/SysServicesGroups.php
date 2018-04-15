@@ -173,7 +173,7 @@ class SysServicesGroups extends \DAL\DalSlim {
                         '" . $params['description'] . "'
                                               )  ";
                     $statement = $pdo->prepare($sql);                   
-                    //   echo debugPDO($sql, $params);
+                    //   
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('sys_services_groups_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -226,7 +226,7 @@ class SysServicesGroups extends \DAL\DalSlim {
                 WHERE id = " . intval($params['id']) . "
                     ";
                     $statement = $pdo->prepare($sql);
-                    // echo debugPDO($sql, $params);
+                    // 
                     $update = $statement->execute();
                     $affectedRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -279,7 +279,7 @@ class SysServicesGroups extends \DAL\DalSlim {
                AND deleted =0   
                                ";
             $statement = $pdo->prepare($sql);
-            //  echo debugPDO($sql, $params);
+            //  
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -438,7 +438,7 @@ class SysServicesGroups extends \DAL\DalSlim {
                 op_user_id = " . intval($opUserIdValue) . "
                 WHERE id = " . intval($params['id']);
                     $statement = $pdo->prepare($sql);
-                    //  echo debugPDO($sql, $params);
+                    //  
                     $update = $statement->execute();
                     $afterRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -519,7 +519,7 @@ class SysServicesGroups extends \DAL\DalSlim {
                 ORDER BY name
                                  ";
             $statement = $pdo->prepare($sql);   
-              // echo debugPDO($sql, $params);
+              // 
             $statement->execute();            
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -651,7 +651,7 @@ class SysServicesGroups extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             );
             $statement = $pdo->prepare($sql);
-            //echo debugPDO($sql, $params);
+            //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -748,7 +748,7 @@ class SysServicesGroups extends \DAL\DalSlim {
                 ";
 
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -782,7 +782,7 @@ class SysServicesGroups extends \DAL\DalSlim {
             LIMIT 1                     
                                ";
             $statement = $pdo->prepare($sql);
-           //echo debugPDO($sql, $params);
+           //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

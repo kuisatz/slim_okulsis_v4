@@ -112,7 +112,7 @@ class MailWrapper extends AbstractMailWrapper {
                  
                 ";
               //  $statement = $pdo->prepare($sql);
-                //  echo debugPDO($sql, $params);                
+                //                  
                 // $statement->execute();
                 $result = $kontrol;//$statement->fetchAll(\PDO::FETCH_ASSOC);
                 $errorInfo = 0 ; //$statement->errorInfo();

@@ -46,7 +46,7 @@ class SysAclActions extends \DAL\DalSlim {
                 WHERE id = " . intval($params['id'])
                         ;
                         $statement = $pdo->prepare($sql);
-                        // echo debugPDO($sql, $params);                
+                        //                 
                         $update = $statement->execute();
                         $afterRows = $statement->rowCount();
                         $errorInfo = $statement->errorInfo();
@@ -208,7 +208,7 @@ class SysAclActions extends \DAL\DalSlim {
                         LIMIT 1 )                    
                     ";
                 $statement = $pdo->prepare($sql); 
-               //  echo debugPDO($sql, $params);
+               //  
                 //Execute our DELETE statement.
                 $update = $statement->execute();
                 $afterRows = $statement->rowCount();
@@ -338,7 +338,7 @@ class SysAclActions extends \DAL\DalSlim {
                  ";
             //   id NOT IN (SELECT CAST(CAST(VALUE AS text) AS integer) FROM json_each('" . $params['newrole_ids'] . "')) AND
             $statement = $pdo->prepare($sql);
-           //echo debugPDO($sql, $params);
+           //
             $result = $statement->execute();          
             $errorInfo = $statement->errorInfo();
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
@@ -425,7 +425,7 @@ class SysAclActions extends \DAL\DalSlim {
                         '".$params['description']."'                        
                                               )  ";
                     $statement = $pdo->prepare($sql);                    
-                   // echo debugPDO($sql, $params);
+                   // 
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('sys_acl_actions_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -539,7 +539,7 @@ class SysAclActions extends \DAL\DalSlim {
                         " . intval($params['op_user_id']) . "                        
                                               )  ";
             $statement = $pdo->prepare($sql);
-           //  echo debugPDO($sql, $params);
+           //  
             $result = $statement->execute();
             $insertID = $pdo->lastInsertId('sys_acl_action_resources_id_seq');
             $errorInfo = $statement->errorInfo();
@@ -578,7 +578,7 @@ class SysAclActions extends \DAL\DalSlim {
                         1  
                         )";
                     $statement = $pdo->prepare($sql);
-                   // echo debugPDO($sql, $params);
+                   // 
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('sys_acl_privilege_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -618,7 +618,7 @@ class SysAclActions extends \DAL\DalSlim {
   
                  ";
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $result = $statement->execute();
             $insertID = $pdo->lastInsertId('sys_acl_rrp_id_seq');
             $errorInfo = $statement->errorInfo();
@@ -669,7 +669,7 @@ class SysAclActions extends \DAL\DalSlim {
                             )
                  ";
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $result = $statement->execute();
           //  $affectedRows = $statement->rowCount();
             $errorInfo = $statement->errorInfo();
@@ -721,7 +721,7 @@ class SysAclActions extends \DAL\DalSlim {
                                 )  
                  ";
             $statement = $pdo->prepare($sql);
-           // echo debugPDO($sql, $params);
+           // 
             $result = $statement->execute();
           //  $insertID = $pdo->lastInsertId('sys_acl_rrp_id_seq');
             $errorInfo = $statement->errorInfo();
@@ -768,7 +768,7 @@ class SysAclActions extends \DAL\DalSlim {
              */
             
             $statement = $pdo->prepare($sql);
-           //echo debugPDO($sql, $params);
+           //
             $result = $statement->execute();
             $insertID = $pdo->lastInsertId('sys_acl_actions_roles_id_seq');
             $errorInfo = $statement->errorInfo();
@@ -811,7 +811,7 @@ class SysAclActions extends \DAL\DalSlim {
                     ) 
                      "; 
             $statement = $pdo->prepare($sql);
-           //echo debugPDO($sql, $params);
+           //
             $result = $statement->execute();
             $insertID = $pdo->lastInsertId('sys_acl_actions_roles_id_seq');
             $errorInfo = $statement->errorInfo();
@@ -856,7 +856,7 @@ class SysAclActions extends \DAL\DalSlim {
 
                      "; 
             $statement = $pdo->prepare($sql);
-            //echo debugPDO($sql, $params);
+            //
             $result = $statement->execute();
             $insertID = $pdo->lastInsertId('sys_acl_actions_roles_id_seq');
             $errorInfo = $statement->errorInfo();
@@ -912,7 +912,7 @@ class SysAclActions extends \DAL\DalSlim {
                 WHERE id = " . intval($params['id']) . "
                     ";
                             $statement = $pdo->prepare($sql);
-                            // echo debugPDO($sql, $params);
+                            // 
                             $update = $statement->execute();
                             $affectedRows = $statement->rowCount();
                             $errorInfo = $statement->errorInfo();
@@ -1090,7 +1090,7 @@ class SysAclActions extends \DAL\DalSlim {
                 WHERE id = " . intval($params['id']) . "
                     ";
                         $statement = $pdo->prepare($sql);
-                        // echo debugPDO($sql, $params);
+                        // 
                         $update = $statement->execute();
                         $affectedRows = $statement->rowCount();
                         $errorInfo = $statement->errorInfo();
@@ -1249,7 +1249,7 @@ class SysAclActions extends \DAL\DalSlim {
                     deleted =0                
                     ";
             $statement = $pdo->prepare($sql);
-           // echo debugPDO($sql, $params);
+           // 
             $result = $statement->execute();
             $affectedRows = $statement->rowCount();
             $errorInfo = $statement->errorInfo();
@@ -1283,7 +1283,7 @@ class SysAclActions extends \DAL\DalSlim {
                         resource_type_id = 1 
                         ";
                     $statement = $pdo->prepare($sql);
-               // echo debugPDO($sql, $params);
+               // 
                     $result = $statement->execute();
                     $affectedRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -1325,7 +1325,7 @@ class SysAclActions extends \DAL\DalSlim {
                 deleted =0 
                         ";
                     $statement = $pdo->prepare($sql);
-               // echo debugPDO($sql, $params);
+               // 
                     $result = $statement->execute();
                     $affectedRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -1366,7 +1366,7 @@ class SysAclActions extends \DAL\DalSlim {
                 deleted =0 
                         ";
                     $statement = $pdo->prepare($sql);
-               // echo debugPDO($sql, $params);
+               // 
                     $result = $statement->execute();
                     $affectedRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -1418,7 +1418,7 @@ class SysAclActions extends \DAL\DalSlim {
                 LIMIT 1 
                                ";
             $statement = $pdo->prepare($sql);
-         //  echo debugPDO($sql, $params);
+         //  
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1458,7 +1458,7 @@ class SysAclActions extends \DAL\DalSlim {
                AND deleted =0   
                                ";
             $statement = $pdo->prepare($sql);
-            //  echo debugPDO($sql, $params);
+            //  
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1650,7 +1650,7 @@ class SysAclActions extends \DAL\DalSlim {
                 ORDER BY name
                                  ";
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1806,7 +1806,7 @@ class SysAclActions extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             );
             $statement = $pdo->prepare($sql);
-        //  echo debugPDO($sql, $params);
+        //  
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1914,7 +1914,7 @@ class SysAclActions extends \DAL\DalSlim {
                 ";
 
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -1957,7 +1957,7 @@ class SysAclActions extends \DAL\DalSlim {
                 op_user_id = " . intval($opUserIdValue) . "
                 WHERE id = " . intval($params['id']);
                     $statement = $pdo->prepare($sql);
-                    //  echo debugPDO($sql, $params);
+                    //  
                     $update = $statement->execute();
                     $afterRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -2034,7 +2034,7 @@ class SysAclActions extends \DAL\DalSlim {
             LIMIT 1                     
                                ";
             $statement = $pdo->prepare($sql);
-           //echo debugPDO($sql, $params);
+           //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

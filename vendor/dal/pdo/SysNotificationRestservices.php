@@ -138,7 +138,7 @@ class SysNotificationRestservices extends \DAL\DalSlim {
                AND deleted =0   
                                ";
             $statement = $pdo->prepare($sql);
-          // echo debugPDO($sql, $params);
+          // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -204,7 +204,7 @@ class SysNotificationRestservices extends \DAL\DalSlim {
                     $statement->bindValue(':name', $params['services_group_id'], \PDO::PARAM_STR);
                     $statement->bindValue(':description',$params['description'], \PDO::PARAM_STR);
                     $statement->bindValue(':description_eng',$params['description_eng'], \PDO::PARAM_STR);
-                    // echo debugPDO($sql, $params);
+                    // 
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('sys_notification_restservices_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -275,7 +275,7 @@ class SysNotificationRestservices extends \DAL\DalSlim {
                     $statement->bindValue(':name', $params['name'], \PDO::PARAM_STR);
                     $statement->bindValue(':description',$params['description'], \PDO::PARAM_STR);
                     $statement->bindValue(':description_eng',$params['description_eng'], \PDO::PARAM_STR);
-                    //  echo debugPDO($sql, $params);          
+                    //            
                     $update = $statement->execute();
                     $affectedRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -571,7 +571,7 @@ class SysNotificationRestservices extends \DAL\DalSlim {
                 'offset' => $pdo->quote($offset),
             );
             $statement = $pdo->prepare($sql);
-            //echo debugPDO($sql, $params);
+            //
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -684,7 +684,7 @@ class SysNotificationRestservices extends \DAL\DalSlim {
                         
                 ";
             $statement = $pdo->prepare($sql);
-          //  echo debugPDO($sql, $params);
+          //  
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -727,7 +727,7 @@ class SysNotificationRestservices extends \DAL\DalSlim {
                 op_user_id = " . intval($opUserIdValue) . "
                 WHERE id = " . intval($params['id']);
                     $statement = $pdo->prepare($sql);
-                    //  echo debugPDO($sql, $params);
+                    //  
                     $update = $statement->execute();
                     $afterRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -774,7 +774,7 @@ class SysNotificationRestservices extends \DAL\DalSlim {
                 ";     
                             
             $statement = $pdo->prepare($sql);            
-            //  echo debugPDO($sql, $params);
+            //  
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();

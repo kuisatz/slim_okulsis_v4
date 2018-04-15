@@ -80,7 +80,7 @@ class HstryLogin extends \DAL\DalSlim {
                        )  ";
             $statement = $pdo->prepare($sql);
             $statement->bindValue(':pk', $params['pk'], \PDO::PARAM_STR);           
-         //   echo debugPDO($sql, $params);
+         //   
             $result = $statement->execute();
             $insertID = $pdo->lastInsertId('hstry_login_id_seq');
             $errorInfo = $statement->errorInfo();

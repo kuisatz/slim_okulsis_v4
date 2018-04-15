@@ -174,7 +174,7 @@ class SysMembershipTypes extends \DAL\DalSlim {
                     $statement->bindValue(':abbreviation', $params['abbreviation'], \PDO::PARAM_STR);
                     $statement->bindValue(':language_id', $languageIdValue, \PDO::PARAM_INT);
                     $statement->bindValue(':op_user_id', $opUserIdValue, \PDO::PARAM_INT);
-                    // echo debugPDO($sql, $params);
+                    // 
                     $result = $statement->execute();
                     $insertID = $pdo->lastInsertId('sys_membership_types_id_seq');
                     $errorInfo = $statement->errorInfo();
@@ -229,7 +229,7 @@ class SysMembershipTypes extends \DAL\DalSlim {
                AND a.deleted =0    
                                ";
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -287,7 +287,7 @@ class SysMembershipTypes extends \DAL\DalSlim {
                     $statement->bindValue(':abbreviation', $params['abbreviation'], \PDO::PARAM_STR);
                     $statement->bindValue(':language_id', $languageIdValue, \PDO::PARAM_INT);
                     $statement->bindValue(':op_user_id', $opUserIdValue, \PDO::PARAM_INT);
-                    //echo debugPDO($sql, $params);
+                    //
                     $update = $statement->execute();
                     $affectedRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
@@ -438,7 +438,7 @@ class SysMembershipTypes extends \DAL\DalSlim {
                 WHERE a.deleted =0 AND a.language_parent_id =0  
                     ";
             $statement = $pdo->prepare($sql);
-            // echo debugPDO($sql, $params);
+            // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -493,7 +493,7 @@ class SysMembershipTypes extends \DAL\DalSlim {
                 ORDER BY a.language_id,a.priority ,mem_type
                                  ";
             $statement = $pdo->prepare($sql);            
-          // echo debugPDO($sql, $params);
+          // 
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC); 
             $errorInfo = $statement->errorInfo();
@@ -537,7 +537,7 @@ class SysMembershipTypes extends \DAL\DalSlim {
                 op_user_id = " . intval($opUserIdValue) . "
                 WHERE id = " . intval($params['id']);
                     $statement = $pdo->prepare($sql);
-                    //  echo debugPDO($sql, $params);
+                    //  
                     $update = $statement->execute();
                     $afterRows = $statement->rowCount();
                     $errorInfo = $statement->errorInfo();
