@@ -1631,7 +1631,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 FETCH NEXT FROM db_cursorx INTO  @SinifDersIDx ,@OgretmenIDx  , @SinifIDx  , @SubeGrupIDx 
                 WHILE @@FETCH_STATUS = 0   
                 BEGIN    
-                    INSERT #ogretmenDersSaatleri  exec  BILSANET_TAKEVBODRUM.dbo.PRC_GNL_DersProgrami_Find_forOgretmenDersSaatleri 
+                    INSERT #ogretmenDersSaatleri  exec  ".$dbnamex."PRC_GNL_DersProgrami_Find_forOgretmenDersSaatleri 
                     @OgretmenID=@OgretmenIDx,
                     @SinifID=@SinifIDx,
                     @Tarih= @tt;  
