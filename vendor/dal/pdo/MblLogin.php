@@ -1644,14 +1644,14 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 DECLARE @count int ; 
                 select @count = count(1)  from #ogretmenDersSaatleri ;
 			  
-            SELECT  DISTINCT  DersSirasi,
+            SELECT  DISTINCT  xx,
                 SinifDersID ,
                 DersAdi,  
                 SinifID, 
                 Aciklama ,
                 '".$OkulOgretmenID."' as OkulOgretmenID
             FROM ( 
-            (	SELECT    
+            (	SELECT    -1 as xx
                 null as DersSirasi , 
                 null AS SinifDersID ,
                 null AS DersAdi,  
@@ -1664,7 +1664,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 a.language_parent_id =0 AND
                 0 =@count 
             ) union 
-                (SELECT   
+                (SELECT   -1 as xx, 
                     -1 AS DersSirasi, 
                     null AS SinifDersID ,
                     null AS DersAdi,  
@@ -1678,7 +1678,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     a.language_parent_id =0 and @count > 0
                 )
             union   
-                (SELECT DISTINCT  
+                (SELECT DISTINCT  1 as xx, 
                     DP.DersSirasi,
                     DP.SinifDersID,
                     COALESCE(NULLIF(COALESCE(NULLIF(ax.DersAdi collate SQL_Latin1_General_CP1254_CI_AS,''),ax.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),DRS.DersAdi)  as DersAdi, 
@@ -1701,7 +1701,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 WHERE @count > 0
                 )   
             ) as sdasd  
-            order by DersSirasi
+            order by xx, DersAdi 
              
             IF OBJECT_ID('tempdb..#tmpzz') IS NOT NULL DROP TABLE #tmpzz; 
             IF OBJECT_ID('tempdb..#ogretmenDersSaatleri') IS NOT NULL DROP TABLE #ogretmenDersSaatleri; 
