@@ -1644,7 +1644,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 DECLARE @count int ; 
                 select @count = count(1)  from #ogretmenDersSaatleri ;
 			  
-            SELECT  DISTINCT  
+            SELECT  DISTINCT  DersSirasi,
                 SinifDersID ,
                 DersAdi,  
                 SinifID, 
@@ -1700,7 +1700,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 INNER JOIN #tmpzz on #tmpzz.DersYiliID = SNF.DersYiliID and DP.DonemID = #tmpzz.DonemID 
                 WHERE @count > 0
                 )   
-            ) as sdasd   
+            ) as sdasd  
+            order by DersSirasi
              
             IF OBJECT_ID('tempdb..#tmpzz') IS NOT NULL DROP TABLE #tmpzz; 
             IF OBJECT_ID('tempdb..#ogretmenDersSaatleri') IS NOT NULL DROP TABLE #ogretmenDersSaatleri; 
