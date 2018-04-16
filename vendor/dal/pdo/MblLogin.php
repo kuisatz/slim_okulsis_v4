@@ -2383,8 +2383,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 $xml = new \SimpleXMLElement('<Table></Table>');  
                 $dataValue =  json_decode($XmlData, true);
               
-                try
-                { 
+               
                     $dom = new \domDocument; 
                     $dom->formatOutput = true; 
                     $root = $dom->appendChild($dom->createElement( "Table" )); 
@@ -2420,11 +2419,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
           //   echo $sxe->asXML(); 
             file_put_contents('c:/asd.xml', $sxe->asXML());
          
-                }
-                catch( Exception $e )
-                {
-                    echo $e->getMessage();
-                } 
+              
             $sql =   '    
             declare @XmlD XML;
             set @XmlD = \''.$xml.'\';  
