@@ -2422,7 +2422,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
               
             $sql =   '    
             declare @XmlD XML;
-            set @XmlD = \''.$sxe.'\';  
+            set @XmlD = \''. $sxe->asXML().'\';  
             exec  '.$dbnamex.'PRC_GNL_OgrenciDevamsizlikSaatleri_SaveXML 
                 @DersYiliID=\''.$DersYiliID.'\',
                 @Tarih=\''.$Tarih.'\', 
