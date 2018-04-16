@@ -2442,15 +2442,14 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @DersID= '" . $DersID . "',
                     @DersSirasi=" . intval($DersSirasi) . " ;  
                 ";
-            $statement = $pdo->prepare($sql);
-         echo debugPDO($sql, $params);
+            $statement = $pdo->prepare($sql); 
            
            if ($did == 138)  { 
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
             }
-              print_r("4444444444");
+            
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
              $sql = " 
@@ -2462,8 +2461,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @DonemID=" . intval($DersSirasi) . " ; 
  ";
             $statement = $pdo->prepare($sql);
-            //  
-              print_r("55555555");
+            //   
             if ($did == 138)  { 
             $result = $statement->execute();
             $insertID =1;
@@ -2479,7 +2477,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @YoklamaTarihi='" . date("Y-m-d H:i:s") . "',
                     @KayitTarihi='" . date("Y-m-d H:i:s") . "'; 
                     ";
-      print_r("7777777777");
+      
             $statement = $pdo->prepare($sql);
            // 
             $result = null;
@@ -2490,7 +2488,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $errorInfo = $statement->errorInfo();  
             $insertID =1;
             }  
-                      print_r("888888888");
+           
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             $pdo->commit();
@@ -8377,11 +8375,14 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
                 $XmlData = $params['XmlData'];
                 $dataValue =  json_decode($XmlData, true); 
-                $xml = new \SimpleXMLElement('<IDLIST></IDLIST>');  
+                $dom = new \domDocument; 
+                $dom->formatOutput = true; 
+                $root = $dom->appendChild($dom->createElement( "Table" )); 
+                $sxe = simplexml_import_dom( $dom ); 
                 foreach ($dataValue as $std) {                      
-                    if ($std  != null) { 
-                    $ID = $xml->addChild('ID');
-                    $ID->addAttribute('VALUE', $std[0]); 
+                    if ($std  != null) {  
+                    $ID = $sxe->addchild("ID"); 
+                    $ID->addChild("VALUE",$std[0]);  
                     }
                 }  
             }  
@@ -8434,7 +8435,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  
             declare @p2 xml
             set @p2=convert(xml,N"; 
-            $sql = $sql. '\''.$xml.'\')
+            $sql = $sql. '\''.$sxe->asXML().'\')
                 exec  '.$dbnamex.'PRC_ODV_OdevTanimlari_Dagit @OdevTanimID= @p1 ,@OgrenciXML=@p2 
             SET NOCOUNT OFF; 
             ';  
@@ -8447,8 +8448,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $result = $statement->execute(); 
             $errorInfo = $statement->errorInfo();
             }
-            else { 
-            
+            else {  
             } 
              
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
@@ -11135,7 +11135,11 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
                     $XmlData = $params['XmlData'];
                     $dataValue =  json_decode($XmlData, true);
-                    $xml = new \SimpleXMLElement('<Nodes></Nodes>'); 
+                   // $xml = new \SimpleXMLElement('<Nodes></Nodes>'); 
+                    $dom = new \domDocument; 
+                    $dom->formatOutput = true; 
+                    $root = $dom->appendChild($dom->createElement( "Nodes" )); 
+                    $sxe = simplexml_import_dom( $dom ); 
 
                     foreach ($dataValue as $std) {                      
                         if ($std  != null) { 
@@ -11147,12 +11151,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                           //  print_r(htmlentities('<Ogrenci><OgrenciID>').$dataValue[0][0]).htmlentities('</OgrenciID><DevamsizlikKodID>').$dataValue[0][1].htmlentities('</DevamsizlikKodID> ' )  ; 
                       // echo( '<Ogrenci><OgrenciID>'.$std[0].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ); 
                         // $SendXmlData =$SendXmlData.'<Dugum SinavOgrenciSoruCevapID="'.$SinavOgrenciSoruCevapID.'" SinavOgrenciID="'.$ogrenciid.'" SinavSoruID="'.$soruid.'" isDogru="True" AldigiPuan="'.$puan.'"/>' ;  
-                        $Dugum = $xml->addChild('Dugum');
-                        $Dugum->addAttribute('SinavOgrenciSoruCevapID', $SinavOgrenciSoruCevapID);
-                        $Dugum->addAttribute('SinavOgrenciID', $ogrenciid);
-                        $Dugum->addAttribute('SinavSoruID', $soruid);
-                        $Dugum->addAttribute('isDogru', 'True');
-                        $Dugum->addAttribute('AldigiPuan', $puan);
+                         
+                        $Dugum = $sxe->addchild("Dugum"); 
+                        $Dugum->addChild("SinavOgrenciSoruCevapID",$SinavOgrenciSoruCevapID); 
+                        $Dugum->addChild("SinavOgrenciID",  $ogrenciid); 
+                        $Dugum->addChild("SinavSoruID",$soruid); 
+                        $Dugum->addChild("isDogru",'True'); 
+                        $Dugum->addChild("AldigiPuan",$puan);  
                         }}
                     } 
                 }  
@@ -11170,7 +11175,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 SO.SinavOgrenciID= '".$ogrenciid."'; 
             set @p1=convert(xml,N"; 
             
-            $sql = $sql. '\''.$xml.'\') 
+            $sql = $sql. '\''.$sxe->asXML().'\') 
             exec  '.$dbnamex.'PRC_SNV_SinavOgrenciSoruCevaplari_Save_DersCevaplari @XMLData=@p1
 
             SET NOCOUNT OFF; 

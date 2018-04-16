@@ -1032,9 +1032,9 @@ $app->get("/InsertDevamsizlik_mbllogin/", function () use ($app ) {
     $headerParams = $app->request()->headers();
       
     $vKisiId = NULL;     
-    if (isset($_GET['kisiId'])) {
-        $stripper->offsetSet('kisiId', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
-                $app, $_GET['kisiId']));
+    if (isset($_GET['KisiId'])) {
+        $stripper->offsetSet('KisiId', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['KisiId']));
     }
     $vDersYiliID= NULL;     
     if (isset($_GET['DersYiliID'])) {
@@ -1098,8 +1098,8 @@ $app->get("/InsertDevamsizlik_mbllogin/", function () use ($app ) {
     if ($stripper->offsetExists('cid')) {
         $vCid = $stripper->offsetGet('cid')->getFilterValue();
     } 
-    if ($stripper->offsetExists('kisiId')) {
-        $vKisiId = $stripper->offsetGet('kisiId')->getFilterValue();
+    if ($stripper->offsetExists('KisiId')) {
+        $vKisiId = $stripper->offsetGet('KisiId')->getFilterValue();
     }
     if ($stripper->offsetExists('DersYiliID')) {
         $vDersYiliID = $stripper->offsetGet('DersYiliID')->getFilterValue();
@@ -1128,7 +1128,7 @@ $app->get("/InsertDevamsizlik_mbllogin/", function () use ($app ) {
     if ($stripper->offsetExists('SinifDersID')) {
         $vSinifDersID = $stripper->offsetGet('SinifDersID')->getFilterValue();
     }
-$vXmlData=$_GET['XmlData']  ; 
+    $vXmlData=$_GET['XmlData']  ; 
 //print_r($vXmlData);
     $resDataInsert = $BLL->insertDevamsizlik(array(
             'OgretmenID' => $vKisiId,  
