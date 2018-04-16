@@ -2379,7 +2379,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $dataValue = NULL;
             $devamsizlikKodID = NULL;
             if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
-             //   $XmlData = $params['XmlData'];
+                $XmlData = $params['XmlData'];
             //    $xml = new \SimpleXMLElement('<Table></Table>');  
                 $dataValue =  json_decode($XmlData, true); 
                
