@@ -1650,7 +1650,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 SinifID, 
                 Aciklama ,
                 '".$OkulOgretmenID."' as OkulOgretmenID,
-                SinifKodu 
+                SinifKodu,
+                SeviyeId
             FROM ( 
             (	SELECT    -1 as xx,
                 null as DersSirasi , 
@@ -1658,7 +1659,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 null AS DersAdi,  
                 null AS SinifID, 
                 COALESCE(NULLIF(ax.[description]  collate SQL_Latin1_General_CP1254_CI_AS,''),a.[description_eng]  collate SQL_Latin1_General_CP1254_CI_AS) AS Aciklama,
-                '-1' as SinifKodu 
+                '-1' as SinifKodu ,
+                '-1' as SeviyeId
             FROM [BILSANET_MOBILE].[dbo].Mobile_User_Messages a
             LEFT JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
             LEFT JOIN [BILSANET_MOBILE].[dbo].Mobile_User_Messages ax on (ax.language_parent_id = a.[id] or  ax.[id] = a.[id]) and ax.language_id= lx.id  
@@ -1672,7 +1674,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     null AS DersAdi,  
                     null AS SinifID, 
                     COALESCE(NULLIF(ax.[description] collate SQL_Latin1_General_CP1254_CI_AS,''),a.[description_eng] collate SQL_Latin1_General_CP1254_CI_AS) AS Aciklama,
-                    '-1' as SinifKodu 
+                    '-1' as SinifKodu ,
+                    '-1' as SeviyeId
                 FROM [BILSANET_MOBILE].[dbo].[sys_specific_definitions] a
                 INNER JOIN BILSANET_MOBILE.dbo.sys_language l ON l.id = 647 AND l.deleted =0 AND l.active =0 
                 LEFT JOIN BILSANET_MOBILE.dbo.sys_language lx ON lx.id =".intval($languageIdValue)." AND lx.deleted =0 AND lx.active =0
@@ -1687,7 +1690,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     COALESCE(NULLIF(COALESCE(NULLIF(ax.DersAdi collate SQL_Latin1_General_CP1254_CI_AS,''),ax.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),DRS.DersAdi)  as DersAdi, 
                     SNF.SinifID, 
                     concat(SNF.SinifKodu  collate SQL_Latin1_General_CP1254_CI_AS,' - ',  COALESCE(NULLIF(COALESCE(NULLIF(ax.DersAdi collate SQL_Latin1_General_CP1254_CI_AS,''),ax.DersAdiEng collate SQL_Latin1_General_CP1254_CI_AS),''),DRS.DersAdi)  ) as Aciklama,
-                    SNF.SinifKodu 
+                    SNF.SinifKodu ,
+                    SNF.SeviyeId 
                 FROM ".$dbnamex."GNL_DersProgramlari DP
                 INNER JOIN ".$dbnamex."GNL_SinifDersleri SD ON  SD.SinifDersID = DP.SinifDersID
                 INNER JOIN ".$dbnamex."GNL_SinifOgretmenleri SO  ON SO.SinifID = SD.SinifID AND SO.DersHavuzuID = SD.DersHavuzuID 
@@ -1705,7 +1709,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 WHERE @count > 0
                 )   
             ) as sdasd  
-            order by SinifKodu 
+            order by  SeviyeId , SinifKodu 
              
             IF OBJECT_ID('tempdb..#tmpzz') IS NOT NULL DROP TABLE #tmpzz; 
             IF OBJECT_ID('tempdb..#ogretmenDersSaatleri') IS NOT NULL DROP TABLE #ogretmenDersSaatleri; 
