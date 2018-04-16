@@ -2385,7 +2385,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
               
                 try
                 { 
-                    $dom = new domDocument; 
+                    $dom = new \domDocument; 
                     $dom->formatOutput = true; 
                     $root = $dom->appendChild($dom->createElement( "Table" )); 
                     $sxe = simplexml_import_dom( $dom ); 
