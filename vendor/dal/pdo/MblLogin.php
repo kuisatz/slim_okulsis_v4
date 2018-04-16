@@ -2422,7 +2422,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     }
                 } 
             } 
-             echo $sxe->asXML(); 
+          //   echo $sxe->asXML(); 
             file_put_contents('c:/asd.xml', $xml->asXML());
          
             $sql =   '    
