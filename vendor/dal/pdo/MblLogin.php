@@ -2419,7 +2419,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 @XmlData= @XmlD,
                 @SinifDersID=\''.$SinifDersID.'\'; 
              ';
-            print_r("11111111");
+           
             $statement = $pdo->prepare($sql); 
          //      
             $result = null;
@@ -2430,7 +2430,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
             }
-               print_r("22222222");
+             
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             
@@ -2443,8 +2443,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @DersSirasi=" . intval($DersSirasi) . " ;  
                 ";
             $statement = $pdo->prepare($sql);
-          //  
-              print_r("333333333");
+         echo debugPDO($sql, $params);
+           
            if ($did == 138)  { 
                 $result = $statement->execute();
                 $insertID =1;
