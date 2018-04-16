@@ -2383,21 +2383,47 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 $xml = new \SimpleXMLElement('<Table></Table>');  
                 $dataValue =  json_decode($XmlData, true);
               
+                try
+                { 
+                    $dom = new domDocument; 
+                    $dom->formatOutput = true; 
+                    $root = $dom->appendChild($dom->createElement( "Table" )); 
+                    $sxe = simplexml_import_dom( $dom ); 
+              
+                    echo $sxe->asXML(); 
+
+                }
+                catch( Exception $e )
+                {
+                    echo $e->getMessage();
+                } 
+
+                
+                
                 foreach ($dataValue as $std) { 
                     if ($std  != null) { 
                     $devamsizlikKodID = -1 ;  
                     if ($std ['yokgec']  == 1) { $devamsizlikKodID = 1 ;}
                     if ($std ['yokgec']  == 2) { $devamsizlikKodID = 2 ;}
      
-                    IF ($devamsizlikKodID >0)  { $SendXmlData =$SendXmlData.'<Ogrenci><OgrenciID>'.$std ['id'].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ;
-                        $Ogrenci = $xml->addChild('Ogrenci');
-                        $Ogrenci->addAttribute('OgrenciID', $std ['id']);  
-                        $Ogrenci->addAttribute('DevamsizlikKodID', $devamsizlikKodID);  
-                        $Ogrenci->addAttribute('Aciklama', '');  
+                    IF ($devamsizlikKodID >0)  { //$SendXmlData =$SendXmlData.'<Ogrenci><OgrenciID>'.$std ['id'].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ;
+                      //  $Ogrenci = $xml->addChild('Ogrenci');
+                      //  $Ogrenci->addAttribute('OgrenciID', $std ['id']);  
+                     //   $Ogrenci->addAttribute('DevamsizlikKodID', $devamsizlikKodID);  
+                     //   $Ogrenci->addAttribute('Aciklama','');  
+                        $Ogrenci = $sxe->addchild("Ogrenci"); 
+                        $Ogrenci->addChild("OgrenciID",$std ['id']); 
+                        $Ogrenci->addChild("DevamsizlikKodID",  $devamsizlikKodID); 
+                        $Ogrenci->addChild("Aciklama",''); 
+                        
+                        // <Table><Ogrenci><OgrenciID>AEEFE2B7-6653-4776-9343-031155AF6181</OgrenciID><DevamsizlikKodID>2</DevamsizlikKodID><Aciklama/></Ogrenci><Ogrenci><OgrenciID>FA56401D-B693-4292-A726-8784BBB6FF30</OgrenciID><DevamsizlikKodID>2</DevamsizlikKodID><Aciklama/></Ogrenci></Table>
+                        
                         }  
                     }
                 } 
             } 
+             echo $sxe->asXML(); 
+            file_put_contents('c:/asd.xml', $xml->asXML());
          
             $sql =   '    
             declare @XmlD XML;
