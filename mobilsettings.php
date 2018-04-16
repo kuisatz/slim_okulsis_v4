@@ -170,6 +170,7 @@ $app->get("/MobilUrlDataV2_mobilsettings/", function () use ($app ) {
     foreach ($resDataInsert as $menu){
         $menus[]  = array(
             "proxy" => $menu["proxy"], 
+            "proxyr" => $menu["proxyr"],  
         );
     }
     

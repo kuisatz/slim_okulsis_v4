@@ -176,7 +176,8 @@ class MobilSettings extends \DAL\DalSlim {
             $sql = "  
             SET NOCOUNT ON;  
                 SELECT TOP 1
-                    proxy                     
+                    proxy,
+                    proxyr
                 FROM  BILSANET_MOBILE.dbo.Mobil_Settings
                 WHERE active =0 AND deleted =0 AND
                     oskey = '".$oscode."'     
