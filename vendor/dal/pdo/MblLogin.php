@@ -1651,7 +1651,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 Aciklama ,
                 '".$OkulOgretmenID."' as OkulOgretmenID
             FROM ( 
-            (	SELECT    -1 as xx
+            (	SELECT    -1 as xx,
                 null as DersSirasi , 
                 null AS SinifDersID ,
                 null AS DersAdi,  
