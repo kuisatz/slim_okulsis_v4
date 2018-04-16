@@ -2379,21 +2379,15 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $dataValue = NULL;
             $devamsizlikKodID = NULL;
             if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
-                $XmlData = $params['XmlData'];
-                $xml = new \SimpleXMLElement('<Table></Table>');  
-                $dataValue =  json_decode($XmlData, true);
-              
+             //   $XmlData = $params['XmlData'];
+            //    $xml = new \SimpleXMLElement('<Table></Table>');  
+                $dataValue =  json_decode($XmlData, true); 
                
-                    $dom = new \domDocument; 
-                    $dom->formatOutput = true; 
-                    $root = $dom->appendChild($dom->createElement( "Table" )); 
-                    $sxe = simplexml_import_dom( $dom ); 
-              
-                //    echo $sxe->asXML(); 
-
-
-                
-                
+                $dom = new \domDocument; 
+                $dom->formatOutput = true; 
+                $root = $dom->appendChild($dom->createElement( "Table" )); 
+                $sxe = simplexml_import_dom( $dom ); 
+             
                 foreach ($dataValue as $std) { 
                     if ($std  != null) { 
                     $devamsizlikKodID = -1 ;  
@@ -2401,10 +2395,6 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     if ($std ['yokgec']  == 2) { $devamsizlikKodID = 2 ;}
      
                     IF ($devamsizlikKodID >0)  { //$SendXmlData =$SendXmlData.'<Ogrenci><OgrenciID>'.$std ['id'].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ;
-                      //  $Ogrenci = $xml->addChild('Ogrenci');
-                      //  $Ogrenci->addAttribute('OgrenciID', $std ['id']);  
-                     //   $Ogrenci->addAttribute('DevamsizlikKodID', $devamsizlikKodID);  
-                     //   $Ogrenci->addAttribute('Aciklama','');  
                         $Ogrenci = $sxe->addchild("Ogrenci"); 
                         $Ogrenci->addChild("OgrenciID",$std ['id']); 
                         $Ogrenci->addChild("DevamsizlikKodID",  $devamsizlikKodID); 
@@ -2416,10 +2406,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     }
                 } 
             } 
-          //   echo $sxe->asXML(); 
-            file_put_contents('c:/asd.xml', $sxe->asXML());
-         
-              
+        
+          //  file_put_contents('c:/asd.xml', $sxe->asXML());
+          
             $sql =   '    
             declare @XmlD XML;
             set @XmlD = \''. $sxe->asXML().'\';  
@@ -2430,6 +2419,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 @XmlData= @XmlD,
                 @SinifDersID=\''.$SinifDersID.'\'; 
              ';
+            print_r("11111111");
             $statement = $pdo->prepare($sql); 
          //      
             $result = null;
@@ -2440,7 +2430,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
             }
-             
+               print_r("22222222");
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             
@@ -2454,12 +2444,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 ";
             $statement = $pdo->prepare($sql);
           //  
+              print_r("333333333");
            if ($did == 138)  { 
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
             }
-            
+              print_r("4444444444");
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
              $sql = " 
@@ -2472,12 +2463,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  ";
             $statement = $pdo->prepare($sql);
             //  
+              print_r("55555555");
             if ($did == 138)  { 
             $result = $statement->execute();
             $insertID =1;
             $errorInfo = $statement->errorInfo(); 
             }
-           
+             print_r("666666666");
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
              $sql = " 
@@ -2487,7 +2479,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @YoklamaTarihi='" . date("Y-m-d H:i:s") . "',
                     @KayitTarihi='" . date("Y-m-d H:i:s") . "'; 
                     ";
-    
+      print_r("7777777777");
             $statement = $pdo->prepare($sql);
            // 
             $result = null;
@@ -2498,7 +2490,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $errorInfo = $statement->errorInfo();  
             $insertID =1;
             }  
-                    
+                      print_r("888888888");
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             $pdo->commit();
