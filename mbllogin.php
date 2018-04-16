@@ -6646,6 +6646,7 @@ $app->get("/OgrenciSinavDetayRpt_mbllogin/", function () use ($app ) {
         $menus[]  = array(  
             "lroad" => ($menu["lroad"]),  
             "proad" =>  ($menu["proad"]),  
+            "proadr" =>  ($menu["proadr"]),  
             "raporkey" =>  ($menu["raporkey"]),  
         );
     }
@@ -6719,6 +6720,7 @@ $app->get("/OgrenciSinavSonucListesiRpt_mbllogin/", function () use ($app ) {
         $menus[]  = array(  
             "lroad" => ($menu["lroad"]),  
             "proad" =>  ($menu["proad"]),  
+            "proadr" =>  ($menu["proadr"]),  
             "raporkey" =>  ($menu["raporkey"]),  
         );
     }
