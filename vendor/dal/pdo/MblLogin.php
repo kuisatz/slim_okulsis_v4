@@ -2414,7 +2414,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $result = null;
             $errorInfo = null;  
             $insertID =0;
-            if ($cid == 138)  { 
+            if ($did == 138)  { 
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
@@ -2433,7 +2433,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 ";
             $statement = $pdo->prepare($sql);
           //  
-           if ($cid == 138)  { 
+           if ($did == 138)  { 
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
@@ -2451,7 +2451,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  ";
             $statement = $pdo->prepare($sql);
             //  
-            if ($cid == 138)  { 
+            if ($did == 138)  { 
             $result = $statement->execute();
             $insertID =1;
             $errorInfo = $statement->errorInfo(); 
@@ -2472,7 +2472,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $result = null;
             $errorInfo = null;  
             $insertID =0;
-            if ($cid == 138)  { 
+            if ($did == 138)  { 
             $result = $statement->execute();
             $errorInfo = $statement->errorInfo();  
             $insertID =1;
@@ -8430,7 +8430,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $result =NULL;
             $errorInfo = NULL;
       // 
-            if ($cid == 138)  { 
+            if ($did == 138)  { 
             $result = $statement->execute(); 
             $errorInfo = $statement->errorInfo();
             }
@@ -11167,7 +11167,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
      //  
             $result = NULL; 
             $errorInfo = NULL;
-            if ($cid == 138)  { 
+            if ($did == 138)  { 
                 $result = $statement->execute(); 
                 $errorInfo = $statement->errorInfo();
             } 
