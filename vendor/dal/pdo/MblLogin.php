@@ -2380,16 +2380,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $devamsizlikKodID = NULL;
             if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
                 $XmlData = $params['XmlData'];
-            //    $xml = new \SimpleXMLElement('<Table></Table>');  
+          
                 $dataValue =  json_decode($XmlData, true); 
                
-                $dom = new \domDocument; 
-                $dom->formatOutput = true; 
-             //   $root = $dom->appendChild($dom->createElement("Table")); 
-                $root = $dom->createElement("Table"); 
-                $dom->appendChild($root); 
-             //   $sxe = simplexml_import_dom($dom); 
-             
+				$doc = \DOMDocument::loadXML('<Table/>');
+                $doc->formatOutput = true;
+				$root = $doc->documentElement;
+                       
                 foreach ($dataValue as $std) { 
                     if ($std  != null) { 
                         $devamsizlikKodID = -1 ;  
@@ -2403,18 +2400,18 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         */
                         // <Table><Ogrenci><OgrenciID>AEEFE2B7-6653-4776-9343-031155AF6181</OgrenciID><DevamsizlikKodID>2</DevamsizlikKodID><Aciklama/></Ogrenci><Ogrenci><OgrenciID>FA56401D-B693-4292-A726-8784BBB6FF30</OgrenciID><DevamsizlikKodID>2</DevamsizlikKodID><Aciklama/></Ogrenci></Table>
                         
-                        $Ogrenci = $dom->createElement("Ogrenci");  
+                        $Ogrenci = $doc->createElement("Ogrenci");  
                         
-                        $OgrenciID = $dom->createElement("OgrenciID"); 
-                        $OgrenciID->appendChild($dom->createTextNode($std ['id'] )); 
+                        $OgrenciID = $doc->createElement("OgrenciID"); 
+                        $OgrenciID->appendChild($doc->createTextNode($std ['id'] )); 
                         $Ogrenci->appendChild($OgrenciID); 
                         
-                        $devamsizlik = $dom->createElement("DevamsizlikKodID"); 
-                        $devamsizlik->appendChild($dom->createTextNode($devamsizlikKodID )); 
+                        $devamsizlik = $doc->createElement("DevamsizlikKodID"); 
+                        $devamsizlik->appendChild($doc->createTextNode($devamsizlikKodID )); 
                         $Ogrenci->appendChild($devamsizlik); 
                         
-                        $Aciklama = $dom->createElement("Aciklama"); 
-                        $Aciklama->appendChild($dom->createTextNode('' )); 
+                        $Aciklama = $doc->createElement("Aciklama"); 
+                        $Aciklama->appendChild($doc->createTextNode('' )); 
                         $Ogrenci->appendChild($Aciklama); 
                         
                         $root->appendChild($Ogrenci); 
@@ -2433,22 +2430,33 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             } 
         
           //  file_put_contents('c:/asd.xml', $sxe->asXML());
-         header("Content-type: text/xml");
-         echo($dom->saveXML());
-         //   $sxe = simplexml_import_dom($dom); 
+         //-header("Content-type: text/xml");
+     //    echo($dom->saveXML());
+	 
+	 
+   $doc->formatOutput = TRUE;
+  // print $doc->saveXML();
+   file_put_contents('c:/asd4.xml', $doc->saveXML());
+   $sxe =  $doc->saveXML() ; 
+          //  $sxe = simplexml_import_dom($doc); 
+		   //  file_put_contents('c:/asd4.xml', $sxe->asXML());
+		//	print_r($sxe);
             $sql =   '    
             declare @XmlD XML;
-            set @XmlD = \''. $sxe->asXML().'\';  
+            set @XmlD = \''.htmlentities($sxe ).'\';  
+	--		declare @XmlD  as nvarchar(max);
+            declare @ttarih date;
+            set @ttarih = cast(getdate() as date);
             exec  '.$dbnamex.'PRC_GNL_OgrenciDevamsizlikSaatleri_SaveXML 
                 @DersYiliID=\''.$DersYiliID.'\',
-                @Tarih=\''.$Tarih.'\', 
+                @Tarih=@ttarih, 
                 @DersSirasi=' . intval($DersSirasi).',
                 @XmlData= @XmlD,
                 @SinifDersID=\''.$SinifDersID.'\'; 
              ';
            
             $statement = $pdo->prepare($sql); 
-         //      
+      
             $result = null;
             $errorInfo = null;  
             $insertID =0;
@@ -2479,7 +2487,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
-             $sql = " 
+             $sql = "  
+					declare @ttarih date;
+					set @ttarih = cast(getdate() as date);
                 exec ".$dbnamex."PRC_GNL_OgretmenDevamKontrol_Save 
                     @OgretmenID='" . $OgretmenID . "', 
                     @Tarih='" . $Tarih . "',
@@ -2494,19 +2504,21 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $insertID =1;
             $errorInfo = $statement->errorInfo(); 
             }
-             print_r("666666666");
+            
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
              $sql = " 
+				declare @ttarih date;
+				set @ttarih = cast(getdate() as date);
                 exec ".$dbnamex."PRC_GNL_SinifDevamsizlikKayitlari_Save 
                     @OkulOgretmenID='" . $OkulOgretmenID . "',
                     @SinifID='" . $SinifID . "',
-                    @YoklamaTarihi='" . date("Y-m-d H:i:s") . "',
-                    @KayitTarihi='" . date("Y-m-d H:i:s") . "'; 
+                    @YoklamaTarihi='" .@ttarih . "',
+                    @KayitTarihi='" . @ttarih . "'; 
                     ";
       
             $statement = $pdo->prepare($sql);
-           // 
+      
             $result = null;
             $errorInfo = null;  
             $insertID =0;
