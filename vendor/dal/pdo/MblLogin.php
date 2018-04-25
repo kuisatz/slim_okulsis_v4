@@ -2488,11 +2488,11 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
              $sql = "  
-					declare @ttarih date;
-					set @ttarih = cast(getdate() as date);
+                declare @ttarih date;
+                set @ttarih = cast(getdate() as date);
                 exec ".$dbnamex."PRC_GNL_OgretmenDevamKontrol_Save 
                     @OgretmenID='" . $OgretmenID . "', 
-                    @Tarih='" . $Tarih . "',
+                    @Tarih= @ttarih, /* '" . $Tarih . "', */
                     @DersSirasi=" . intval($DersSirasi) . ",
                     @SinifDersID='" . $SinifDersID . "',
                     @DonemID=" . intval($DersSirasi) . " ; 
@@ -2508,13 +2508,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
              $sql = " 
-				declare @ttarih date;
-				set @ttarih = cast(getdate() as date);
+                    declare @ttarih date;
+                    set @ttarih = cast(getdate() as date);
                 exec ".$dbnamex."PRC_GNL_SinifDevamsizlikKayitlari_Save 
                     @OkulOgretmenID='" . $OkulOgretmenID . "',
                     @SinifID='" . $SinifID . "',
-                    @YoklamaTarihi='" .@ttarih . "',
-                    @KayitTarihi='" . @ttarih . "'; 
+                    @YoklamaTarihi=@ttarih,
+                    @KayitTarihi=@ttarih; 
                     ";
       
             $statement = $pdo->prepare($sql);
