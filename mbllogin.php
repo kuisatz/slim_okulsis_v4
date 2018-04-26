@@ -1032,9 +1032,9 @@ $app->get("/InsertDevamsizlik_mbllogin/", function () use ($app ) {
     $headerParams = $app->request()->headers();
       
     $vKisiId = NULL;     
-    if (isset($_GET['KisiId'])) {
-        $stripper->offsetSet('KisiId', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
-                $app, $_GET['KisiId']));
+    if (isset($_GET['kisiId'])) {
+        $stripper->offsetSet('kisiId', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['kisiId']));
     }
     $vDersYiliID= NULL;     
     if (isset($_GET['DersYiliID'])) {
@@ -1042,9 +1042,9 @@ $app->get("/InsertDevamsizlik_mbllogin/", function () use ($app ) {
                 $app, $_GET['DersYiliID']));
     } 
     $vSinifID = NULL;     
-    if (isset($_GET['SinifID'])) {
-        $stripper->offsetSet('SinifID', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
-                $app, $_GET['SinifID']));
+    if (isset($_GET['sinifID'])) {
+        $stripper->offsetSet('sinifID', $stripChainerFactory->get(stripChainers::FILTER_PARANOID_LEVEL2, 
+                $app, $_GET['sinifID']));
     }
     $vDersID = NULL;     
     if (isset($_GET['DersID'])) {
@@ -1098,14 +1098,14 @@ $app->get("/InsertDevamsizlik_mbllogin/", function () use ($app ) {
     if ($stripper->offsetExists('cid')) {
         $vCid = $stripper->offsetGet('cid')->getFilterValue();
     } 
-    if ($stripper->offsetExists('KisiId')) {
-        $vKisiId = $stripper->offsetGet('KisiId')->getFilterValue();
+    if ($stripper->offsetExists('kisiId')) {
+        $vKisiId = $stripper->offsetGet('kisiId')->getFilterValue();
     }
     if ($stripper->offsetExists('DersYiliID')) {
         $vDersYiliID = $stripper->offsetGet('DersYiliID')->getFilterValue();
     }
-    if ($stripper->offsetExists('SinifID')) {
-        $vSinifID = $stripper->offsetGet('SinifID')->getFilterValue();
+    if ($stripper->offsetExists('sinifID')) {
+        $vSinifID = $stripper->offsetGet('sinifID')->getFilterValue();
     }
     if ($stripper->offsetExists('DersID')) {
         $vDersID = $stripper->offsetGet('DersID')->getFilterValue();

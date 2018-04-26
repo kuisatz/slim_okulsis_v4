@@ -2383,9 +2383,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
           
                 $dataValue =  json_decode($XmlData, true); 
                
-				$doc = \DOMDocument::loadXML('<Table/>');
+                $doc = \DOMDocument::loadXML('<Table/>');
                 $doc->formatOutput = true;
-				$root = $doc->documentElement;
+                $root = $doc->documentElement;
                        
                 foreach ($dataValue as $std) { 
                     if ($std  != null) { 
@@ -2393,12 +2393,6 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         if ($std ['yokgec']  == 1) { $devamsizlikKodID = 1 ;}
                         if ($std ['yokgec']  == 2) { $devamsizlikKodID = 2 ;}     
                         IF ($devamsizlikKodID >0)  { //$SendXmlData =$SendXmlData.'<Ogrenci><OgrenciID>'.$std ['id'].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ;
-                        /*    $Ogrenci = $sxe->addchild("Ogrenci"); 
-                            $Ogrenci->addChild("OgrenciID",$std ['id']); 
-                            $Ogrenci->addChild("DevamsizlikKodID",  $devamsizlikKodID); 
-                            $Ogrenci->addChild("Aciklama",''); 
-                        */
-                        // <Table><Ogrenci><OgrenciID>AEEFE2B7-6653-4776-9343-031155AF6181</OgrenciID><DevamsizlikKodID>2</DevamsizlikKodID><Aciklama/></Ogrenci><Ogrenci><OgrenciID>FA56401D-B693-4292-A726-8784BBB6FF30</OgrenciID><DevamsizlikKodID>2</DevamsizlikKodID><Aciklama/></Ogrenci></Table>
                         
                         $Ogrenci = $doc->createElement("Ogrenci");  
                         
@@ -2415,15 +2409,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         $Ogrenci->appendChild($Aciklama); 
                         
                         $root->appendChild($Ogrenci); 
-                      /*  
-                        $Ogrenci->setAttribute("OgrenciID",$std ['id']); 
-                        $Ogrenci->setAttribute("DevamsizlikKodID",$devamsizlikKodID); 
-                        $Ogrenci->setAttribute("Aciklama",''); 
-                         */   
-                            
-                            
-                            
-                            
+                      
                         }  
                     }
                 } 
