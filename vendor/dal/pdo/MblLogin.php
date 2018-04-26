@@ -2445,7 +2445,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             declare @raporkey varchar(50) ;
             set @raporkey = \'zm1\'+replace(newID(),\'-\',\'\');
             INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1 , rkey)   
-            select  \''. htmlentities($sxe).'\' , @raporkey;
+            select  \''. ($sxe).'\' , @raporkey;
+           ';
+             $statement = $pdo->prepare($sql); 
+           echo debugPDO($sql, $params);
+            $statement->execute();
+
+            $sql =   '  
             declare @XmlD XML;
             SELECT @XmlD = alan1 FROM BILSANET_MOBILE.dbo.Mobil_ek_isler 
             WHERE rkey = @raporkey;
@@ -2483,7 +2489,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $result = null;
             $errorInfo = null;  
             $insertID =0;
-            if ($did == 138)  { 
+            if ($did == -138)  { 
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
@@ -2502,7 +2508,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 ";
             $statement = $pdo->prepare($sql); 
            
-           if ($did == 138)  { 
+           if ($did == -138)  { 
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
@@ -2522,7 +2528,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  ";
             $statement = $pdo->prepare($sql);
             //   
-            if ($did == 138)  { 
+            if ($did == -138)  { 
             $result = $statement->execute();
             $insertID =1;
             $errorInfo = $statement->errorInfo(); 
