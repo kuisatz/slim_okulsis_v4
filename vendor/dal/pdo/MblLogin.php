@@ -2453,7 +2453,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             select \''.($sxe).'\',@raporkey;
            ';
             $statement = $pdo->prepare($sql); 
-            echo debugPDO($sql, $params);
+         
             $statement->execute();
 
             $sql =   '  
@@ -2473,24 +2473,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 @SinifDersID=\''.$SinifDersID.'\'; 
  
              ';
-           
-                 /*
-            declare @XmlD XML;
-            set @XmlD = \''.htmlentities($sxe ).'\';  
-	--		declare @XmlD  as nvarchar(max);
-            declare @ttarih date;
-            set @ttarih = cast(getdate() as date);
-            exec  '.$dbnamex.'PRC_GNL_OgrenciDevamsizlikSaatleri_SaveXML 
-                @DersYiliID=\''.$DersYiliID.'\',
-                @Tarih=@ttarih, 
-                @DersSirasi=' . intval($DersSirasi).',
-                @XmlData= @XmlD,
-                @SinifDersID=\''.$SinifDersID.'\'; 
-            */
-            
             
             $statement = $pdo->prepare($sql); 
-          echo debugPDO($sql, $params);
+        
             $result = null;
             $errorInfo = null;  
             $insertID =0;
@@ -2512,7 +2497,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @DersSirasi=" . intval($DersSirasi) . " ;  
                 ";
             $statement = $pdo->prepare($sql); 
-           
+              echo debugPDO($sql, $params);
            if ($did == -138)  { 
                 $result = $statement->execute();
                 $insertID =1;
