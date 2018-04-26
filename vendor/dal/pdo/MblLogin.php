@@ -2448,7 +2448,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             select  \''. ($sxe).'\' , @raporkey;
            ';
              $statement = $pdo->prepare($sql); 
-           echo debugPDO($sql, $params);
+       
             $statement->execute();
 
             $sql =   '  
@@ -2464,9 +2464,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 @DersSirasi=' . intval($DersSirasi).',
                 @XmlData= @XmlD,
                 @SinifDersID=\''.$SinifDersID.'\'; 
-
-
-
+ 
              ';
            
                  /*
@@ -2485,7 +2483,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             
             
             $statement = $pdo->prepare($sql); 
-      
+          echo debugPDO($sql, $params);
             $result = null;
             $errorInfo = null;  
             $insertID =0;
