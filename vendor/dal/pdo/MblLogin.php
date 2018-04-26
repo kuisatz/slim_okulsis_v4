@@ -2448,7 +2448,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
    
             $sql =   '  
             declare @raporkey varchar(50);
-            set @raporkey = \'zm1\'+ \''.$sessionID.'\' );
+            set @raporkey = \'zm1\'+ \''.$sessionID.'\'  ;
             INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1 , rkey)   
             select  \''. ($sxe).'\' , @raporkey;
            ';
@@ -2459,7 +2459,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $sql =   '  
             declare @XmlD XML;
             declare @raporkey varchar(50);
-             set @raporkey = \'zm1\'+ \''.$sessionID.'\' );
+             set @raporkey = \'zm1\'+ \''.$sessionID.'\'  ;
             SELECT @XmlD = alan1 FROM BILSANET_MOBILE.dbo.Mobil_ek_isler 
             WHERE rkey = @raporkey;
             
