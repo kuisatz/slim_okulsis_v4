@@ -2443,11 +2443,24 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 		//	print_r($sxe);
             $sql =   '  
             declare @raporkey varchar(50) ;
-            set @raporkey = \'SL\'+replace(newID(),\'-\',\'\');
+            set @raporkey = \'zm1\'+replace(newID(),\'-\',\'\');
             INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1 , rkey)   
-            select  \''.htmlentities($sxe).'\' , @raporkey;
+            select  \''. ($sxe).'\' , @raporkey;
+            declare @XmlD XML;
+            SELECT @XmlD = alan1 FROM BILSANET_MOBILE.dbo.Mobil_ek_isler 
+            WHERE rkey = @raporkey;
+            
+            declare @ttarih date;
+            set @ttarih = cast(getdate() as date);
+            exec  '.$dbnamex.'PRC_GNL_OgrenciDevamsizlikSaatleri_SaveXML 
+                @DersYiliID=\''.$DersYiliID.'\',
+                @Tarih=@ttarih, 
+                @DersSirasi=' . intval($DersSirasi).',
+                @XmlData= @XmlD,
+                @SinifDersID=\''.$SinifDersID.'\'; 
 
-       
+
+
              ';
            
                  /*
