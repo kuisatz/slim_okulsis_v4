@@ -2448,18 +2448,18 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
    
             $sql =   '  
             declare @raporkey varchar(50);
-            set @raporkey = \'zm1\'+replace('.$sessionID.',\'-\',\'\');
+            set @raporkey = \'zm1\'+ '.$sessionID.' );
             INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1 , rkey)   
             select  \''. ($sxe).'\' , @raporkey;
            ';
             $statement = $pdo->prepare($sql); 
-       
+            echo debugPDO($sql, $params);
             $statement->execute();
 
             $sql =   '  
             declare @XmlD XML;
             declare @raporkey varchar(50);
-            set @raporkey = \'zm1\'+replace('.$sessionID.',\'-\',\'\');
+            set @raporkey = \'zm1\'+ '.$sessionID.' );
             SELECT @XmlD = alan1 FROM BILSANET_MOBILE.dbo.Mobil_ek_isler 
             WHERE rkey = @raporkey;
             
