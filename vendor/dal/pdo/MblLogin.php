@@ -2441,7 +2441,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $statement = $pdo->prepare($sql); 
            echo debugPDO($sql, $params); 
             $statement->execute();
-
+            $errorInfo = $statement->errorInfo(); 
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            print_r($errorInfo);
             $sql =   '  
             declare @XmlD XML;
             declare @raporkey varchar(50);
