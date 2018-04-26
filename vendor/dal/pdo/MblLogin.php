@@ -2401,11 +2401,11 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         $Ogrenci->appendChild($OgrenciID); 
                         
                         $devamsizlik = $doc->createElement("DevamsizlikKodID"); 
-                        $devamsizlik->appendChild($doc->createTextNode($devamsizlikKodID )); 
+                        $devamsizlik->appendChild($doc->createTextNode($devamsizlikKodID)); 
                         $Ogrenci->appendChild($devamsizlik); 
                         
                         $Aciklama = $doc->createElement("Aciklama"); 
-                        $Aciklama->appendChild($doc->createTextNode('' )); 
+                        $Aciklama->appendChild($doc->createTextNode('')); 
                         $Ogrenci->appendChild($Aciklama); 
                         
                         $root->appendChild($Ogrenci); 
@@ -2436,7 +2436,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             declare @raporkey varchar(50);
             set @raporkey = \'zm1\'+ \''.$sessionID.'\'  ;
             INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)   
-            select \''.  ($sxe).'\',@raporkey;
+            select \''.($sxe).'\',@raporkey;
            ';
             $statement = $pdo->prepare($sql); 
            echo debugPDO($sql, $params); 
