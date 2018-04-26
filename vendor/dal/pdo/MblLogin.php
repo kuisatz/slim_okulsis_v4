@@ -2441,7 +2441,16 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
           //  $sxe = simplexml_import_dom($doc); 
 		   //  file_put_contents('c:/asd4.xml', $sxe->asXML());
 		//	print_r($sxe);
-            $sql =   '    
+            $sql =   '  
+            declare @raporkey varchar(50) ;
+            set @raporkey = \'SL\'+replace(newID(),\'-\',\'\');
+            INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1 , rkey)   
+            select  \''.htmlentities($sxe).'\' , @raporkey;
+
+       
+             ';
+           
+                 /*
             declare @XmlD XML;
             set @XmlD = \''.htmlentities($sxe ).'\';  
 	--		declare @XmlD  as nvarchar(max);
@@ -2453,14 +2462,15 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 @DersSirasi=' . intval($DersSirasi).',
                 @XmlData= @XmlD,
                 @SinifDersID=\''.$SinifDersID.'\'; 
-             ';
-           
+            */
+            
+            
             $statement = $pdo->prepare($sql); 
       
             $result = null;
             $errorInfo = null;  
             $insertID =0;
-            if ($did == 138)  { 
+            if ($did == -138)  { 
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
@@ -2479,7 +2489,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 ";
             $statement = $pdo->prepare($sql); 
            
-           if ($did == 138)  { 
+           if ($did == -138)  { 
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
@@ -2499,7 +2509,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  ";
             $statement = $pdo->prepare($sql);
             //   
-            if ($did == 138)  { 
+            if ($did == -138)  { 
             $result = $statement->execute();
             $insertID =1;
             $errorInfo = $statement->errorInfo(); 
@@ -2522,7 +2532,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $result = null;
             $errorInfo = null;  
             $insertID =0;
-            if ($did == 138)  { 
+            if ($did == -138)  { 
             $result = $statement->execute();
             $errorInfo = $statement->errorInfo();  
             $insertID =1;
