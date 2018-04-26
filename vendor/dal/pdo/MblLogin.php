@@ -2383,7 +2383,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
           
                 $dataValue =  json_decode($XmlData, true); 
                
-                $doc = \DOMDocument::loadXML('<Table/>');
+                 $doc = \DOMDocument::loadXML('<Table/>');
                 $doc->formatOutput = true;
                 $root = $doc->documentElement;
                        
