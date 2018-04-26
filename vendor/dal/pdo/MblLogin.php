@@ -2483,8 +2483,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @DersSirasi=" . intval($DersSirasi) . " ;  
                 ";
             $statement = $pdo->prepare($sql); 
-              echo debugPDO($sql, $params);
-           if ($did == -138)  { 
+            
+           if ($did == 138)  { 
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
@@ -2501,10 +2501,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @DersSirasi=" . intval($DersSirasi) . ",
                     @SinifDersID='" . $SinifDersID . "',
                     @DonemID=" . intval($DersSirasi) . " ; 
- ";
+                ";
             $statement = $pdo->prepare($sql);
-            //   
-            if ($did == -138)  { 
+           echo debugPDO($sql, $params); 
+            if ($did ==138)  { 
             $result = $statement->execute();
             $insertID =1;
             $errorInfo = $statement->errorInfo(); 
