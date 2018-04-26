@@ -2461,11 +2461,11 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
              ';
             
             $statement = $pdo->prepare($sql); 
-        
+          echo debugPDO($sql, $params); 
             $result = null;
             $errorInfo = null;  
             $insertID =0;
-            if ($did == -138)  { 
+            if ($did == 138)  { 
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
