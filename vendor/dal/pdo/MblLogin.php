@@ -2441,18 +2441,25 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
           //  $sxe = simplexml_import_dom($doc); 
 		   //  file_put_contents('c:/asd4.xml', $sxe->asXML());
 		//	print_r($sxe);
+   
+            session_start();
+            $sessionID=session_id();
+            session_destroy();
+   
             $sql =   '  
-            declare @raporkey varchar(50) ;
-            set @raporkey = \'zm1\'+replace(newID(),\'-\',\'\');
+            declare @raporkey varchar(50);
+            set @raporkey = \'zm1\'+replace('.$sessionID.',\'-\',\'\');
             INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1 , rkey)   
             select  \''. ($sxe).'\' , @raporkey;
            ';
-             $statement = $pdo->prepare($sql); 
+            $statement = $pdo->prepare($sql); 
        
             $statement->execute();
 
             $sql =   '  
             declare @XmlD XML;
+            declare @raporkey varchar(50);
+            set @raporkey = \'zm1\'+replace('.$sessionID.',\'-\',\'\');
             SELECT @XmlD = alan1 FROM BILSANET_MOBILE.dbo.Mobil_ek_isler 
             WHERE rkey = @raporkey;
             
