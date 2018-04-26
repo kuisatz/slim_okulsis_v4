@@ -2420,17 +2420,16 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
      //    echo($dom->saveXML());
 	 
 	 
-   $doc->formatOutput = TRUE;
+    $doc->formatOutput = TRUE;
+    session_start();
+    $sessionID=session_id();
+    session_destroy();
   // print $doc->saveXML();
-   file_put_contents('c:/asd4.xml', $doc->saveXML());
-   $sxe =  $doc->saveXML() ; 
+    file_put_contents('c:/asd4.xml', $doc->saveXML());
+    $sxe =  $doc->saveXML() ; 
           //  $sxe = simplexml_import_dom($doc); 
 		   //  file_put_contents('c:/asd4.xml', $sxe->asXML());
 		//	print_r($sxe);
-   
-            session_start();
-            $sessionID=session_id();
-            session_destroy();
    
             $sql =   '  
             declare @raporkey varchar(50);
