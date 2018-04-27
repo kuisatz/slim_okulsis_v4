@@ -1973,7 +1973,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     HaftaGunu integer 
                             ) ; 
             /* DECLARE @tt datetime  = cast(substring( '".$tarih."',0,20) as datetime);	 */ 
-            DECLARE @tt datetime  = getdate();					 
+          /*  DECLARE @tt datetime  = getdate();  */ 
+            DECLARE @tt datetime  = '2018-04-23 10:02:41.217';	
             INSERT #ogretmenDersSaatleri  exec  ".$dbnamex."PRC_GNL_DersProgrami_Find_forOgretmenDersSaatleri 
                     @OgretmenID='".$kisiId."',
                     @SinifID='".$sinifID."',
