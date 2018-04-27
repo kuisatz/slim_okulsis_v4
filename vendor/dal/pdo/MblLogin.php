@@ -2339,9 +2339,6 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $pdo->beginTransaction();
 
             $OgretmenID = 'CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC';
-             if ((isset($params['KisiID']) && $params['KisiID'] != "")) {
-                $OgretmenID = $params['KisiID'];
-            }
             if ((isset($params['OgretmenID']) && $params['OgretmenID'] != "")) {
                 $OgretmenID = $params['OgretmenID'];
             }
@@ -2386,9 +2383,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
           
                 $dataValue =  json_decode($XmlData, true); 
                
-				$doc = \DOMDocument::loadXML('<Table/>');
+                $doc = \DOMDocument::loadXML('<Table/>');
                 $doc->formatOutput = true;
-				$root = $doc->documentElement;
+                $root = $doc->documentElement;
                        
                 foreach ($dataValue as $std) { 
                     if ($std  != null) { 
