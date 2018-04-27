@@ -2385,7 +2385,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                
                 $doc = \DOMDocument::loadXML('<Table/>');
                 $doc->formatOutput = true;
-		 $root = $doc->documentElement;
+		$root = $doc->documentElement;
                        
                 foreach ($dataValue as $std) { 
                     if ($std  != null) { 
@@ -2479,7 +2479,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $result = null;
             $errorInfo = null;  
             $insertID =0;
-            if ($did == -138)  { 
+            if ($did == 138)  { 
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
