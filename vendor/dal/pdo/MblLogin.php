@@ -2516,7 +2516,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @Tarih= @ttarih, /* '" . $Tarih . "', */
                     @DersSirasi=" . intval($DersSirasi) . ",
                     @SinifDersID='" . $SinifDersID . "',
-                    @DonemID=" . intval($DersSirasi) . " ; 
+                    @DonemID=" . intval($DonemID) . " ; 
  ";
             $statement = $pdo->prepare($sql);
             //   
