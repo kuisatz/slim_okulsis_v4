@@ -1610,7 +1610,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     DersID [uniqueidentifier] ,
                     HaftaGunu integer 
                             ) ;  
-                DECLARE @tt datetime  = getdate();	
+              /*  DECLARE @tt datetime  = getdate();	*/
+                 DECLARE @tt datetime  = '2018-04-23 10:02:41.217';	
 
                 DECLARE @SinifDersIDx uniqueidentifier,@OgretmenIDx uniqueidentifier , @SinifIDx uniqueidentifier , @SubeGrupIDx int; 
                 DECLARE db_cursorx CURSOR FOR  
