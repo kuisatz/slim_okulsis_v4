@@ -2339,6 +2339,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $pdo->beginTransaction();
 
             $OgretmenID = 'CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC';
+             if ((isset($params['KisiID']) && $params['KisiID'] != "")) {
+                $OgretmenID = $params['KisiID'];
+            }
             if ((isset($params['OgretmenID']) && $params['OgretmenID'] != "")) {
                 $OgretmenID = $params['OgretmenID'];
             }
@@ -2383,9 +2386,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
           
                 $dataValue =  json_decode($XmlData, true); 
                
-                 $doc = \DOMDocument::loadXML('<Table/>');
+				$doc = \DOMDocument::loadXML('<Table/>');
                 $doc->formatOutput = true;
-                $root = $doc->documentElement;
+				$root = $doc->documentElement;
                        
                 foreach ($dataValue as $std) { 
                     if ($std  != null) { 
@@ -2393,6 +2396,12 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         if ($std ['yokgec']  == 1) { $devamsizlikKodID = 1 ;}
                         if ($std ['yokgec']  == 2) { $devamsizlikKodID = 2 ;}     
                         IF ($devamsizlikKodID >0)  { //$SendXmlData =$SendXmlData.'<Ogrenci><OgrenciID>'.$std ['id'].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ;
+                        /*    $Ogrenci = $sxe->addchild("Ogrenci"); 
+                            $Ogrenci->addChild("OgrenciID",$std ['id']); 
+                            $Ogrenci->addChild("DevamsizlikKodID",  $devamsizlikKodID); 
+                            $Ogrenci->addChild("Aciklama",''); 
+                        */
+                        // <Table><Ogrenci><OgrenciID>AEEFE2B7-6653-4776-9343-031155AF6181</OgrenciID><DevamsizlikKodID>2</DevamsizlikKodID><Aciklama/></Ogrenci><Ogrenci><OgrenciID>FA56401D-B693-4292-A726-8784BBB6FF30</OgrenciID><DevamsizlikKodID>2</DevamsizlikKodID><Aciklama/></Ogrenci></Table>
                         
                         $Ogrenci = $doc->createElement("Ogrenci");  
                         
@@ -2401,15 +2410,23 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         $Ogrenci->appendChild($OgrenciID); 
                         
                         $devamsizlik = $doc->createElement("DevamsizlikKodID"); 
-                        $devamsizlik->appendChild($doc->createTextNode($devamsizlikKodID)); 
+                        $devamsizlik->appendChild($doc->createTextNode($devamsizlikKodID )); 
                         $Ogrenci->appendChild($devamsizlik); 
                         
                         $Aciklama = $doc->createElement("Aciklama"); 
-                        $Aciklama->appendChild($doc->createTextNode('')); 
+                        $Aciklama->appendChild($doc->createTextNode('' )); 
                         $Ogrenci->appendChild($Aciklama); 
                         
                         $root->appendChild($Ogrenci); 
-                      
+                      /*  
+                        $Ogrenci->setAttribute("OgrenciID",$std ['id']); 
+                        $Ogrenci->setAttribute("DevamsizlikKodID",$devamsizlikKodID); 
+                        $Ogrenci->setAttribute("Aciklama",''); 
+                         */   
+                            
+                            
+                            
+                            
                         }  
                     }
                 } 
@@ -2420,30 +2437,28 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
      //    echo($dom->saveXML());
 	 
 	 
-    $doc->formatOutput = TRUE;
-    session_start();
-    $sessionID=session_id();
-    session_destroy();
+   $doc->formatOutput = TRUE;
   // print $doc->saveXML();
-    file_put_contents('c:/asd4.xml', $doc->saveXML());
-    $sxe =  $doc->saveXML() ; 
+   file_put_contents('c:/asd4.xml', $doc->saveXML());
+   $sxe =  $doc->saveXML() ; 
           //  $sxe = simplexml_import_dom($doc); 
 		   //  file_put_contents('c:/asd4.xml', $sxe->asXML());
 		//	print_r($sxe);
    
+            session_start();
+            $sessionID=session_id();
+            session_destroy();
+   
             $sql =   '  
             declare @raporkey varchar(50);
             set @raporkey = \'zm1\'+ \''.$sessionID.'\'  ;
-            INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan2,rkey)   
-            Values(\''.($sxe).'\' ,@raporkey);
+            INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)   
+            select \''.($sxe).'\',@raporkey;
            ';
             $statement = $pdo->prepare($sql); 
-      //     echo debugPDO($sql, $params); 
+         
             $statement->execute();
-            $errorInfo = $statement->errorInfo(); 
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-         //   print_r($errorInfo);
+
             $sql =   '  
             declare @XmlD XML;
             declare @raporkey varchar(50);
@@ -2463,11 +2478,11 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
              ';
             
             $statement = $pdo->prepare($sql); 
-          echo debugPDO($sql, $params); 
+        
             $result = null;
             $errorInfo = null;  
             $insertID =0;
-            if ($did == 138)  { 
+            if ($did == -138)  { 
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
@@ -2485,8 +2500,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @DersSirasi=" . intval($DersSirasi) . " ;  
                 ";
             $statement = $pdo->prepare($sql); 
-            
-           if ($did == 138)  { 
+              echo debugPDO($sql, $params);
+           if ($did == -138)  { 
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
@@ -2503,10 +2518,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @DersSirasi=" . intval($DersSirasi) . ",
                     @SinifDersID='" . $SinifDersID . "',
                     @DonemID=" . intval($DersSirasi) . " ; 
-                ";
+ ";
             $statement = $pdo->prepare($sql);
-           echo debugPDO($sql, $params); 
-            if ($did ==138)  { 
+            //   
+            if ($did == -138)  { 
             $result = $statement->execute();
             $insertID =1;
             $errorInfo = $statement->errorInfo(); 
