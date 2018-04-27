@@ -2434,7 +2434,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $sql =   '  
             declare @raporkey varchar(50);
             set @raporkey = \'zm1\'+ \''.$sessionID.'\'  ;
-            INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)   
+            INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan2,rkey)   
             Values(\''.($sxe).'\' ,@raporkey);
            ';
             $statement = $pdo->prepare($sql); 
