@@ -8463,7 +8463,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 
                         $OgrenciID = $doc->createElement("VALUE");
                         $OgrenciID->appendChild($doc->createTextNode($std[0]));
-                        //   $Ogrenci->appendChild($OgrenciID); 
+                        $Ogrenci->appendChild($OgrenciID); 
                         //  $devamsizlik = $doc->createElement("DevamsizlikKodID"); 
                         //   $devamsizlik->appendChild($doc->createTextNode($devamsizlikKodID )); 
                         //   $Ogrenci->appendChild($devamsizlik); 
