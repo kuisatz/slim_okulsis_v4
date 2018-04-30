@@ -8408,7 +8408,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if ((isset($params['TeslimTarihi']) && $params['TeslimTarihi'] != "")) {
                 $TeslimTarihi = $params['TeslimTarihi'];
             }
-            $OdevTipID = 'OdevTipID';
+            $OdevTipID = '1';
             if ((isset($params['OdevTipID']) && $params['OdevTipID'] != "")) {
                 $OdevTipID = $params['OdevTipID'];
             }
@@ -8548,13 +8548,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 
             declare @XmlD XML;
             declare @raporkey varchar(50);
-            set @raporkey = \'zm2\'+ \''.$sessionID.'\'  ;
+            set @raporkey = 'zm2'+ '".$sessionID."';
             SELECT @XmlD = alan1 FROM BILSANET_MOBILE.dbo.Mobil_ek_isler 
             WHERE rkey = @raporkey;
 
        
                  
-            exec  \' . $dbnamex . \'PRC_ODV_OdevTanimlari_Dagit @OdevTanimID= @p1 ,@OgrenciXML=@XmlD 
+            exec  ".$dbnamex."PRC_ODV_OdevTanimlari_Dagit @OdevTanimID= @p1 ,@OgrenciXML=@XmlD 
             SET NOCOUNT OFF; 
             ";
 
