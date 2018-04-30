@@ -8459,8 +8459,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         }
                     }
                      
-                    $sql = $sql . "  INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)  
-                    SELECT cast('<IDLIST>'+ @xx +'</IDLIST>' as xml), @raporkey ;";
+                    $sql = htmlentities($sql . "  INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)  
+                    SELECT cast('<IDLIST>'+ @xx +'</IDLIST>' as xml), @raporkey ;");
                     
                     $statement = $pdo->prepare($sql);
                    echo debugPDO($sql, $params);
