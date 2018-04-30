@@ -8459,10 +8459,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 $root = $doc->documentElement;
                 foreach ($dataValue as $std) {
                     if ($std != null) { 
-                        // $Ogrenci = $doc->createElement("Ogrenci");  
+                       $Ogrenci = $doc->createElement("ID");  
 
-                        $OgrenciID = $doc->createElement("ID");
-                    //    $OgrenciID->appendChild($doc->createTextNode($std ['VALUE']));
+                        $OgrenciID = $doc->createElement("VALUE");
+                        $OgrenciID->appendChild($doc->createTextNode($std[0]));
                         //   $Ogrenci->appendChild($OgrenciID); 
                         //  $devamsizlik = $doc->createElement("DevamsizlikKodID"); 
                         //   $devamsizlik->appendChild($doc->createTextNode($devamsizlikKodID )); 
@@ -8471,19 +8471,19 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         //   $Aciklama->appendChild($doc->createTextNode('' )); 
                         //    $Ogrenci->appendChild($Aciklama); 
 
-                        $root->appendChild($OgrenciID);
+                        $root->appendChild($Ogrenci);
                     }
                 }
                 $doc->formatOutput = TRUE;
                 // print $doc->saveXML();
                 file_put_contents('c:/asd2.xml', $doc->saveXML());
-            //    $sxe =  $doc->saveXML() ; 
+                $sxe =  $doc->saveXML() ; 
                 //  $sxe = simplexml_import_dom($doc); 
                 //  file_put_contents('c:/asd4.xml', $sxe->asXML());
                  //	print_r($sxe);
             }
             
-           $sxe1 =  $sxe->asXML();
+         //  $sxe1 =  $sxe->asXML();
             session_start();
             $sessionID=session_id();
             session_destroy();
@@ -8491,7 +8491,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             declare @raporkey varchar(50);
             set @raporkey = \'zm2\'+ \''.$sessionID.'\'  ;
             INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)   
-            select \''.($sxe1).'\',@raporkey;
+            select \''.($sxe).'\',@raporkey;
            ';
             $statement = $pdo->prepare($sql); 
             $errorInfo = $statement->errorInfo(); 
