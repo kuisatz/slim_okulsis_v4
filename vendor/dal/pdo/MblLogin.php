@@ -8367,94 +8367,139 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $cid = -1;
             if ((isset($params['Cid']) && $params['Cid'] != "")) {
                 $cid = $params['Cid'];
-            } 
+            }
             $did = NULL;
             if ((isset($params['Did']) && $params['Did'] != "")) {
                 $did = $params['Did'];
             }
             $dbnamex = 'dbo.';
             $dbConfigValue = 'pgConnectFactory';
-            $dbConfig =  MobilSetDbConfigx::mobilDBConfig( array( 'Cid' =>$cid,'Did' =>$did,));
+            $dbConfig = MobilSetDbConfigx::mobilDBConfig(array('Cid' => $cid, 'Did' => $did,));
             if (\Utill\Dal\Helper::haveRecord($dbConfig)) {
-                $dbConfigValue =$dbConfigValue.$dbConfig['resultSet'][0]['configclass']; 
+                $dbConfigValue = $dbConfigValue . $dbConfig['resultSet'][0]['configclass'];
                 if ((isset($dbConfig['resultSet'][0]['configclass']) && $dbConfig['resultSet'][0]['configclass'] != "")) {
-                   $dbnamex =$dbConfig['resultSet'][0]['dbname'].'.'.$dbnamex;
-                    }   
-            }      
-            
+                    $dbnamex = $dbConfig['resultSet'][0]['dbname'] . '.' . $dbnamex;
+                }
+            }
+
             $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue);
-            
-            $SinifDersID= 'CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC';
+
+            $SinifDersID = 'CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC';
             if ((isset($params['SinifDersID']) && $params['SinifDersID'] != "")) {
                 $SinifDersID = $params['SinifDersID'];
-            } 
-            $OgretmenID= 'CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC';
+            }
+            $OgretmenID = 'CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC';
             if ((isset($params['OgretmenID']) && $params['OgretmenID'] != "")) {
                 $OgretmenID = $params['OgretmenID'];
-            } 
-            $Tarih= 'getdate()';
+            }
+            $Tarih = 'getdate()';
             if ((isset($params['Tarih']) && $params['Tarih'] != "")) {
                 $Tarih = $params['Tarih'];
-            } 
-            $Tanim= 'Tanim';
+            }
+            $Tanim = 'Tanim';
             if ((isset($params['Tanim']) && $params['Tanim'] != "")) {
                 $Tanim = $params['Tanim'];
-            } 
-            $Aciklama= '';
+            }
+            $Aciklama = '';
             if ((isset($params['Aciklama']) && $params['Aciklama'] != "")) {
                 $Aciklama = $params['Aciklama'];
             }
-            $TeslimTarihi= '';
+            $TeslimTarihi = '';
             if ((isset($params['TeslimTarihi']) && $params['TeslimTarihi'] != "")) {
                 $TeslimTarihi = $params['TeslimTarihi'];
             }
-            $OdevTipID= 'OdevTipID';
+            $OdevTipID = 'OdevTipID';
             if ((isset($params['OdevTipID']) && $params['OdevTipID'] != "")) {
                 $OdevTipID = $params['OdevTipID'];
-            } 
-            $NotIleDegerlendirilsin= 'NotIleDegerlendirilsin';
+            }
+            $NotIleDegerlendirilsin = 'NotIleDegerlendirilsin';
             if ((isset($params['NotIleDegerlendirilsin']) && $params['NotIleDegerlendirilsin'] != "")) {
                 $NotIleDegerlendirilsin = $params['NotIleDegerlendirilsin'];
-            } 
-            $DonemNotunaEtkiEtsin= 'DonemNotunaEtkiEtsin';
+            }
+            $DonemNotunaEtkiEtsin = 'DonemNotunaEtkiEtsin';
             if ((isset($params['DonemNotunaEtkiEtsin']) && $params['DonemNotunaEtkiEtsin'] != "")) {
                 $DonemNotunaEtkiEtsin = $params['DonemNotunaEtkiEtsin'];
-            } 
+            }
             $languageIdValue = 647;
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
-            } 
+            }
             $SendXmlData = '';
-            $p2= '';
+            $p2 = '';
             if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
                 $p2 = $params['XmlData'];
-                
-                /*  
-                <IDLIST>
-                <ID VALUE='5E2D953C-0A7D-4A63-9368-01690DC7FE51"/>
-                <ID VALUE="AEEFE2B7-6653-4776-9343-031155AF6181"/>
-                </IDLIST>
-                  
+
+                /*
+                  <IDLIST>
+                  <ID VALUE='5E2D953C-0A7D-4A63-9368-01690DC7FE51"/>
+                  <ID VALUE="AEEFE2B7-6653-4776-9343-031155AF6181"/>
+                  </IDLIST>
+
                  */
-            $XmlData = ' '; 
-            $dataValue = NULL;
-            $devamsizlikKodID = NULL;
-            if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
-                $XmlData = $params['XmlData'];
-                $dataValue =  json_decode($XmlData, true); 
-                $dom = new \domDocument; 
-                $dom->formatOutput = true; 
-                $root = $dom->appendChild($dom->createElement( "Table" )); 
-                $sxe = simplexml_import_dom( $dom ); 
-                foreach ($dataValue as $std) {                      
-                    if ($std  != null) {  
-                    $ID = $sxe->addchild("ID"); 
-                    $ID->addChild("VALUE",$std[0]);  
+                $XmlData = ' ';
+                $dataValue = NULL;
+                $devamsizlikKodID = NULL;
+                if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
+                    $XmlData = $params['XmlData'];
+                    $dataValue = json_decode($XmlData, true);
+                    $dom = new \domDocument;
+                    $dom->formatOutput = true;
+                    $root = $dom->appendChild($dom->createElement("Table"));
+                    $sxe = simplexml_import_dom($dom);
+                    foreach ($dataValue as $std) {
+                        if ($std != null) {
+                            $ID = $sxe->addchild("ID");
+                            $ID->addChild("VALUE", $std[0]);
+                        }
                     }
-                }  
-            }  
-                
-            } 
+                }
+                ///////////////
+                $doc = \DOMDocument::loadXML('<IDLIST/>');
+                $doc->formatOutput = true;
+                $root = $doc->documentElement;
+                foreach ($dataValue as $std) {
+                    if ($std != null) { 
+                        // $Ogrenci = $doc->createElement("Ogrenci");  
+
+                        $OgrenciID = $doc->createElement("ID");
+                        $OgrenciID->appendChild($doc->createTextNode($std ['VALUE']));
+                        //   $Ogrenci->appendChild($OgrenciID); 
+                        //  $devamsizlik = $doc->createElement("DevamsizlikKodID"); 
+                        //   $devamsizlik->appendChild($doc->createTextNode($devamsizlikKodID )); 
+                        //   $Ogrenci->appendChild($devamsizlik); 
+                        //    $Aciklama = $doc->createElement("Aciklama"); 
+                        //   $Aciklama->appendChild($doc->createTextNode('' )); 
+                        //    $Ogrenci->appendChild($Aciklama); 
+
+                        $root->appendChild($OgrenciID);
+                    }
+                }
+                $doc->formatOutput = TRUE;
+                // print $doc->saveXML();
+                file_put_contents('c:/asd2.xml', $doc->saveXML());
+                $sxe =  $doc->saveXML() ; 
+                //  $sxe = simplexml_import_dom($doc); 
+                //  file_put_contents('c:/asd4.xml', $sxe->asXML());
+                 //	print_r($sxe);
+            }
+            
+   
+            session_start();
+            $sessionID=session_id();
+            session_destroy();
+            $sql =   '  
+            declare @raporkey varchar(50);
+            set @raporkey = \'zm2\'+ \''.$sessionID.'\'  ;
+            INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)   
+            select \''.($sxe).'\',@raporkey;
+           ';
+            $statement = $pdo->prepare($sql); 
+            $errorInfo = $statement->errorInfo(); 
+         
+            $statement->execute();
+            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                throw new \PDOException($errorInfo[0]);
+            
             $sql = "  
             SET NOCOUNT ON;   
             
@@ -8474,18 +8519,18 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  
             set @p1 = NEWID();
  
-            set @SinifDersID1 ='".$SinifDersID."';
-            set @OgretmenID1 ='".$OgretmenID."';
-            set @Tarih1 ='".$Tarih."';
-            set @Tanim1 =N'".$Tanim."';
-            set @Aciklama1 =N'".$Aciklama."';
-            set @TeslimTarihi1 ='".$TeslimTarihi."';
-            set @OdevTipID1 =".$OdevTipID.";
+            set @SinifDersID1 ='" . $SinifDersID . "';
+            set @OgretmenID1 ='" . $OgretmenID . "';
+            set @Tarih1 ='" . $Tarih . "';
+            set @Tanim1 =N'" . $Tanim . "';
+            set @Aciklama1 =N'" . $Aciklama . "';
+            set @TeslimTarihi1 ='" . $TeslimTarihi . "';
+            set @OdevTipID1 =" . $OdevTipID . ";
 
-            set @NotIleDegerlendirilsin1 = ".$NotIleDegerlendirilsin.";
-            set @DonemNotunaEtkiEtsin1 =".$DonemNotunaEtkiEtsin.";
+            set @NotIleDegerlendirilsin1 = " . $NotIleDegerlendirilsin . ";
+            set @DonemNotunaEtkiEtsin1 =" . $DonemNotunaEtkiEtsin . ";
              
-            exec ".$dbnamex."PRC_ODV_OdevTanimlari_Save 
+            exec " . $dbnamex . "PRC_ODV_OdevTanimlari_Save 
                     @OdevTanimID=@p1,
                     @SinifDersID=@SinifDersID1,
                     @OgretmenID=@OgretmenID1,
@@ -8500,32 +8545,41 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     @SentSms=@SentSms1,
                     @SentEPosta=@SentEPosta1; 
  
-            declare @p2 xml
-            set @p2=convert(xml,N"; 
-            $sql = $sql. '\''.$sxe->asXML().'\')
-                exec  '.$dbnamex.'PRC_ODV_OdevTanimlari_Dagit @OdevTanimID= @p1 ,@OgrenciXML=@p2 
+
+            declare @XmlD XML;
+            declare @raporkey varchar(50);
+            set @raporkey = \'zm2\'+ \''.$sessionID.'\'  ;
+            SELECT @XmlD = alan1 FROM BILSANET_MOBILE.dbo.Mobil_ek_isler 
+            WHERE rkey = @raporkey;
+
+         /*   declare @p2 xml
+            set @p2=convert(xml,N";
+            $sql = $sql . '\'' . $sxe->asXML() . '\')*/
+                 
+            exec  ' . $dbnamex . 'PRC_ODV_OdevTanimlari_Dagit @OdevTanimID= @p1 ,@OgrenciXML=@XmlD 
             SET NOCOUNT OFF; 
-            ';  
-            
-            $statement = $pdo->prepare($sql); 
-            $result =NULL;
+            ';
+
+            $statement = $pdo->prepare($sql);
+            $result = NULL;
             $errorInfo = NULL;
-      // 
-            if ($did == 138)  { 
-            $result = $statement->execute(); 
-            $errorInfo = $statement->errorInfo();
+            // 
+            if ($did == 138) {
+                echo debugPDO($sql, $params);
+                $result = $statement->execute();
+                $errorInfo = $statement->errorInfo();
+            } else {
+                
             }
-            else {  
-            } 
-             
+
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
             return array("found" => true, "errorInfo" => $errorInfo, "resultSet" => $result);
-        } catch (\PDOException $e /* Exception $e */) {    
+        } catch (\PDOException $e /* Exception $e */) {
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-  
+
     /** 
      * @author Okan CIRAN
      * @ öğrenci karnesi 
