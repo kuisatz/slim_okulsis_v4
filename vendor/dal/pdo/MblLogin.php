@@ -8392,7 +8392,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if ((isset($params['OgretmenID']) && $params['OgretmenID'] != "")) {
                 $OgretmenID = $params['OgretmenID'];
             }
-            $Tarih = 'getdate()';
+            $Tarih = null;
             if ((isset($params['Tarih']) && $params['Tarih'] != "")) {
                 $Tarih = $params['Tarih'];
             }
@@ -8521,7 +8521,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
  
             set @SinifDersID1 ='" . $SinifDersID . "';
             set @OgretmenID1 ='" . $OgretmenID . "';
-            set @Tarih1 ='" . $Tarih . "';
+            set @Tarih1 = getdate();
             set @Tanim1 =N'" . $Tanim . "';
             set @Aciklama1 =N'" . $Aciklama . "';
             set @TeslimTarihi1 ='" . $TeslimTarihi . "';
