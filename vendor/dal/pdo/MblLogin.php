@@ -2485,7 +2485,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $errorInfo = null;  
             $insertID =0;
             if ($did == 138)  { 
-           
+                print_r( "-1111---111---"); 
+                echo debugPDO($sql, $params);
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
@@ -2505,7 +2506,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $statement = $pdo->prepare($sql); 
      
            if ($did == 138)  { 
-            
+                print_r( "-2222---2222---"); 
+                echo debugPDO($sql, $params);
                 $result = $statement->execute();
                 $insertID =1;
                 $errorInfo = $statement->errorInfo(); 
@@ -2526,7 +2528,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $statement = $pdo->prepare($sql);
             //   
             if ($did == 138)  { 
-          
+                print_r( "-3333---3333---"); 
+                echo debugPDO($sql, $params);
             $result = $statement->execute();
             $insertID =1;
             $errorInfo = $statement->errorInfo(); 
@@ -2550,7 +2553,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $errorInfo = null;  
             $insertID =0;
             if ($did == 138)  { 
-                
+                print_r( "-4444---4444---"); 
+                echo debugPDO($sql, $params);
             $result = $statement->execute();
             $errorInfo = $statement->errorInfo();  
             $insertID =1;
