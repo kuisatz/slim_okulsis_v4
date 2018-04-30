@@ -8448,41 +8448,29 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     $sql = '  
                         declare @raporkey varchar(50);
                         set @raporkey = \'zm2\'+ \'' . $sessionID . '\'  ; 
-                        declare @xx xml ;
+                        declare @xx nvarchar(max) ;
                        ';
+                    $i =0 ;
                     foreach ($dataValue as $std) {
-                        if ($std != null) {
+                        if ($std != null) { 
                             $sql = $sql . "  
-                        SELECT @xx = (Select KisiID AS VALUE from " . $dbnamex . "gnl_kisiler ID where KisiID='" . $std . "' FOR XML AUTO ) 
-                        INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)  
-                        SELECT @xx, @raporkey ;
-                       ";
+                                SELECT @xx = concat(@xx ,(Select KisiID AS VALUE from " . $dbnamex . "gnl_kisiler ID where KisiID='" . $std . "' FOR XML AUTO )) ";                             
+                            $i += $i;
                         }
                     }
+                     
+                    $sql = $sql . "  INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)  
+                    SELECT cast('<IDLIST>'+ @xx +'</IDLIST>' as xml), @raporkey ;";
+                    
                     $statement = $pdo->prepare($sql);
-                    echo debugPDO($sql, $params);
+                   echo debugPDO($sql, $params);
                     $errorInfo = $statement->errorInfo(); 
                     $statement->execute();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
                 }
             }
-
-            //  $sxe1 =  $sxe->asXML();
-
-            $sql = '  
-            declare @raporkey varchar(50);
-            set @raporkey = \'zm2\'+ \'' . $sessionID . '\'  ;
-            INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)   
-            select \'' . ($sxe) . '\',@raporkey;
-           ';
-            $statement = $pdo->prepare($sql);
-            $errorInfo = $statement->errorInfo();
-
-            $statement->execute();
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]);
-
+   
             $sql = "  
             SET NOCOUNT ON;   
             
@@ -8534,9 +8522,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             set @raporkey = 'zm2'+ '" . $sessionID . "';
             SELECT @XmlD = alan1 FROM BILSANET_MOBILE.dbo.Mobil_ek_isler 
             WHERE rkey = @raporkey;
-
-       
-                 
+  
             exec  " . $dbnamex . "PRC_ODV_OdevTanimlari_Dagit @OdevTanimID= @p1 ,@OgrenciXML=@XmlD 
             SET NOCOUNT OFF; 
             ";
