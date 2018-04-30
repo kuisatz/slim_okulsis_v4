@@ -8449,8 +8449,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     foreach ($dataValue as $std) {
                         if ($std != null) {
                             $ID = $sxe->addchild("ID");
-                            $ID->addChild("VALUE", $std[0]);
-                            print_r($std[0]);
+                            $ID->addChild("VALUE", $std);
                         }
                     }
                 }
@@ -8463,7 +8462,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                        $Ogrenci = $doc->createElement("ID");  
 
                         $OgrenciID = $doc->createElement("VALUE");
-                        $OgrenciID->appendChild($doc->createTextNode($std[0]));
+                        $OgrenciID->appendChild($doc->createTextNode($std));
                         $Ogrenci->appendChild($OgrenciID); 
                         //  $devamsizlik = $doc->createElement("DevamsizlikKodID"); 
                         //   $devamsizlik->appendChild($doc->createTextNode($devamsizlikKodID )); 
