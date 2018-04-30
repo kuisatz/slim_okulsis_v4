@@ -8438,7 +8438,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                  */
                 $XmlData = ' ';
                 $dataValue = NULL;
-                $devamsizlikKodID = NULL;
+              
                 if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
                     $XmlData = $params['XmlData'];
                     $dataValue = json_decode($XmlData, true);
@@ -8450,6 +8450,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         if ($std != null) {
                             $ID = $sxe->addchild("ID");
                             $ID->addChild("VALUE", $std[0]);
+                            print_r($std[0]);
                         }
                     }
                 }
