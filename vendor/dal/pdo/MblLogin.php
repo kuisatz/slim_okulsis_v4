@@ -8477,13 +8477,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 $doc->formatOutput = TRUE;
                 // print $doc->saveXML();
                 file_put_contents('c:/asd2.xml', $doc->saveXML());
-                $sxe =  $doc->saveXML() ; 
+            //    $sxe =  $doc->saveXML() ; 
                 //  $sxe = simplexml_import_dom($doc); 
                 //  file_put_contents('c:/asd4.xml', $sxe->asXML());
                  //	print_r($sxe);
             }
             
-   
+           $sxe1 =  $sxe->asXML();
             session_start();
             $sessionID=session_id();
             session_destroy();
@@ -8491,7 +8491,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             declare @raporkey varchar(50);
             set @raporkey = \'zm2\'+ \''.$sessionID.'\'  ;
             INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)   
-            select \''.($sxe->asXML()).'\',@raporkey;
+            select \''.($sxe1).'\',@raporkey;
            ';
             $statement = $pdo->prepare($sql); 
             $errorInfo = $statement->errorInfo(); 
