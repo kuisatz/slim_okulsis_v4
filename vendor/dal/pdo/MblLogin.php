@@ -8463,7 +8463,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 
                         $OgrenciID = $doc->createElement("VALUE");
                         $OgrenciID->appendChild($doc->createTextNode($std[0]));
-                        //   $Ogrenci->appendChild($OgrenciID); 
+                        $Ogrenci->appendChild($OgrenciID); 
                         //  $devamsizlik = $doc->createElement("DevamsizlikKodID"); 
                         //   $devamsizlik->appendChild($doc->createTextNode($devamsizlikKodID )); 
                         //   $Ogrenci->appendChild($devamsizlik); 
@@ -8551,10 +8551,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             set @raporkey = \'zm2\'+ \''.$sessionID.'\'  ;
             SELECT @XmlD = alan1 FROM BILSANET_MOBILE.dbo.Mobil_ek_isler 
             WHERE rkey = @raporkey;
-
-         /*   declare @p2 xml
-            set @p2=convert(xml,N";
-            $sql = $sql . '\'' . $sxe->asXML() . '\')*/
+ 
                  
             exec  ' . $dbnamex . 'PRC_ODV_OdevTanimlari_Dagit @OdevTanimID= @p1 ,@OgrenciXML=@XmlD 
             SET NOCOUNT OFF; 
