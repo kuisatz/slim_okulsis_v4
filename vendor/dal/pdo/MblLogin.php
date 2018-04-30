@@ -8438,68 +8438,51 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                  */
                 $XmlData = ' ';
                 $dataValue = NULL;
-              
+
                 if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
                     $XmlData = $params['XmlData'];
-                    $dataValue = json_decode($XmlData, true);
-                    $dom = new \domDocument;
-                    $dom->formatOutput = true;
-                    $root = $dom->appendChild($dom->createElement("Table"));
-                    $sxe = simplexml_import_dom($dom);
+                    $dataValue = json_decode($XmlData, true);  
+                    session_start();
+                    $sessionID = session_id();
+                    session_destroy();
+                    $sql = '  
+                        declare @raporkey varchar(50);
+                        set @raporkey = \'zm2\'+ \'' . $sessionID . '\'  ; 
+                        declare @xx xml ;
+                       ';
                     foreach ($dataValue as $std) {
                         if ($std != null) {
-                            $ID = $sxe->addchild("ID");
-                            $ID->addChild("VALUE", $std);
+                            $sql = $sql . "  
+                        SELECT @xx = (Select KisiID AS VALUE from " . $dbnamex . "gnl_kisiler ID where KisiID='" . $std . "' FOR XML AUTO ) 
+                        INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)  
+                        SELECT @xx, @raporkey ;
+                       ";
                         }
                     }
+                    $statement = $pdo->prepare($sql);
+                    echo debugPDO($sql, $params);
+                    $errorInfo = $statement->errorInfo(); 
+                    $statement->execute();
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
                 }
-                ///////////////
-                $doc = \DOMDocument::loadXML('<IDLIST/>');
-                $doc->formatOutput = true;
-                $root = $doc->documentElement;
-                foreach ($dataValue as $std) {
-                    if ($std != null) { 
-                       $Ogrenci = $doc->createElement("ID");  
-
-                        $OgrenciID = $doc->createElement("VALUE");
-                        $OgrenciID->appendChild($doc->createTextNode($std));
-                        $Ogrenci->appendChild($OgrenciID); 
-                        //  $devamsizlik = $doc->createElement("DevamsizlikKodID"); 
-                        //   $devamsizlik->appendChild($doc->createTextNode($devamsizlikKodID )); 
-                        //   $Ogrenci->appendChild($devamsizlik); 
-                        //    $Aciklama = $doc->createElement("Aciklama"); 
-                        //   $Aciklama->appendChild($doc->createTextNode('' )); 
-                        //    $Ogrenci->appendChild($Aciklama); 
-
-                        $root->appendChild($Ogrenci);
-                    }
-                }
-                $doc->formatOutput = TRUE;
-                // print $doc->saveXML();
-                file_put_contents('c:/asd2.xml', $doc->saveXML());
-                $sxe =  $doc->saveXML() ; 
-                //  $sxe = simplexml_import_dom($doc); 
-                //  file_put_contents('c:/asd4.xml', $sxe->asXML());
-                 //	print_r($sxe);
             }
-            
-         //  $sxe1 =  $sxe->asXML();
-            session_start();
-            $sessionID=session_id();
-            session_destroy();
-            $sql =   '  
+
+            //  $sxe1 =  $sxe->asXML();
+
+            $sql = '  
             declare @raporkey varchar(50);
-            set @raporkey = \'zm2\'+ \''.$sessionID.'\'  ;
+            set @raporkey = \'zm2\'+ \'' . $sessionID . '\'  ;
             INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)   
-            select \''.($sxe).'\',@raporkey;
+            select \'' . ($sxe) . '\',@raporkey;
            ';
-            $statement = $pdo->prepare($sql); 
-            $errorInfo = $statement->errorInfo(); 
-         
+            $statement = $pdo->prepare($sql);
+            $errorInfo = $statement->errorInfo();
+
             $statement->execute();
             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                 throw new \PDOException($errorInfo[0]);
-            
+
             $sql = "  
             SET NOCOUNT ON;   
             
@@ -8548,13 +8531,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 
             declare @XmlD XML;
             declare @raporkey varchar(50);
-            set @raporkey = 'zm2'+ '".$sessionID."';
+            set @raporkey = 'zm2'+ '" . $sessionID . "';
             SELECT @XmlD = alan1 FROM BILSANET_MOBILE.dbo.Mobil_ek_isler 
             WHERE rkey = @raporkey;
 
        
                  
-            exec  ".$dbnamex."PRC_ODV_OdevTanimlari_Dagit @OdevTanimID= @p1 ,@OgrenciXML=@XmlD 
+            exec  " . $dbnamex . "PRC_ODV_OdevTanimlari_Dagit @OdevTanimID= @p1 ,@OgrenciXML=@XmlD 
             SET NOCOUNT OFF; 
             ";
 
