@@ -8463,7 +8463,6 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     SELECT cast('<'+'IDLIST>'+ @xx +'<'+'/IDLIST>' as xml), @raporkey ;");
                     
                     $statement = $pdo->prepare($sql);
-                   echo debugPDO($sql, $params);
                     $errorInfo = $statement->errorInfo(); 
                     $statement->execute();
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
@@ -8532,7 +8531,6 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $errorInfo = NULL;
             // 
             if ($did == 138) {
-              //  echo debugPDO($sql, $params);
                 $result = $statement->execute();
                 $errorInfo = $statement->errorInfo();
             } else {
