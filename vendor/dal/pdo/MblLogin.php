@@ -4513,7 +4513,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                             SET NOCOUNT OFF;    
                                 ";
                             $statement = $pdo->prepare($sql); 
-                              
+                              echo debugPDO($sql, $params);
                             $result = $statement->execute();
 
                           
@@ -8520,7 +8520,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $result = NULL;
             $errorInfo = NULL;
             // 
-            if ($did == 138) {
+            if ($did == 93) {
                 $result = $statement->execute();
                 $errorInfo = $statement->errorInfo();
             } else {
