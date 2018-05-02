@@ -4399,25 +4399,25 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
     public function sendMesajDefault($params = array()) {
         try {
             $insertID = 0;
-            $errorInfo =  ""; 
+            $errorInfo = "";
             $cid = -1;
             if ((isset($params['Cid']) && $params['Cid'] != "")) {
                 $cid = $params['Cid'];
-            } 
+            }
             $did = NULL;
             if ((isset($params['Did']) && $params['Did'] != "")) {
                 $did = $params['Did'];
             }
             $dbnamex = 'dbo.';
             $dbConfigValue = 'pgConnectFactory';
-            $dbConfig =  MobilSetDbConfigx::mobilDBConfig( array( 'Cid' =>$cid,'Did' =>$did,));
+            $dbConfig = MobilSetDbConfigx::mobilDBConfig(array('Cid' => $cid, 'Did' => $did,));
             if (\Utill\Dal\Helper::haveRecord($dbConfig)) {
-                $dbConfigValue =$dbConfigValue.$dbConfig['resultSet'][0]['configclass']; 
+                $dbConfigValue = $dbConfigValue . $dbConfig['resultSet'][0]['configclass'];
                 if ((isset($dbConfig['resultSet'][0]['configclass']) && $dbConfig['resultSet'][0]['configclass'] != "")) {
-                   $dbnamex =$dbConfig['resultSet'][0]['dbname'].'.'.$dbnamex;
-                    }   
-            }     
-            
+                    $dbnamex = $dbConfig['resultSet'][0]['dbname'] . '.' . $dbnamex;
+                }
+            }
+
             $pdo = $this->slimApp->getServiceManager()->get($dbConfigValue);
             $pdo->beginTransaction();
 
@@ -4444,30 +4444,95 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $languageIdValue = 647;
             if (isset($params['LanguageID']) && $params['LanguageID'] != "") {
                 $languageIdValue = $params['LanguageID'];
-            } 
+            }
             $SendXmlData = '';
-            $p2= '';
+            $p2 = '';
             if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
                 $p2 = $params['XmlData'];
-                
-                /*  
-                <IDLIST>
-                <ID VALUE='5E2D953C-0A7D-4A63-9368-01690DC7FE51"/>
-                <ID VALUE="AEEFE2B7-6653-4776-9343-031155AF6181"/>
-                </IDLIST>
-                  
+
+                /*
+                  <IDLIST>
+                  <ID VALUE='5E2D953C-0A7D-4A63-9368-01690DC7FE51"/>
+                  <ID VALUE="AEEFE2B7-6653-4776-9343-031155AF6181"/>
+                  </IDLIST>
+
                  */
-           
-            $XmlData = ' '; 
-            $dataValue = NULL; 
-            if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
-                $XmlData = $params['XmlData'];
-                $dataValue =  json_decode($XmlData, true);
-                    foreach ($dataValue as $std) {                      
-                        if ($std  != null) {
-                        $ReceiveKisiID= $std;                           
-                         
-                        $sql = "  
+                /*
+                $XmlData = ' ';
+                $dataValue = NULL;
+                if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
+                    $XmlData = $params['XmlData'];
+                    $dataValue = json_decode($XmlData, true);
+                    foreach ($dataValue as $std) {
+                        if ($std != null) {
+                            $ReceiveKisiID = $std;
+
+                            $sql = "  
+                            SET NOCOUNT ON;   
+
+                            DECLARE @MesajID1 uniqueidentifier, 
+                                @MesajIDNewBie uniqueidentifier, 
+                                @MesajTarihi datetime ,
+                                @p2 xml ,
+                                @KisiID1 nvarchar(50) =''  collate SQL_Latin1_General_CP1254_CI_AS, 
+                                @MesajTipID1 int; 
+                            set @MesajTarihi = getdate();
+                            set @MesajIDNewBie = NEWID();  
+
+                            SET NOCOUNT ON;   
+
+                            DECLARE 
+                                @MesajID uniqueidentifier,  
+                                @ReceiveKisiID nvarchar(50) ='' collate SQL_Latin1_General_CP1254_CI_AS; 
+
+                            set @KisiID1 = '" . $KisiID . "';
+                            set @ReceiveKisiID = '" . $ReceiveKisiID . "';
+                            set @MesajTipID1 = " . $MesajTipID . ";
+
+                            set @MesajID1 = @MesajIDNewBie; 
+
+                            SET NOCOUNT OFF; 
+
+                            exec  " . $dbnamex . "PRC_MSJ_Mesaj_Save 
+                                            @MesajID = @MesajIDNewBie OUTPUT,
+                                            @MesajOncelikID = 1,
+                                            @Konu= N'" . $Konu . "',
+                                            @Mesaj=N'" . $Mesaj . "',
+                                            @Tarih= @MesajTarihi,
+                                            @KisiID= @KisiID1,
+                                            @SinavID=NULL,
+                                            @MesajTipID= @MesajTipID1;   
+
+                            exec " . $dbnamex . "PRC_MSJ_MesajKutusu_Save @KisiID=@KisiID1,
+                            @MesajID=@MesajID1 ;  
+
+                            set @p2f='<'+'Table>'+'<'+'MessageBoxes>'+'<'+'KisiID>'+@ReceiveKisiID+'<'+'/KisiID>'+'<'+'/MessageBoxes>'+'<'+/Table>';
+                        -- set @p2=convert(xml,N'<Table><MessageBoxes><KisiID>'+@ReceiveKisiID+'</KisiID></MessageBoxes></Table>')-
+                            set @p2=convert(xml,@p2f) ; 
+                            exec " . $dbnamex . "PRC_MSJ_MesajKutusu_SaveXML 
+                                        @MesajID=@MesajIDNewBie,
+                                        @Data=@p2; 
+
+                            SET NOCOUNT OFF;    
+                                ";
+                            $statement = $pdo->prepare($sql);
+                            echo debugPDO($sql, $params);
+                            $result = $statement->execute();
+                            $insertID = $pdo->lastInsertId();
+                            $errorInfo = $statement->errorInfo();
+                            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                                throw new \PDOException($errorInfo[0]);
+
+                            $pdo->commit();
+                        }
+                    }
+                }
+                
+                */
+                
+            }
+
+   $sql = "  
                             SET NOCOUNT ON;   
 
                             DECLARE @MesajID1 uniqueidentifier, 
@@ -4524,23 +4589,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                                 throw new \PDOException($errorInfo[0]); 
                                
                             $pdo->commit();
-                          
-                        }
-                    }
-                  
-                
-            }  
-                
-            } 
-             
-          
             return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
         } catch (\PDOException $e /* Exception $e */) {
             $pdo->rollback();
             return array("found" => false, "errorInfo" => $e->getMessage());
         }
     }
-  
+
     /** 
      * @author Okan CIRAN  -- kullanılmıyor
      * @ login olan kişinin mesaj göndermesi  --sadece sistem tipinde mesaj gönderiyor.
