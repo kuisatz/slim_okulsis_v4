@@ -4460,20 +4460,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
                 $XmlData = $params['XmlData'];
                 $dataValue =  json_decode($XmlData, true);
-                
-             //   print_r( "////////////"); 
-            //   print_r($dataValue  ); 
-                // echo( "\\\\\\console\\\\\\"); 
                     foreach ($dataValue as $std) {                      
                         if ($std  != null) {
-                        //   print_r($std ); 
-                        //   if ($std[1] == 1) { $devamsizlikKodID = 2 ;}
-                        //   if ($std[2] == 1) { $devamsizlikKodID = 0 ;}
-                     
-                          //  print_r(htmlentities('<Ogrenci><OgrenciID>').$dataValue[0][0]).htmlentities('</OgrenciID><DevamsizlikKodID>').$dataValue[0][1].htmlentities('</DevamsizlikKodID> ' )  ; 
-                      // echo( '<Ogrenci><OgrenciID>'.$std[0].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ); 
-                         $ReceiveKisiID= $std  ;  
-                         
+                        $ReceiveKisiID= $std;                           
                          
                         $sql = "  
                             SET NOCOUNT ON;   
@@ -4514,8 +4503,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                             exec ".$dbnamex."PRC_MSJ_MesajKutusu_Save @KisiID=@KisiID1,
                             @MesajID=@MesajID1 ;  
 
-                            set @p2=convert(xml,N'<Table><MessageBoxes><KisiID>'+@ReceiveKisiID+'</KisiID></MessageBoxes></Table>')
-
+                            set @p2f='<'+'Table>'+'<'+'MessageBoxes>'+'<'+'KisiID>'+@ReceiveKisiID+'<'+'/KisiID>'+'<'+'/MessageBoxes>'+'<'+/Table>';
+                          /*  set @p2=convert(xml,N'<Table><MessageBoxes><KisiID>'+@ReceiveKisiID+'</KisiID></MessageBoxes></Table>') */
+                            set @p2=convert(xml,@p2f) ; 
                             exec ".$dbnamex."PRC_MSJ_MesajKutusu_SaveXML 
                                         @MesajID=@MesajIDNewBie,
                                         @Data=@p2; 
@@ -4523,8 +4513,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                             SET NOCOUNT OFF;    
                                 ";
                             $statement = $pdo->prepare($sql); 
-                         //   
-                         //   $result = $statement->execute();
+                              
+                            $result = $statement->execute();
 
                           
                         }
