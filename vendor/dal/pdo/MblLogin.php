@@ -4398,6 +4398,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
      */
     public function sendMesajDefault($params = array()) {
         try {
+            $insertID = 0;
+            $errorInfo =  ""; 
             $cid = -1;
             if ((isset($params['Cid']) && $params['Cid'] != "")) {
                 $cid = $params['Cid'];
@@ -4455,8 +4457,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 </IDLIST>
                   
                  */
-            $insertID = 0;
-            $errorInfo =  ""; 
+           
             $XmlData = ' '; 
             $dataValue = NULL; 
             if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
