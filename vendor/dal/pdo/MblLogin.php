@@ -4455,6 +4455,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 </IDLIST>
                   
                  */
+            $insertID = 0;
+            $errorInfo =  ""; 
             $XmlData = ' '; 
             $dataValue = NULL; 
             if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
@@ -4519,6 +4521,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                             $errorInfo = $statement->errorInfo(); 
                             if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                                 throw new \PDOException($errorInfo[0]); 
+                               
+                            $pdo->commit();
                           
                         }
                     }
@@ -4527,12 +4531,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             }  
                 
             } 
-            
-          
-          
-            
              
-            $pdo->commit();
+          
             return array("found" => true, "errorInfo" => $errorInfo, "lastInsertId" => $insertID);
         } catch (\PDOException $e /* Exception $e */) {
             $pdo->rollback();
