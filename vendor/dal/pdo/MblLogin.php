@@ -2625,7 +2625,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $statement = $pdo->prepare($sql);
             $statement->bindValue(':username', $params['username'], \PDO::PARAM_STR);
             $statement->bindValue(':password', $params['password'], \PDO::PARAM_STR);
-          // echo debugPDO($sql, $parameters);
+      
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $errorInfo = $statement->errorInfo();
@@ -4516,7 +4516,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                             SET NOCOUNT OFF;    
                                 ";
                             $statement = $pdo->prepare($sql);
-                            echo debugPDO($sql, $params);
+                           
                             $result = $statement->execute();
                             $insertID = $pdo->lastInsertId();
                             $errorInfo = $statement->errorInfo();
@@ -4571,9 +4571,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                             exec ".$dbnamex."PRC_MSJ_MesajKutusu_Save @KisiID=@KisiID1,
                             @MesajID=@MesajID1 ;  
 
-                            set @p2f='<'+'Table>'+'<'+'MessageBoxes>'+'<'+'KisiID>'+@ReceiveKisiID+'<'+'/KisiID>'+'<'+'/MessageBoxes>'+'<'+/Table>';
+                            set @p2='<'+'Table>'+'<'+'MessageBoxes>'+'<'+'KisiID>'+@ReceiveKisiID+'<'+'/KisiID>'+'<'+'/MessageBoxes>'+'<'+'/Table>';
                           /*  set @p2=convert(xml,N'<Table><MessageBoxes><KisiID>'+@ReceiveKisiID+'</KisiID></MessageBoxes></Table>') */
-                            set @p2=convert(xml,@p2f) ; 
+                            set @p2=convert(xml,@p2) ; 
                             exec ".$dbnamex."PRC_MSJ_MesajKutusu_SaveXML 
                                         @MesajID=@MesajIDNewBie,
                                         @Data=@p2; 
@@ -4581,7 +4581,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                             SET NOCOUNT OFF;    
                                 ";
                             $statement = $pdo->prepare($sql); 
-                            echo debugPDO($sql, $params);
+                        
                             $result = $statement->execute();
                             $insertID = $pdo->lastInsertId();
                             $errorInfo = $statement->errorInfo(); 
@@ -12032,10 +12032,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
              SET NOCOUNT OFF; 
 
 		 ";
-           // $sql =  $sql +  $sql1;
-       //    print_r($sql);
+          
             $statement = $pdo->prepare($sql);   
-       //   echo debugPDO($sql, $params);
             $statement->execute();
             
             //   http://localhost:8081/jasperserver/flow.html?_flowId=viewReportFlow&reportUnit=/reports/bilsa/mobile/oppp&output=pdf&j_username=jasperadmin&j_password=12345678oki
