@@ -4513,9 +4513,12 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                             SET NOCOUNT OFF;    
                                 ";
                             $statement = $pdo->prepare($sql); 
-                              echo debugPDO($sql, $params);
+                            echo debugPDO($sql, $params);
                             $result = $statement->execute();
-
+                            $insertID = $pdo->lastInsertId();
+                            $errorInfo = $statement->errorInfo(); 
+                            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                                throw new \PDOException($errorInfo[0]); 
                           
                         }
                     }
@@ -4526,10 +4529,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             } 
             
           
-            $insertID = $pdo->lastInsertId();
-            $errorInfo = $statement->errorInfo(); 
-            if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
-                throw new \PDOException($errorInfo[0]); 
+          
             
              
             $pdo->commit();
