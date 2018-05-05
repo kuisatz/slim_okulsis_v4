@@ -11325,6 +11325,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         $sqlx = $sqlx . "  
                                 SELECT  '".$SinavOgrenciSoruCevapID."','".$ogrenciid."','".$soruid."','True',".$puan."";                        
                         $i += $i; 
+                        print_r($i);
                         }}
                     } 
                      $statement = $pdo->prepare($sqlx); 
