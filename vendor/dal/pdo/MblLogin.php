@@ -11279,7 +11279,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     session_start();
                     $sessionID = session_id();
                     session_destroy();
-                    $i =0 ;
+                    $i =1 ;
                     $sqlx = '  
                      declare @raporkey varchar(50);
                      set @raporkey = \'zm3\'+ \'' . $sessionID . '\'  ; 
@@ -11321,7 +11321,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         $Dugum->addChild("AldigiPuan",$puan);  
                      * 
                      */ 
-                        if ($i > 0) {$sqlx = $sqlx." UNION ";} 
+                        if ($i > 1) {$sqlx = $sqlx." UNION ";} 
                         $i += $i; 
                         $sqlx = $sqlx . "  
                                 SELECT  '".$SinavOgrenciSoruCevapID."','".$ogrenciid."','".$soruid."','True',".$puan."";                        
