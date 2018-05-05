@@ -11345,7 +11345,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             ";  
             
             $statement = $pdo->prepare($sql); 
-     //  
+      echo debugPDO($sql, $params);
             $result = NULL; 
             $errorInfo = NULL;
             if ($did == 138)  { 
