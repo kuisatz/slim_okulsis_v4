@@ -11323,7 +11323,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                      */ 
                         if ($i > 0) {$sqlx = $sqlx." UNION ";} 
                         $sqlx = $sqlx . "  
-                                SELECT  '".$SinavOgrenciSoruCevapID."','".$ogrenciid."','".$soruid."',True,".$puan."";                        
+                                SELECT  '".$SinavOgrenciSoruCevapID."','".$ogrenciid."','".$soruid."','True',".$puan."";                        
                         $i += $i; 
                         }}
                     } 
