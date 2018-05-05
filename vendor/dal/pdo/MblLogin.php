@@ -11264,17 +11264,18 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 $ogrenciid = NULL;
                 $soruid = NULL;
                 $puan = NULL;
+                $SendXmlData ="";
                 if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
                     $XmlData = $params['XmlData'];
                     $dataValue =  json_decode($XmlData, true);
                    // $xml = new \SimpleXMLElement('<Nodes></Nodes>'); 
-               /*     $dom = new \domDocument; 
+                     $dom = new \domDocument; 
                     $dom->formatOutput = true; 
                     $root = $dom->appendChild($dom->createElement( "Nodes" )); 
                     $sxe = simplexml_import_dom( $dom ); 
-                */ 
+                  
                     
-                    
+                   
                     session_start();
                     $sessionID = session_id();
                     session_destroy();
@@ -11308,7 +11309,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     } 
                     
                   
-                    print_r($SendXmlData);
+                    print_r($std ['SinavOgrenciSoruCevapID']);
                    
                    /*
                     foreach ($dataValue as $std) {
