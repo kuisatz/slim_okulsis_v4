@@ -11312,7 +11312,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                       // echo( '<Ogrenci><OgrenciID>'.$std[0].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ); 
                        //  $SendXmlData =$SendXmlData.'<'+'Dugum SinavOgrenciSoruCevapID="'.$SinavOgrenciSoruCevapID.'" SinavOgrenciID="'.$ogrenciid.'" SinavSoruID="'.$soruid.'" isDogru="True" AldigiPuan="'.$puan.'"'+'/'+'>' ; 
                          $SendXmlData =$SendXmlData.'\<'+'Dugum SinavOgrenciSoruCevapID="'.$SinavOgrenciSoruCevapID.'" SinavOgrenciID="'.$ogrenciid.'" SinavSoruID="'.$soruid.'" isDogru="True" AldigiPuan="'.$puan.'"'  ;  
-                          print_r($SendXmlData);
+                        //  print_r($SendXmlData);
                     /*    $Dugum = $sxe->addchild("Dugum"); 
                         $Dugum->addChild("SinavOgrenciSoruCevapID",$SinavOgrenciSoruCevapID); 
                         $Dugum->addChild("SinavOgrenciID",  $ogrenciid); 
