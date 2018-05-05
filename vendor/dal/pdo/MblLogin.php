@@ -11280,10 +11280,25 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     $sessionID = session_id();
                     session_destroy();
                     $i =0 ;
-                    $sql = '  
+                    $sqlx = '  
                      declare @raporkey varchar(50);
                      set @raporkey = \'zm3\'+ \'' . $sessionID . '\'  ; 
                      declare @xx nvarchar(max) ;
+
+                    SET NOCOUNT ON;  
+                    IF OBJECT_ID(\'tempdb..#okisinavsonuc'.$sessionID.'\') IS NOT NULL DROP TABLE #okikysinavlari'.$sessionID.'; 
+
+                    CREATE TABLE #okikysinavlari'.$sessionID.'
+                        (   
+                        SinavOgrenciSoruCevapID [uniqueidentifier],
+                        SinavOgrenciID [uniqueidentifier],  
+                        SinavSoruID int, 
+                        isDogru boolean,
+                        AldigiPuan  int 
+                        ) ;
+
+                     INSERT INTO #okikysinavlari'.$sessionID.'  
+                         
                     ';
                     foreach ($dataValue as $std) {                      
                         if ($std  != null) { 
@@ -11306,12 +11321,26 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         $Dugum->addChild("AldigiPuan",$puan);  
                      * 
                      */ 
+                        if ($i > 0) {$sqlx = $sqlx." UNION ";} 
+                        $sqlx = $sqlx . "  
+                                SELECT  ".$SinavOgrenciSoruCevapID.",".$ogrenciid.",".$soruid.",True,".$puan."";                        
+                        $i += $i;
                             
                         }}
                     } 
+                     $statement = $pdo->prepare($sqlx); 
+                     echo debugPDO($sqlx, $params); 
+                    $result = NULL; 
+                    $errorInfo = NULL;
                     
+                        $result = $statement->execute(); 
+                        $errorInfo = $statement->errorInfo();
+                   
+              
+                    if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
+                        throw new \PDOException($errorInfo[0]);
                   
-                //    print_r($SendXmlData);
+                  print_r($sql);
                    
                    /*
                     foreach ($dataValue as $std) {
@@ -11348,6 +11377,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
             $sql = $sql. '\''.$sxe->asXML().'\') 
             exec  '.$dbnamex.'PRC_SNV_SinavOgrenciSoruCevaplari_Save_DersCevaplari @XMLData=@p1
 
+            IF OBJECT_ID(\'tempdb..#okisinavsonuc'.$sessionID.'\') IS NOT NULL DROP TABLE #okikysinavlari'.$sessionID.'; 
             SET NOCOUNT OFF; 
             ';  
             
