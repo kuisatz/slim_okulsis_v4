@@ -11279,9 +11279,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                      declare @xx nvarchar(max) ;
 
                     SET NOCOUNT ON;  
-                    IF OBJECT_ID(\'tempdb..#okisinavsonuc'.$sessionID.'\') IS NOT NULL DROP TABLE #okikysinavlari'.$sessionID.'; 
+                    IF OBJECT_ID(\'tempdb..#okisinavsonuc'.$sessionID.'\') IS NOT NULL DROP TABLE #okisinavsonuc'.$sessionID.'; 
 
-                    CREATE TABLE #okikysinavlari'.$sessionID.'
+                    CREATE TABLE #okisinavsonuc'.$sessionID.'
                         (   
                         SinavOgrenciSoruCevapID uniqueidentifier,
                         SinavOgrenciID uniqueidentifier,  
@@ -11311,7 +11311,9 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     $sqlx = $sqlx . "    
                             SELECT @xx = concat(@xx ,(Select * from #okikysinavlari".$sessionID." Dugum FOR XML AUTO ))  
                             INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)
-                            SELECT cast('<'+'Nodes>'+ @xx +'<'+'/Nodes>' as xml), @raporkey ;"; 
+                            SELECT cast('<'+'Nodes>'+ @xx +'<'+'/Nodes>' as xml), @raporkey ; 
+                            IF OBJECT_ID(\'tempdb..#okisinavsonuc'.$sessionID.'\') IS NOT NULL DROP TABLE #okisinavsonuc'.$sessionID.'; 
+                        "; 
                     $statement = $pdo->prepare($sqlx);  
                     $result = $statement->execute(); 
                     $errorInfo = $statement->errorInfo(); 
@@ -11340,7 +11342,6 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 SO.SinavOgrenciID= '".$ogrenciid."';  
             exec  ".$dbnamex."PRC_SNV_SinavOgrenciSoruCevaplari_Save_DersCevaplari @XMLData=@p1
 
-            IF OBJECT_ID(\'tempdb..#okisinavsonuc".$sessionID."') IS NOT NULL DROP TABLE #okikysinavlari".$sessionID."; 
             SET NOCOUNT OFF; 
             ";  
             
