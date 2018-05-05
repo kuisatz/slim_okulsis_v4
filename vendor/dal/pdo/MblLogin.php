@@ -11268,14 +11268,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                 if ((isset($params['XmlData']) && $params['XmlData'] != "")) {
                     $XmlData = $params['XmlData'];
                     $dataValue =  json_decode($XmlData, true);
-                   // $xml = new \SimpleXMLElement('<Nodes></Nodes>'); 
-                     $dom = new \domDocument; 
-                    $dom->formatOutput = true; 
-                    $root = $dom->appendChild($dom->createElement( "Nodes" )); 
-                    $sxe = simplexml_import_dom( $dom ); 
-                  
                     
-                   
                     session_start();
                     $sessionID = session_id();
                     session_destroy();
@@ -11307,61 +11300,34 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         $soruid = $std ['soruid'] ; 
                         $puan = $std ['puan'] ;  
                      
-                        if (( $puan > -1 )) {
-                          //  print_r(htmlentities('<Ogrenci><OgrenciID>').$dataValue[0][0]).htmlentities('</OgrenciID><DevamsizlikKodID>').$dataValue[0][1].htmlentities('</DevamsizlikKodID> ' )  ; 
-                      // echo( '<Ogrenci><OgrenciID>'.$std[0].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ); 
-                       //  $SendXmlData =$SendXmlData.'<'+'Dugum SinavOgrenciSoruCevapID="'.$SinavOgrenciSoruCevapID.'" SinavOgrenciID="'.$ogrenciid.'" SinavSoruID="'.$soruid.'" isDogru="True" AldigiPuan="'.$puan.'"'+'/'+'>' ; 
-                         $SendXmlData =$SendXmlData.'\<'+'Dugum SinavOgrenciSoruCevapID="'.$SinavOgrenciSoruCevapID.'" SinavOgrenciID="'.$ogrenciid.'" SinavSoruID="'.$soruid.'" isDogru="True" AldigiPuan="'.$puan.'"'  ;  
-                        //  print_r($SendXmlData);
-                    /*    $Dugum = $sxe->addchild("Dugum"); 
-                        $Dugum->addChild("SinavOgrenciSoruCevapID",$SinavOgrenciSoruCevapID); 
-                        $Dugum->addChild("SinavOgrenciID",  $ogrenciid); 
-                        $Dugum->addChild("SinavSoruID",$soruid); 
-                        $Dugum->addChild("isDogru",'True'); 
-                        $Dugum->addChild("AldigiPuan",$puan);  
-                     * 
-                     */ 
-                        if ($i > 1) {$sqlx = $sqlx." UNION ";} 
-                        $i += $i; 
-                        $sqlx = $sqlx . "  
-                                SELECT  '".$SinavOgrenciSoruCevapID."','".$ogrenciid."','".$soruid."','True',".$puan."";                        
-                        
-                        print_r($i);
+                        if (( $puan > -1 )) { 
+                            if ($i > 1) {$sqlx = $sqlx." UNION ";} 
+                            $i += $i; 
+                            $sqlx = $sqlx . "  
+                                    SELECT  '".$SinavOgrenciSoruCevapID."','".$ogrenciid."','".$soruid."','True',".$puan."";                        
+ 
                         }}
                     } 
-                     $statement = $pdo->prepare($sqlx); 
-                     echo debugPDO($sqlx, $params); 
-                    $result = NULL; 
-                    $errorInfo = NULL;
                     
-                        $result = $statement->execute(); 
-                        $errorInfo = $statement->errorInfo();
-                   
+                    $sqlx = $sqlx . "    
+                            SELECT @xx = concat(@xx ,(Select * from #okikysinavlari'.$sessionID.' Dugum FOR XML AUTO ))                                                      
+
+                            INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)
+                            SELECT cast('<'+'Nodes>'+ @xx +'<'+'/Nodes>' as xml), @raporkey ;";
+                    
+                    
+                    
+                     $statement = $pdo->prepare($sqlx); 
+                    echo debugPDO($sqlx, $params);  
+                    $result = $statement->execute(); 
+                    $errorInfo = $statement->errorInfo(); 
               
                     if ($errorInfo[0] != "00000" && $errorInfo[1] != NULL && $errorInfo[2] != NULL)
                         throw new \PDOException($errorInfo[0]);
                   
-                  print_r($sql);
-                   
-                   /*
-                    foreach ($dataValue as $std) {
-                        if ($std != null) { 
-                            $sql = $sql . "  
-                                SELECT @xx = concat(@xx ,(Select KisiID AS VALUE from " . $dbnamex . "gnl_kisiler ID where KisiID='" . $std . "' FOR XML AUTO )) ";                             
-                            $i += $i;
-                        }
-                    }
-                    */
-                    
-                    
-                    
-                    
                 }  
             } 
-            
-            
-            
-            
+              
             $sql = "  
             SET NOCOUNT ON;  
             DECLARE @p1 xml;  
