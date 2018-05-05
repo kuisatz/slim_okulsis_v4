@@ -11290,11 +11290,11 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 
                     CREATE TABLE #okikysinavlari'.$sessionID.'
                         (   
-                        SinavOgrenciSoruCevapID [uniqueidentifier],
-                        SinavOgrenciID [uniqueidentifier],  
-                        SinavSoruID int, 
+                        SinavOgrenciSoruCevapID uniqueidentifier,
+                        SinavOgrenciID uniqueidentifier,  
+                        SinavSoruID uniqueidentifier, 
                         isDogru varchar(5),
-                        AldigiPuan  int 
+                        AldigiPuan  numeric(6,2) 
                         ) ;
 
                      INSERT INTO #okikysinavlari'.$sessionID.'  
