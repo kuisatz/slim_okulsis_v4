@@ -11268,11 +11268,22 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     $XmlData = $params['XmlData'];
                     $dataValue =  json_decode($XmlData, true);
                    // $xml = new \SimpleXMLElement('<Nodes></Nodes>'); 
-                    $dom = new \domDocument; 
+               /*     $dom = new \domDocument; 
                     $dom->formatOutput = true; 
                     $root = $dom->appendChild($dom->createElement( "Nodes" )); 
                     $sxe = simplexml_import_dom( $dom ); 
-
+                */ 
+                    
+                    
+                    session_start();
+                    $sessionID = session_id();
+                    session_destroy();
+                    $i =0 ;
+                    $sql = '  
+                     declare @raporkey varchar(50);
+                     set @raporkey = \'zm3\'+ \'' . $sessionID . '\'  ; 
+                     declare @xx nvarchar(max) ;
+                    ';
                     foreach ($dataValue as $std) {                      
                         if ($std  != null) { 
                         $SinavOgrenciSoruCevapID = $std ['SinavOgrenciSoruCevapID'] ; 
@@ -11282,18 +11293,42 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         if (( $puan != "")) {
                           //  print_r(htmlentities('<Ogrenci><OgrenciID>').$dataValue[0][0]).htmlentities('</OgrenciID><DevamsizlikKodID>').$dataValue[0][1].htmlentities('</DevamsizlikKodID> ' )  ; 
                       // echo( '<Ogrenci><OgrenciID>'.$std[0].'</OgrenciID><DevamsizlikKodID>'.$devamsizlikKodID.'</DevamsizlikKodID><Aciklama/></Ogrenci>' ); 
-                        // $SendXmlData =$SendXmlData.'<Dugum SinavOgrenciSoruCevapID="'.$SinavOgrenciSoruCevapID.'" SinavOgrenciID="'.$ogrenciid.'" SinavSoruID="'.$soruid.'" isDogru="True" AldigiPuan="'.$puan.'"/>' ;  
+                         $SendXmlData =$SendXmlData.'<'+'Dugum SinavOgrenciSoruCevapID="'.$SinavOgrenciSoruCevapID.'" SinavOgrenciID="'.$ogrenciid.'" SinavSoruID="'.$soruid.'" isDogru="True" AldigiPuan="'.$puan.'"'+'/'+'>' ;  
                          
-                        $Dugum = $sxe->addchild("Dugum"); 
+                    /*    $Dugum = $sxe->addchild("Dugum"); 
                         $Dugum->addChild("SinavOgrenciSoruCevapID",$SinavOgrenciSoruCevapID); 
                         $Dugum->addChild("SinavOgrenciID",  $ogrenciid); 
                         $Dugum->addChild("SinavSoruID",$soruid); 
                         $Dugum->addChild("isDogru",'True'); 
                         $Dugum->addChild("AldigiPuan",$puan);  
+                     * 
+                     */ 
+                            
                         }}
                     } 
+                    
+                  
+                    print_r($SendXmlData);
+                   
+                   /*
+                    foreach ($dataValue as $std) {
+                        if ($std != null) { 
+                            $sql = $sql . "  
+                                SELECT @xx = concat(@xx ,(Select KisiID AS VALUE from " . $dbnamex . "gnl_kisiler ID where KisiID='" . $std . "' FOR XML AUTO )) ";                             
+                            $i += $i;
+                        }
+                    }
+                    */
+                    
+                    
+                    
+                    
                 }  
             } 
+            
+            
+            
+            
             $sql = "  
             SET NOCOUNT ON;  
             DECLARE @p1 xml;  
