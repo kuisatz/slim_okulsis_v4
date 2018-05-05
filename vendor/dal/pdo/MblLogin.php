@@ -11290,8 +11290,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         AldigiPuan  numeric(6,2) 
                         ) ;
 
-                     INSERT INTO #okikysinavlari'.$sessionID.'  
-                         
+                    INSERT INTO #okikysinavlari'.$sessionID.'  
                     ';
                     foreach ($dataValue as $std) {                      
                         if ($std  != null) { 
@@ -11310,15 +11309,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     } 
                     
                     $sqlx = $sqlx . "    
-                            SELECT @xx = concat(@xx ,(Select * from #okikysinavlari".$sessionID." Dugum FOR XML AUTO ))                                                      
-
+                            SELECT @xx = concat(@xx ,(Select * from #okikysinavlari".$sessionID." Dugum FOR XML AUTO ))  
                             INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)
-                            SELECT cast('<'+'Nodes>'+ @xx +'<'+'/Nodes>' as xml), @raporkey ;";
-                    
-                    
-                    
-                     $statement = $pdo->prepare($sqlx); 
-                    echo debugPDO($sqlx, $params);  
+                            SELECT cast('<'+'Nodes>'+ @xx +'<'+'/Nodes>' as xml), @raporkey ;"; 
+                    $statement = $pdo->prepare($sqlx);  
                     $result = $statement->execute(); 
                     $errorInfo = $statement->errorInfo(); 
               
@@ -11330,23 +11324,25 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
               
             $sql = "  
             SET NOCOUNT ON;  
-            DECLARE @p1 xml;  
-            
+            DECLARE @p1 xml;   
+            DECLARE @XmlD XML;
+            DECLARE @raporkey varchar(50);
+            set @raporkey = 'zm3'+ '" . $sessionID . "';
+            SELECT @p1 = alan1 FROM BILSANET_MOBILE.dbo.Mobil_ek_isler 
+            WHERE rkey = @raporkey;
+ 
             UPDATE SO 
             SET SO.SinavKitapcikID = sk1.SinavKitapcikID
             FROM ".$dbnamex."SNV_SinavOgrencileri SO
             INNER JOIN ".$dbnamex."SNV_SinavKitapciklari SK ON SK.SinavKitapcikID = SO.SinavKitapcikID
             INNER JOIN ".$dbnamex."SNV_SinavKitapciklari SK1 ON SK1.SinavID = SK.SinavID AND SK1.KitapcikTurID = '".$KitapcikTurID."'
             WHERE 
-                SO.SinavOgrenciID= '".$ogrenciid."'; 
-            set @p1=convert(xml,N"; 
-            
-            $sql = $sql. '\''.$sxe->asXML().'\') 
-            exec  '.$dbnamex.'PRC_SNV_SinavOgrenciSoruCevaplari_Save_DersCevaplari @XMLData=@p1
+                SO.SinavOgrenciID= '".$ogrenciid."';  
+            exec  ".$dbnamex."PRC_SNV_SinavOgrenciSoruCevaplari_Save_DersCevaplari @XMLData=@p1
 
-            IF OBJECT_ID(\'tempdb..#okisinavsonuc'.$sessionID.'\') IS NOT NULL DROP TABLE #okikysinavlari'.$sessionID.'; 
+            IF OBJECT_ID(\'tempdb..#okisinavsonuc".$sessionID."') IS NOT NULL DROP TABLE #okikysinavlari".$sessionID."; 
             SET NOCOUNT OFF; 
-            ';  
+            ";  
             
             $statement = $pdo->prepare($sql); 
      //  
