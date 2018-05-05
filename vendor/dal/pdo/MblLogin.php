@@ -11293,7 +11293,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         SinavOgrenciSoruCevapID [uniqueidentifier],
                         SinavOgrenciID [uniqueidentifier],  
                         SinavSoruID int, 
-                        isDogru boolean,
+                        isDogru varchar(5),
                         AldigiPuan  int 
                         ) ;
 
@@ -11324,8 +11324,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         if ($i > 0) {$sqlx = $sqlx." UNION ";} 
                         $sqlx = $sqlx . "  
                                 SELECT  '".$SinavOgrenciSoruCevapID."','".$ogrenciid."','".$soruid."',True,".$puan."";                        
-                        $i += $i;
-                            
+                        $i += $i; 
                         }}
                     } 
                      $statement = $pdo->prepare($sqlx); 
