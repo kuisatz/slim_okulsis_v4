@@ -11322,9 +11322,10 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                      * 
                      */ 
                         if ($i > 0) {$sqlx = $sqlx." UNION ";} 
+                        $i += $i; 
                         $sqlx = $sqlx . "  
                                 SELECT  '".$SinavOgrenciSoruCevapID."','".$ogrenciid."','".$soruid."','True',".$puan."";                        
-                        $i += $i; 
+                        
                         print_r($i);
                         }}
                     } 
