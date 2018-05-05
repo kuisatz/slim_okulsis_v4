@@ -11310,7 +11310,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     } 
                     
                     $sqlx = $sqlx . "    
-                            SELECT @xx = concat(@xx ,(Select * from #okikysinavlari'.$sessionID.' Dugum FOR XML AUTO ))                                                      
+                            SELECT @xx = concat(@xx ,(Select * from #okikysinavlari".$sessionID." Dugum FOR XML AUTO ))                                                      
 
                             INSERT INTO BILSANET_MOBILE.dbo.Mobil_ek_isler (alan1,rkey)
                             SELECT cast('<'+'Nodes>'+ @xx +'<'+'/Nodes>' as xml), @raporkey ;";
