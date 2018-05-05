@@ -11309,7 +11309,7 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                     } 
                     
                   
-                    print_r($std ['SinavOgrenciSoruCevapID']);
+                    print_r($SendXmlData);
                    
                    /*
                     foreach ($dataValue as $std) {
