@@ -10051,13 +10051,13 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
 
 
                 FROM ".$dbnamex."OGT_Ogretmenler O
-                INNER JOIN ".$dbnamex."GNL_Kisiler K ON (K.KisiID = O.OgretmenID)
-                INNER JOIN ".$dbnamex."GNL_SinifOgretmenleri SO ON (SO.OgretmenID = O.OgretmenID)
-                INNER JOIN ".$dbnamex."GNL_Siniflar S ON (S.SinifID = SO.SinifID)
-                INNER JOIN ".$dbnamex."OGT_Branslar B ON (B.BransID = O.BransID) 
+                INNER JOIN ".$dbnamex."GNL_Kisiler K ON K.KisiID = O.OgretmenID AND K.KisiID =@OgretmenID
+                INNER JOIN ".$dbnamex."GNL_SinifOgretmenleri SO ON SO.OgretmenID = O.OgretmenID
+                INNER JOIN ".$dbnamex."GNL_Siniflar S ON S.SinifID = SO.SinifID
+                INNER JOIN ".$dbnamex."OGT_Branslar B ON B.BransID = O.BransID 
                 INNER JOIN ".$dbnamex."GNL_DersYillari DY ON S.DersYiliID =  DY.DersYiliID  and dy.OkulID = @OkulID  AND DY.AktifMi =1  
-                LEFT OUTER JOIN ".$dbnamex."ODV_OdevTanimlari OT ON (OT.OgretmenID = O.OgretmenID)
-                LEFT OUTER JOIN ".$dbnamex."ODV_OgrenciOdevleri OO ON (OO.OdevTanimID = OT.OdevTanimID)
+                LEFT OUTER JOIN ".$dbnamex."ODV_OdevTanimlari OT ON OT.OgretmenID = O.OgretmenID
+                LEFT OUTER JOIN ".$dbnamex."ODV_OgrenciOdevleri OO ON OO.OdevTanimID = OT.OdevTanimID
                 WHERE
 		(
                     (OT.OdevTanimID IS NULL) OR
