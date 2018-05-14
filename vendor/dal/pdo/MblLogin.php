@@ -10035,7 +10035,8 @@ WHERE cast(getdate() AS date) between cast(dy.Donem1BaslangicTarihi AS date) AND
                         K.Adi  collate SQL_Latin1_General_CP1254_CI_AS+ ' ' + K.Soyadi collate SQL_Latin1_General_CP1254_CI_AS AS AdiSoyadi,
                         B.Brans,
                         OT.Tanim, 
-                        FORMAT(OT.TeslimTarihi,'dd-MM-yyyy') as TeslimTarihi,
+                        /* FORMAT(OT.TeslimTarihi,'dd-MM-yyyy') as TeslimTarihi, */ 
+                        COALESCE(NULLIF(FORMAT(OT.TeslimTarihi,'dd-MM-yyyy'),''),'') as TeslimTarihi,
                         COUNT(DISTINCT OT.OdevTanimID) AS OdevSayisi,
                         COUNT(DISTINCT OO.OgrenciOdevID) AS OgrenciSayisi,
                         COUNT(DISTINCT (CASE WHEN OO.OgrenciGordu = 1 OR OdevOnayID = 2 THEN OO.OgrenciOdevID ELSE NULL END)) AS GorenSayisi,
